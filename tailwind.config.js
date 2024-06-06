@@ -11,5 +11,14 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.text-stroke-2-white': {
+          '-webkit-text-stroke': '3px white',
+          'text-stroke': '2px white',
+        },
+      });
+    },
+  ],
 }
