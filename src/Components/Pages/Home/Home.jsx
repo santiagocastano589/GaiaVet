@@ -1,10 +1,10 @@
 import React from 'react'
-import { From } from '../../From/From'
+import { Record } from '../../Record/Record'
 
 export const Home = () => {
   return (
     <>
-    <From/>
+    <Record/>
     </>
   )
 }

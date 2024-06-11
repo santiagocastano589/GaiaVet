@@ -9,6 +9,9 @@ export default {
       colors: {
         'blue-border': '#00E3CC',
       },
+      backgroundImage: {
+        'fondo': "url('src/assets/FondoPatitas.svg')",
+      },
     },
   },
   plugins: [],
