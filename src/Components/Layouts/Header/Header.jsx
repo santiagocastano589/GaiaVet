@@ -21,7 +21,7 @@ export const Header = ({children}) => {
   return (
     <header className=' w-full h-1/5 bg-cover fixed'>
 
-      <div className='ola w-full h-full bg-cover flex  justify-between'>
+      <div className='ola bg-opacity-0 w-full h-full bg-cover flex justify-between'>
 
         <div className='flex items-center justify-center w-1/3 mb-8'>
           <div className=' bg-white w-20 h-20 rounded-full flex items-center justify-center'>
@@ -46,6 +46,5 @@ export const Header = ({children}) => {
       </div>
 
     </header>
-    
   )
 }
