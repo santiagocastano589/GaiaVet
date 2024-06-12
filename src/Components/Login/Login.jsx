@@ -7,9 +7,9 @@ import { Button } from '../Button/Button';
 export const Login = () => {
   return (
     
-    <div className='flex justify-center items-center my-28 '>
+    <div className='flex justify-center items-center my-28 bg-fondo '>
 
-    <div className=" flex justify-center items-center  flex-col border-solid border-2 border-blue-border w-96 rounded-lg">
+    <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">
 
       <div className='w-24 bg-blue-border rounded-full my-6'>
         <img className='' src={logo} alt="" />
@@ -23,13 +23,14 @@ export const Login = () => {
       <Input name="Correo Electronico" type="text" placeholder='Correo Electronico'/>
       <Input name="Contraseña" type="password" placeholder='Contraseña'/>
 
-    <a className='my-4 border-b-2 border-blue-border w-48' href="#">¿Olvidaste la contraseña?</a>
+    <a className='my-4 mx-9 border-b-2 border-blue-border w-48' href="#">¿Olvidaste la contraseña?</a>
 
+    <div className='flex justify-center items-center flex-col'>
     <Button textButton="Iniciar sesion"/>
-    <button className=' shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex bg-slate-100 '>Iniciar sesion con Google<div className='flex items-center mx-2 rounded-xl'><img className='w-4 flex items-center' src={google} alt="" /></div> </button>
+    <button className='hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex bg-slate-100 '>Iniciar sesion con Google<div className='flex items-center mx-2 rounded-xl'><img className='w-4 flex items-center' src={google} alt="" /></div> </button>
+    </div>
     </form>
     </div>
     </div>
-
   )
 }

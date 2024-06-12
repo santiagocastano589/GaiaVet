@@ -9,7 +9,7 @@ export const Record = () => {
     
     <div className='flex justify-center items-center my-28 bg-fondo'>
 
-    <div className=" flex justify-center items-center  flex-col border-solid border-2 border-blue-border w-96 rounded-lg">
+    <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">
 
       <div className='w-24 bg-blue-border rounded-full my-6'>
         <img className='' src={logo} alt="" />
@@ -23,9 +23,11 @@ export const Record = () => {
       <Input name="Nombre Completo" type="text" placeholder='Nombre Completo'/>
       <Input name="Correo Electronico" type="text" placeholder='Correo Electronico'/>
       <Input name="Contraseña" type="password" placeholder='Contraseña'/>
-
+      
+    <div className='flex justify-center items-center flex-col'>
     <Button textButton="Registrar"/>
-    <button className=' shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex bg-slate-100 '>Registrar con Google<div className='flex items-center mx-2 rounded-xl'><img className='w-4 flex items-center' src={google} alt="" /></div> </button>
+    <button className=' hover:bg-slate-200 w-60 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100 '>Registrar con Google<div className='flex items-center mx-2 rounded-xl'><img className='w-4 flex items-center' src={google} alt="" /></div> </button>
+    </div>
     </form>
     </div>
     </div>
