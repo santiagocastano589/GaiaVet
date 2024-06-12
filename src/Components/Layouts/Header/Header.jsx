@@ -23,6 +23,7 @@ export const Header = ({children}) => {
       <div className='w-full h-1/5 bg-cover fixed'>
         <div className='ola w-full h-full bg-cover flex  justify-between'>
           <div className='flex items-center justify-center w-1/3 mb-8'>
+
           <div className=' bg-white w-20 h-20 rounded-full flex items-center justify-center'>
             <img className='w-16 h-16 cursor-pointer' src={logo} alt="" />
           </div>
@@ -45,6 +46,5 @@ export const Header = ({children}) => {
    
 
     </header>
-    
   )
 }
