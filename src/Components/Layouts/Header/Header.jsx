@@ -19,13 +19,11 @@ export const Header = ({children}) => {
   }
 
   return (
-    <header className=' w-full h-1/5 bg-cover fixed'>
-
-      <div className='ola w-full h-full bg-cover flex  justify-between'>
-
-        <div className='flex items-center justify-center w-1/3 mb-8'>
+    <header className='w-full h-44'>
+      <div className='w-full h-1/5 bg-cover fixed'>
+        <div className='ola w-full h-full bg-cover flex  justify-between'>
+          <div className='flex items-center justify-center w-1/3 mb-8'>
           <div className=' bg-white w-20 h-20 rounded-full flex items-center justify-center'>
-
             <img className='w-16 h-16 cursor-pointer' src={logo} alt="" />
           </div>
           <h2 className='text-3xl cursor-pointer'>GaiaVet</h2>
@@ -38,12 +36,13 @@ export const Header = ({children}) => {
         <div className='w-1/3 flex justify-center'>
           <img src={menu} alt="" className='cursor-pointer w-12  mb-8' onClick={openMenu} />
         </div>
-        {
-          menuNav && 
-          <div> <NavMenu onClose={closeMenu} /> </div>
-        }
-
+          {
+            menuNav && 
+            <div> <NavMenu onClose={closeMenu} /> </div>
+          }
+          </div>
       </div>
+   
 
     </header>
     

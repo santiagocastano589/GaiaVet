@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'blue-border': '#00E3CC',
+        'blue-border': '#19C5B3',
+      },
+      backgroundImage: {
+        'fondo': "url('src/assets/FondoPatitas.svg')",
       },
     },
   },
