@@ -21,7 +21,7 @@ export const Record = () => {
     <form className='flex flex-col ' action="">
 
       <Input name="Nombre Completo" type="text" placeholder='Nombre Completo'/>
-      <Input name="Correo Electronico" type="text" placeholder='Correo Electronico'/>
+      <Input name="Correo Electronico" type="text" placeholder='correo@gmil.com'/>
       <Input name="Contraseña" type="password" placeholder='Contraseña'/>
       
     <div className='flex justify-center items-center flex-col'>

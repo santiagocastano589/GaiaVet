@@ -7,7 +7,7 @@ import { Button } from '../Button/Button';
 export const Login = () => {
   return (
     
-    <div className='flex justify-center items-center my-28 bg-fondo '>
+    <div className='flex justify-center items-center mt-3'>
 
     <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">
 
@@ -20,7 +20,7 @@ export const Login = () => {
 
     <form className='flex flex-col ' action="">
 
-      <Input name="Correo Electronico" type="text" placeholder='Correo Electronico'/>
+      <Input name="Correo Electronico" type="text" placeholder='correo@gmail.com'/>
       <Input name="Contraseña" type="password" placeholder='Contraseña'/>
 
     <a className='my-4 mx-9 border-b-2 border-blue-border w-48' href="#">¿Olvidaste la contraseña?</a>
