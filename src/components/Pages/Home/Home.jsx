@@ -1,10 +1,12 @@
 import React from 'react'
-import mascotas from '../../../../public/mascotas.jpeg'
+import mascotas from '../../../assets/mascotas.jpeg'
 import { InfoContainer } from '../../infoContainer/InfoContainer'
 import { Carousel } from '../../Carousel/Carousel'
 import { SectionTitle } from '../../SectionTitle/SectionTitle'
 import pastorcolli from '../../../assets/pastorcolli.jpeg'
 import gato from '../../../assets/gato.jpg'
+import { ContainerServices } from '../../ContainerServices/ContainerServices'
+
 
 
 export const Home = () => {
@@ -23,7 +25,7 @@ export const Home = () => {
         <SectionTitle sectionTitle={'Conoce nuestros productos'}/>
         <Carousel />
         <SectionTitle sectionTitle={'Conoce nuestros servicios'}/>
-        <Carousel />
+        <ContainerServices />
         <InfoContainer 
           image={gato} 
           alt={'Pastor colli'}
