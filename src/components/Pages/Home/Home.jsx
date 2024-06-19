@@ -4,9 +4,10 @@ import { InfoContainer } from '../../infoContainer/InfoContainer'
 import { Carousel } from '../../Carousel/Carousel'
 import { SectionTitle } from '../../SectionTitle/SectionTitle'
 import pastorcolli from '../../../assets/pastorcolli.jpeg'
-import gato from '../../../assets/gato.jpg'
 import { ContainerServices } from '../../ContainerServices/ContainerServices'
-
+import { ContainerLocation } from '../../ContainerLocation/ContainerLocation'
+import mapa from '../../../assets/mapa.png'
+import { Footer } from '../../Layouts/Footer/Footer'
 
 
 export const Home = () => {
@@ -26,12 +27,9 @@ export const Home = () => {
         <Carousel />
         <SectionTitle sectionTitle={'Conoce nuestros servicios'}/>
         <ContainerServices />
-        <InfoContainer 
-          image={gato} 
-          alt={'Pastor colli'}
-          title={'Urgencias veterinarias 24 horas'} 
-          description={"En Gaia Vet, comprendemos que la salud de tu mascota es invaluable, por eso nuestro servicio de urgencias veterinarias 24 horas está diseñado para brindar atención oportuna y de calidad a tu peludito cuando más lo necesita. Sabemos que las emergencias veterinarias pueden surgir en cualquier momento, por lo que, sin importar la hora, ponemos a tu disposición un equipo interdisciplinario de expertos altamente capacitados para atender cualquier urgencia que enfrente tu mascota.Te garantizamos que, ante cualquier eventualidad con la salud de tu fiel compañero, él se sentirá como en casa en nuestras instalaciones."}
-         />       
+        <ContainerLocation title={'Circasia Quindio'} direction={'Cra 10 # 10-46'} phone={'3205677966'} image={mapa} alt={'Ubicación'} />
+        <Footer />
+               
     </div>
   )
 }
