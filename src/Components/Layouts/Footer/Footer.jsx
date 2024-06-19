@@ -5,7 +5,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 export const Footer = () => {
   return (
-    <footer className='py-8 flex items-center justify-evenly text-2xl border-solid border-2 border-blue-border'>
+    <footer className='mt-5 py-8 flex justify-evenly text-2xl border-solid border-2 border-blue-border'>
       <p>
         &copy; GaiaVet  
       </p>

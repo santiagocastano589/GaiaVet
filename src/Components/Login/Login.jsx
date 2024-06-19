@@ -9,10 +9,10 @@ export const Login = () => {
     
     <div className='flex justify-center items-center mt-3'>
 
-    <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">
+    <div className="bg-white flex justify-center items-center flex-col border-solid border-2 rounded-lg py-6 shadow-lg shadow-gray">
 
-      <div className='w-24 bg-blue-border rounded-full my-6'>
-        <img className='' src={logo} alt="" />
+      <div className='w-24 bg-blue-border rounded-full '>
+        <img className='p-4' src={logo} alt="" />
       </div>
 
     <h2 className='my-3'>INICIAR SESION</h2>
