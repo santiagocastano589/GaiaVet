@@ -11,9 +11,9 @@ export const Review = ({title,description}) => {
     <Carousel/>
     <div className='flex justify-center flex-col items-center w-11/12 '>
     
-        <h1 className='text-9xl pb-7 gorditas'>{title}peluqueria</h1>
+        <h1 className='text-9xl pb-7 gorditas'>{title}</h1>
 
-            <p>{description}Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, fugiat corrupti! Illo placeat quis ipsa accusantium, nostrum expedita optio error doloremque unde molestias sequi dolorum praesentium eligendi at? Nam, quis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora minus cumque ab laborum rerum perferendis error, pariatur quia odit aliquam vel praesentium consequuntur vitae beatae, sint tempore quas mollitia facere?</p>
+            <p>{description}</p>
 
             <div className='mt-10 flex justify-evenly'>
 
