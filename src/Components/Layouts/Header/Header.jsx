@@ -24,6 +24,7 @@ export const Header = () => {
   }
 
   return (
+
     <header className='ola w-full h-28 bg-cover flex justify-center fixed '>
       <div className='w-4/5 flex items-center justify-between'>
 
@@ -33,7 +34,7 @@ export const Header = () => {
         </div>
 
        
-          <h2 className='text-8xl font-bold text-stroke-2-white gorditas mt-16'>GaiaVet</h2>
+         <h2 className='text-8xl font-bold text-stroke-2-white gorditas mt-16'>GaiaVet</h2>
         
 
         <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
