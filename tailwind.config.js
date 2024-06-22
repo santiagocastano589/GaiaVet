@@ -7,11 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        'blue-border': '#19C5B3',
+
+        'blue-border': '#00E3CC',
+        'buttons': '#00FFE5',
+        'header' : '#19C5B3'
       },
       backgroundImage: {
         'fondo': "url('src/assets/FondoPatitas.svg')",
+
       },
+      height:{
+        'MenuNav': '35rem'
+      }
     },
   },
   plugins: [
@@ -23,5 +30,6 @@ export default {
         },
       });
     },
+    require('tailwindcss-animated')
   ],
 }

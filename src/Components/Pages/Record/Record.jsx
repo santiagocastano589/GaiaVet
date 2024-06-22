@@ -1,8 +1,8 @@
 import React from 'react'
 import google from '../../assets/google.webp'
 import logo from '../../assets/logoGaia.webp'
-import { Input } from '../Input/Input';
-import { Button } from '../Button/Button';
+import { Input } from '../../Input/Input';
+import { Button } from '../../Button/Button';
 
 export const Record = () => {
   return (
