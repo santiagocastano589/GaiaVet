@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&display=swap');
+
+.ola{
+    background-image: url('../../../assets/OlasHeader.svg');
+}
+
+.gorditas{
+    font-family: "Gorditas", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+

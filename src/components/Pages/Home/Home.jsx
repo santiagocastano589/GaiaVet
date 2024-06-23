@@ -7,7 +7,6 @@ import pastorcolli from '../../../assets/pastorcolli.jpeg'
 import { ContainerServices } from '../../ContainerServices/ContainerServices'
 import { ContainerLocation } from '../../ContainerLocation/ContainerLocation'
 import mapa from '../../../assets/mapa.png'
-import { Footer } from '../../Layouts/Footer/Footer'
 
 
 export const Home = () => {
@@ -28,7 +27,6 @@ export const Home = () => {
         <SectionTitle sectionTitle={'Conoce nuestros servicios'}/>
         <ContainerServices />
         <ContainerLocation title={'Circasia Quindio'} direction={'Cra 10 # 10-46'} phone={'3205677966'} image={mapa} alt={'Ubicación'} />
-        <Footer />
                
     </div>
   )

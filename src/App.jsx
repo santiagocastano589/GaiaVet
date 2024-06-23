@@ -1,13 +1,17 @@
-import './App.css'
-import { Home } from './components/Pages/Home/Home'
-
+import { Header } from './Components/Layouts/Header/Header'
+import { Main } from './Components/Layouts/Main/Main'
+import { Home } from './Components/Pages/Home/Home'
+import { Footer } from './Components/Layouts/Footer/Footerx'
 
 function App() {
+  
 
   return (
     <>
-    <Home />
-      
+      <Header />   
+      <Home />
+      <Footer />
+
     </>
   )
 }
