@@ -4,7 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
-export const Footerx = () => {
+export const Footer = () => {
   return (
     <footer className='py-8 mt-24 flex items-center justify-evenly text-2xl border-solid border-2 border-blue-border'>
       <p>

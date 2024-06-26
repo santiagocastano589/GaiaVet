@@ -1,6 +1,6 @@
 import { Header } from './Components/Layouts/Header/Header'
-import { FirstPage } from './Components/Pages/FirstPage/FirstPage'
-import { Footerx } from './Components/Layouts/Footer/Footerx'
+import { Home } from './Components/Pages/Home/Home'
+import { Footer } from './Components/Layouts/Footer/Footer'
 
 function App() {
   
@@ -8,8 +8,8 @@ function App() {
   return (
     <>
       <Header />   
-      <FirstPage />
-      <Footerx />
+      <Home />
+      <Footer />
 
     </>
   )
