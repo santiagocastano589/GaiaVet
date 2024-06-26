@@ -15,7 +15,7 @@ export const Carousel = () => {
 
   return (
     <>
-      <div className=" w-full mt-2 mb-2 overflow-hidden flex justify-center">
+      <div className=" w-full mt-2 mb-2 overflow-hidden flex justify-center z-0">
 
         <div className="w-2/4">
 
