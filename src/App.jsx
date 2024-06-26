@@ -4,9 +4,12 @@ import { Login } from './Components/Pages/Login/Login';
 import { Record } from './Components/Pages/Record/Record';
 import { Header } from './Components/Layouts/Header/Header';
 
+import { Footer } from './Components/Layouts/Footer/Footer'
+
 function App() {
   return (
     <Router>
+      <Header />  
       <div className="App">
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -15,8 +18,10 @@ function App() {
           {/* Otras rutas */}
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
+
 }
 
 export default App;
