@@ -1,7 +1,6 @@
 import { Header } from './Components/Layouts/Header/Header'
-import { Main } from './Components/Layouts/Main/Main'
-import { Home } from './Components/Pages/Home/Home'
-import { Footer } from './Components/Layouts/Footer/Footerx'
+import { FirstPage } from './Components/Pages/FirstPage/FirstPage'
+import { Footerx } from './Components/Layouts/Footer/Footerx'
 
 function App() {
   
@@ -9,8 +8,8 @@ function App() {
   return (
     <>
       <Header />   
-      <Home />
-      <Footer />
+      <FirstPage />
+      <Footerx />
 
     </>
   )
