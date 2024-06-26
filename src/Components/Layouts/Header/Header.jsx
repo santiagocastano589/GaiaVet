@@ -7,43 +7,21 @@ import { NavMenu } from '../../WindowModals/NavMenu/NavMenu';
 export const Header = () => {
   const [menuNav, setMenuNav] = useState(false);
 
-  const controlOpenMenu = ()=>{
-    if (menuNav == false) {
-      openMenu()
-    }else{
-      closeMenu()
-    }
-  }
-
-  const openMenu = () => {
-    setMenuNav(true);
+  const controlOpenMenu = () => {
+    setMenuNav(!menuNav); // Alternar el estado de menú abierto/cerrado
   };
 
-  const closeMenu = () => {
-      setMenuNav(false);
-  }
-
   return (
-
-    <header className='ola w-full h-28 bg-cover flex justify-center fixed '>
+    <header className='ola w-full h-28 bg-cover flex justify-center z-50'>
       <div className='w-4/5 flex items-center justify-between'>
-
         <div className='w-16 flex items-center'>
           <img className='bg-white p-1 rounded-full' src={logo} alt="" />
           <h2 className='text-3xl'>GaiaVet</h2>
         </div>
-
-       
-         <h2 className='text-8xl font-bold text-stroke-2-white gorditas mt-16'>GaiaVet</h2>
-        
-
+        <h2 className='text-8xl font-bold text-stroke-2-white gorditas mt-16'>GaiaVet</h2>
         <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
-
-        {
-          menuNav &&
-          <NavMenu onClose={closeMenu}  />
-        }
+        {menuNav && <NavMenu onClose={() => setMenuNav(false)} />}
       </div>
     </header>
   );
-}
+};

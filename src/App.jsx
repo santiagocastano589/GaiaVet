@@ -1,21 +1,22 @@
-import { Footer } from './Components/Layouts/Footer/Footer'
-import { Header } from './Components/Layouts/Header/Header'
-import { Main } from './Components/Layouts/Main/Main'
-import {Home} from './Components/Pages/Home/Home'
-
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Home } from './Components/Pages/Home/Home';
+import { Login } from './Components/Pages/Login/Login';
+import { Record } from './Components/Pages/Record/Record';
+import { Header } from './Components/Layouts/Header/Header';
 
 function App() {
-  
-
   return (
-    <>
-      <Header>
-      </Header>    
-      
-
-    </>
-  )
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Record />} />
+          {/* Otras rutas */}
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
