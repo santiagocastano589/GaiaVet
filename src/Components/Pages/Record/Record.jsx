@@ -8,9 +8,9 @@ import { Link } from 'react-router-dom';
 
 export const Record = () => {
   return (
-    <div className='h-screen w-full flex flex-col'>
+    <div className='h-full w-full flex flex-col'>
       <Header />
-      <div className='flex justify-center items-center z-0 mt-10 pb-10 '>
+      <div className='flex justify-center items-center z-0 pt-36 pb-10 '>
 
 
         <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">

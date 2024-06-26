@@ -9,11 +9,10 @@ import { Link } from 'react-router-dom';
 
 export const Login = () => {
   return (
-    <div className='h-screen w-full flex flex-col'>
+    <div className='h-full w-full flex flex-col'>
       <Header />
-      <div className='flex justify-center items-center mt-10 pb-10 bg-fondo '>
 
-        
+      <div className='flex justify-center items-center pt-36 pb-10 bg-fondo '>
 
         <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">
 
@@ -28,7 +27,7 @@ export const Login = () => {
 
             <Input name="Correo Electronico" type="text" placeholder='Correo Electronico' />
             <Input name="Contraseña" type="password" placeholder='Contraseña' />
-            
+
             <a className='my-4 mx-9 border-b-2 border-blue-border w-48' href="#">¿Olvidaste la contraseña?</a>
 
             <div className='flex justify-center items-center flex-col'>
@@ -40,6 +39,6 @@ export const Login = () => {
           </form>
         </div>
       </div>
-      </div>
+    </div>
   )
 }
