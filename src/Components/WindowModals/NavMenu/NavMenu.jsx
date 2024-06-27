@@ -5,7 +5,7 @@ import './NavMenu.css';
 
 export const NavMenu = ({ onClose }) => {
   return (
-    <div className="w-96 h-MenuNav bg-white shadow-xl top-24 right-0 absolute animate-flip-down itim-regular">
+    <div className="w-96 h-MenuNav bg-white shadow-xl top-24 right-0 absolute animate-flip-down itim-regular rounded-md">
       <div className="h-12 flex justify-start">
         <p
           className="cursor-pointer fixed right-10 top-8 font-extrabold text-xl bg-header w-7 text-center rounded-full"

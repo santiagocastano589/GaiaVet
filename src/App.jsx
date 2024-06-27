@@ -2,11 +2,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home } from './Components/Pages/Home/Home';
 import { Login } from './Components/Pages/Login/Login';
 import { Record } from './Components/Pages/Record/Record';
+import './App.css'
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className='bgImg'>
         <Routes>
           <Route exact path="/GaiaVet-Front" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -16,6 +17,7 @@ function App() {
       </div>
     </Router>
   );
+
 }
 
 export default App;
