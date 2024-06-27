@@ -1,14 +1,16 @@
 import React from 'react'
 import mascotas from '../../../assets/mascotas.jpeg'
-import { Carousel } from '../../Carousel/Carousel'
-import { SectionTitle } from '../../SectionTitle/SectionTitle'
+
 import pastorcolli from '../../../assets/pastorcolli.jpeg'
-import { ContainerServices } from '../../ContainerServices/ContainerServices'
-import { ContainerLocation } from '../../ContainerLocation/ContainerLocation'
 import mapa from '../../../assets/mapa.png'
-import { Header } from '../../Layouts/Header/Header'
-import { Main } from '../../Layouts/Main/Main'
+
 import { InfoContainer } from "../../InfoContainer/InfoContainer";
+import { Carousel } from "../../Carousel/Carousel";
+import { SectionTitle } from "../../SectionTitle/SectionTitle";
+import { ContainerServices } from "../../ContainerServices/ContainerServices";
+import { ContainerLocation } from "../../ContainerLocation/ContainerLocation";
+import { Header } from "../../Layouts/Header/Header";
+import { Main } from "../../Layouts/Main/Main";
 
 export const Home = () => {
   return (
