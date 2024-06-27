@@ -1,6 +1,7 @@
 import React from 'react'
 
 import mascotas from '../../../assets/mascotas.jpeg'
+
 import { Carousel } from '../../Carousel/Carousel'
 import { SectionTitle } from '../../SectionTitle/SectionTitle'
 import pastorcolli from '../../../assets/pastorcolli.jpeg'
