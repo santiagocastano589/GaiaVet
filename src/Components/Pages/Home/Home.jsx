@@ -1,7 +1,5 @@
 import React from 'react'
-
 import mascotas from '../../../assets/mascotas.jpeg'
-
 import { Carousel } from '../../Carousel/Carousel'
 import { SectionTitle } from '../../SectionTitle/SectionTitle'
 import pastorcolli from '../../../assets/pastorcolli.jpeg'
@@ -10,7 +8,7 @@ import { ContainerLocation } from '../../ContainerLocation/ContainerLocation'
 import mapa from '../../../assets/mapa.png'
 import { Header } from '../../Layouts/Header/Header'
 import { Main } from '../../Layouts/Main/Main'
-import { InfoContainer } from '../../infoContainer/InfoContainer'
+import { InfoContainer } from "../../InfoContainer/InfoContainer";
 
 export const Home = () => {
   return (
