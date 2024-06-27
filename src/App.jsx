@@ -9,7 +9,7 @@ function App() {
     <Router>
       <div className='bgImg'>
         <Routes>
-          <Route exact path="/GaiaVet-Front" element={<Home />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Record />} />
           {/* Otras rutas */}
