@@ -21,7 +21,7 @@ export const Home = () => {
           <div>
             <img src={mascotas} alt="pets reference" className='w-full h-auto' />
           </div>
-          <InfoContainer
+          <InfoContainer 
             image={pastorcolli}
             alt={'Pastor colli'}
             title={'Urgencias veterinarias 24 horas'}
