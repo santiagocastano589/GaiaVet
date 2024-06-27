@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const InfoContainer = ({image, alt, title, description}) => {
+export const ContainerInfo = ({image, alt, title, description}) => {
   return (
     <div className='w-full h-full p-10 flex justify-evenly items-center'>
 
