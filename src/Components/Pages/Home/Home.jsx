@@ -8,7 +8,7 @@ import { ContainerLocation } from '../../ContainerLocation/ContainerLocation'
 import mapa from '../../../assets/mapa.png'
 import { Header } from '../../Layouts/Header/Header'
 import { Main } from '../../Layouts/Main/Main'
-import { InfoContainer } from "../../InfoContainer/InfoContainer";
+import { InfoContainer } from '../../InfoContainer/InfoContainer'
 
 export const Home = () => {
   return (
