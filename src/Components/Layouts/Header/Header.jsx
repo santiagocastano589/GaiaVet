@@ -1,50 +1,28 @@
-import React, {useState} from 'react'
-import './Header.css'
-import logo from '../../../assets/logoGaia.webp'
-import menu from '../../..//assets/Iconos/MenuHamburguesa.svg'
-import { NavMenu } from '../../WindowModals/NavMenu/NavMenu'
+import React, { useState } from 'react';
+import './Header.css';
+import logo from '../../../assets/logoGaia.webp';
+import menu from '../../../assets/Iconos/MenuHamburguesa.svg';
+import { NavMenu } from '../../WindowModals/NavMenu/NavMenu';
+import { Link } from 'react-router-dom';
 
+export const Header = () => {
+  const [menuNav, setMenuNav] = useState(false);
 
-export const Header = ({children}) => {
-
-  const [menuNav,setMenuNav] = useState(false)
-
-  const openMenu = ()=>{
-    setMenuNav(true)
-    console.log(menuNav);
-  }
-  const closeMenu = ()=>{
-    setMenuNav(false)
-    console.log(menuNav);
-  }
+  const controlOpenMenu = () => {
+    setMenuNav(!menuNav); // Alternar el estado de menú abierto/cerrado
+  };
 
   return (
-    <header className='w-full h-44 fixed z-50 mb-20'>
-      <div className='w-full h-1/5 bg-cover fixed'>
-        <div className='ola w-full h-full bg-cover flex  justify-between'>
-          <div className='flex items-center justify-center w-1/3 mb-8'>
-          <div className=' bg-white w-20 h-20 rounded-full flex items-center justify-center'>
-            <img className='w-16 h-16 cursor-pointer' src={logo} alt="" />
-          </div>
-          <h2 className='text-3xl cursor-pointer'>GaiaVet</h2>
-        </div>
-
-        <div className='w-1/3 flex justify-center'>
-          <h2 class="text-8xl gorditas text-black text-stroke-2-white fixed top-12">GaiaVet</h2>
-        </div>
-
-        <div className='w-1/3 flex justify-center'>
-          <img src={menu} alt="" className='cursor-pointer w-12  mb-8' onClick={openMenu} />
-        </div>
-          {
-            menuNav && 
-            <div> <NavMenu onClose={closeMenu} /> </div>
-          }
-          </div>
+    <header className='ola w-full h-28 bg-cover flex justify-center z-50 absolute'>
+      <div className='w-4/5 flex items-center justify-between'>
+        <Link to={"/"} className='w-16 flex items-center'>
+          <img className='bg-white p-1 rounded-full' src={logo} alt="" />
+          <h2 className='text-3xl'>GaiaVet</h2>
+        </Link>
+        <h2 className='text-8xl font-bold text-stroke-2-white gorditas mt-16'>GaiaVet</h2>
+        <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
+        {menuNav && <NavMenu onClose={() => setMenuNav(false)} />}
       </div>
-   
-
     </header>
-    
-  )
-}
+  );
+};
