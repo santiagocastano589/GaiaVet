@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import img1 from '../../assets/peluqueria.jpg';
-
 
 export const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,24 +12,33 @@ export const Carousel = () => {
     setCurrentIndex((prevIndex) => (prevIndex === 0 ? 3 : prevIndex - 1));
   };
 
+  const carouselTransitionDuration = 2000;
+  const carouselStaticDuration = 2000;
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      nextSlide();
+    }, carouselTransitionDuration + carouselStaticDuration);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <>
-      <div className=" w-full mt-2 mb-2 overflow-hidden flex justify-center z-0">
-
-        <div className="w-2/4">
-
-          <div className="overflow-hidden relative">
-            
+      <div className="w-full h-screen mb-2 overflow-hidden flex justify-center z-0">
+        <div className="w-full">
+          <div className="overflow-hidden relative h-full">
             <div
-              className="flex transition-transform ease-out duration-1000"
+              className="flex transition-transform ease-out"
               style={{
+                transitionDuration: `${carouselTransitionDuration}ms`,
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
-              <img className="w-full" src={img1} alt="1" />
-              <img className="w-full" src={img1} alt="2" />
-              <img className="w-full" src={img1} alt="3" />
-              <img className="w-full" src={img1} alt="4" />
+              <img className="w-full rounded-md" src={img1} alt="1" />
+              <img className="w-full rounded-md" src={img1} alt="2" />
+              <img className="w-full rounded-md" src={img1} alt="3" />
+              <img className="w-full rounded-md" src={img1} alt="4" />
             </div>
             <div className="absolute inset-0 flex items-center justify-between p-6">
               <button

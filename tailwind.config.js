@@ -12,6 +12,9 @@ export default {
       backgroundImage: {
         'fondo': "url('src/assets/FondoPatitas.svg')",
       },
+      transitionDuration:{
+        'carrouselDuration': '1500ms'
+      }
     },
   },
   plugins: [
