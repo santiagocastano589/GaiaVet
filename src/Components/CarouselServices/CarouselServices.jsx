@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import img1 from '../../assets/peluqueria.jpg';
 
-export const Carousel = () => {
+export const CarouselServices = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {

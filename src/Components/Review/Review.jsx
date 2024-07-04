@@ -1,14 +1,14 @@
 import React from 'react'
 import peluqueria from '../../assets/peluqueria.jpg'
 import { ContainerCard } from '../ContainerCard/ContainerCard'
-import { Carousel } from '../Carousel/Carousel'
+import { CarouselServices } from '../CarouselServices/CarouselServices'
 
 export const Review = ({title,description}) => {
   return (
     <>
     <div className='flex flex-col justify-center items-center'>
 
-    <Carousel/>
+    <CarouselServices/>
     <div className='flex justify-center flex-col items-center w-11/12 '>
     
         <h1 className='text-9xl pb-7 gorditas'>{title}</h1>
