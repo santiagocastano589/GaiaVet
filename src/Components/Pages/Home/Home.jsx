@@ -17,7 +17,7 @@ export const Home = () => {
   return (
 
     <div className='w-full h-full'>
-      <Header />
+      <Header title='GaiaVet' />
         <Main>
           <div>
             <img src={mascotas} alt="pets reference" className='w-full h-auto' />

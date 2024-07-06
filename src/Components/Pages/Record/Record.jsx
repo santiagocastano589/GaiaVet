@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 export const Record = () => {
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header />
+      <Header title='Registro' />
       <div className='flex justify-center items-center z-0 pt-36 pb-10 '>
 
 

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 export const Login = () => {
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header />
+      <Header title='Inicio de sesión' />
 
       <div className='flex justify-center items-center pt-36 pb-10 bg-fondo '>
 
