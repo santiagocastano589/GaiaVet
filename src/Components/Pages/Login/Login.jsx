@@ -14,7 +14,7 @@ export const Login = () => {
 
       <div className='flex justify-center items-center pt-36 pb-10 bg-fondo '>
 
-        <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">
+        <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-gray rounded-lg mt-4">
 
           <div className='w-24 bg-blue-border rounded-full my-6'>
             <img className='' src={logo} alt="" />

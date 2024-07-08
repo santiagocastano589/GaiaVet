@@ -18,7 +18,6 @@ export default {
       },
       backgroundImage: {
         'fondo': "url('src/assets/FondoPatitas.svg')",
-
       },
       height:{
         'MenuNav': '35rem'

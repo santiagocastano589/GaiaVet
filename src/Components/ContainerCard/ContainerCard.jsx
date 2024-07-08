@@ -1,6 +1,6 @@
 import React from 'react'
 import estrella from '../../assets/estrella.webp'
-import peluqueria from '../../assets/peluqueria.jpg'
+import peluqueria from '../../assets/peluqueria1.jpg'
 
 export const ContainerCard = ({name,comment,hour}) => {
   return (
