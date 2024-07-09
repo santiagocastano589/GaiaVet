@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-
-export const CarouselServices = ({img1,img2,img3,img4}) => {
+export const CarouselServices = ({img1,img2,img3,img4, alt}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -22,12 +21,15 @@ export const CarouselServices = ({img1,img2,img3,img4}) => {
 
     return () => clearInterval(intervalId);
   }, []);
-
   return (
     <>
-      <div className="w-full h-screen mb-2 overflow-hidden flex justify-center z-0">
+      <div className="w-full h-screen mb-2 overflow-hidden  flex justify-center  ">
+
+      
+
         <div className="w-full  mt-16">
           <div className="overflow-hidden relative h-full">
+
             <div
               className="flex transition-transform ease-out"
               style={{
@@ -35,16 +37,19 @@ export const CarouselServices = ({img1,img2,img3,img4}) => {
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
-              <img className="w-full rounded-md" src={img1} alt="1" />
-              <img className="w-full rounded-md" src={img2} alt="2" />
-              <img className="w-full rounded-md" src={img3} alt="3" />
-              <img className="w-full rounded-md" src={img4} alt="4" />
+              <img className="object object-contain " src={img1} alt={alt} />
+              <img className="object-cover" src={img2} alt={alt} />
+              <img className="object object-contain" src={img3} alt={alt} />
+              <img className=" object-cover" src={img4} alt={alt} />
             </div>
+
             <div className="absolute inset-0 flex items-center justify-between p-6">
+              
               <button
-                className="p-1 rounded-full shadow bg-black text-white hover:bg-slate-300 hover:text-black"
+                className="p-1 rounded-full z-10 shadow bg-black text-white hover:bg-slate-300 hover:text-black"
                 onClick={prevSlide}
               >
+                
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

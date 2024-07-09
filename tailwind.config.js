@@ -18,6 +18,7 @@ export default {
       },
       backgroundImage: {
         'fondo': "url('src/assets/FondoPatitas.svg')",
+        'fondo1': "url('src/assets/peluqueria4.jpg')",
       },
       height:{
         'MenuNav': '35rem'
