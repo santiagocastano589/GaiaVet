@@ -1,5 +1,5 @@
 import React from 'react'
-import mascotas from '../../../assets/mascotas.jpeg'
+import HeaderImg from '../../../assets/HeaderImg.svg'
 
 import pastorcolli from '../../../assets/pastorcolli.jpeg'
 import mapa from '../../../assets/mapa.png'
@@ -20,7 +20,7 @@ export const Home = () => {
       <Header title='GaiaVet' />
         <Main>
           <div>
-            <img src={mascotas} alt="pets reference" className='w-full h-auto' />
+            <img src={HeaderImg} alt="pets reference" className='w-full h-auto' />
           </div>
 
           <ContainerInfo 

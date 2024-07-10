@@ -3,10 +3,10 @@ import React from 'react'
 export const CartProducts = ({title, description, price, image}) => {
   return (
     <div className='w-2/5 bg-white flex justify-evenly rounded-xl items-center px-4 my-4 shadow-2xl'>
-        <div className='w-2/5'>
+        <div className='w-2/5  rounded-xl'>
             <img src={image} alt=''/>
         </div>
-        <div className='w-1/2 flex flex-col p-4'>
+        <div className='w-3/5 flex flex-col p-4'>
             <div>
                 <h4 className='text-center text-2xl py-4'>{title}</h4>
             </div>
