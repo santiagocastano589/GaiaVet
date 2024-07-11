@@ -2,23 +2,23 @@ import React from 'react'
 
 export const CartProducts = ({title, description, price, image}) => {
   return (
-    <div className='w-2/5 bg-white flex justify-evenly rounded-xl items-center px-4 my-4 shadow-2xl'>
-        <div className='w-2/5  rounded-xl'>
+    <div className='w-2/5 bg-white flex justify-evenly rounded-3xl items-center px-4 my-4 shadow-2xl'>
+        <div className='w-2/6  rounded-xl'>
             <img src={image} alt=''/>
         </div>
-        <div className='w-3/5 flex flex-col p-4'>
+        <div className='w-3/5 flex flex-col p-4 items-start'>
             <div>
-                <h4 className='text-center text-2xl py-4'>{title}</h4>
+                <h4 className='text-center text-xl font-semibold '>{title}</h4>
             </div>
             <div className='w-full'>
-                <p className='text-sm pb-8 pt-2 text-center'>{description}</p>
+                <p className='text-sm pb-8 pt-2 text-start'>{description}</p>
             </div>
-            <div className='w-full flex justify-evenly items-center'>
+            <div className='w-full flex justify-start items-center'>
                 <div>
                     <p className='text-lg'>${price}</p>
                 </div>
                 <div>
-                    <button className='text-white w-full px-8 py-2 rounded-full bg-teal-500 shadow-md hover:bg-teal-400'>Comprar</button>
+                    <button className='text-white ml-6 w-full px-8 py-2 rounded-full bg-teal-500 shadow-md hover:bg-teal-400'>Comprar</button>
                 </div>
             </div>
         </div>
