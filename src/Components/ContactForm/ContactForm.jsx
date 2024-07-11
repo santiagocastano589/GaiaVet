@@ -5,8 +5,8 @@ import collage from "../../assets/collage.png";
 
 export const ContactForm = () => {
   return (
-    <div className='w-full pb-20 flex justify-between'>
-        <form action="" className='bg-white rounded-xl shadow-formShadow ml-10 w-2/5 flex flex-col items-center py-5'>
+    <div className='w-full pb-20 flex justify-evenly h-auto'>
+        <form action="" className='bg-white rounded-xl shadow-formShadow ml-10 w-auto h-auto flex flex-col items-center py-5 px-20'>
             <div className='pr-4'>
               <h2 className='text-2xl text-gray-600 font-semibold'>Escribenos!</h2>
               <p className='text-gray-500'>Dejanos tus datos y te brindaremos ayuda</p>
@@ -26,7 +26,7 @@ export const ContactForm = () => {
         </form>
 
         <div className='w-1/2 flex justify-center'>
-            <img src={collage} alt="" className='w-1/2' />
+            <img src={collage} alt="" className='w-1/2 ' />
         </div>    
     </div>
   )
