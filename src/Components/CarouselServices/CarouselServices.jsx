@@ -27,20 +27,20 @@ export const CarouselServices = ({img1,img2,img3,img4, alt}) => {
 
       
 
-        <div className="w-full  mt-16">
-          <div className="overflow-hidden relative h-full">
+        <div className="w-screen object-cover  mt-16 ">
+          <div className=" overflow-hidden relative h-full ">
 
             <div
               className="flex transition-transform ease-out"
-              style={{
-                transitionDuration: `${carouselTransitionDuration}ms`,
+               style={{
+                 transitionDuration: `${carouselTransitionDuration}ms`,
                 transform: `translateX(-${currentIndex * 100}%)`,
-              }}
+               }}
             >
-              <img className="object object-contain " src={img1} alt={alt} />
-              <img className="object-cover" src={img2} alt={alt} />
-              <img className="object object-contain" src={img3} alt={alt} />
-              <img className=" object-cover" src={img4} alt={alt} />
+              <img className="" src={img1} alt={alt} />
+              <img className="" src={img2} alt={alt} />
+              <img className="" src={img3} alt={alt} />
+              <img className="" src={img4} alt={alt} /> 
             </div>
 
             <div className="absolute inset-0 flex items-center justify-between p-6">
