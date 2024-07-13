@@ -9,7 +9,7 @@ export const Header = ({title}) => {
   const [menuNav, setMenuNav] = useState(false);
 
   const controlOpenMenu = () => {
-    setMenuNav(!menuNav); // Alternar el estado de menú abierto/cerrado
+    setMenuNav(!menuNav);
   };
 
   return (
