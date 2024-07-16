@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import img1 from '../../assets/peluqueria.jpg';
 
-export const CarouselServices = () => {
+export const CarouselServices = ({img1,img2,img3,img4, alt}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -22,29 +21,35 @@ export const CarouselServices = () => {
 
     return () => clearInterval(intervalId);
   }, []);
-
   return (
     <>
-      <div className="w-full h-screen mb-2 pt-1 flex top-0 z-0 ">
-        <div className="w-full">
-          <div className="overflow-hidden relative h-full">
+      <div className="w-full h-screen mb-2 overflow-hidden mt-4 flex justify-center  ">
+
+      
+
+        <div className="w-screen object-cover  mt-16 ">
+          <div className=" overflow-hidden relative h-full ">
+
             <div
               className="flex transition-transform ease-out"
-              style={{
-                transitionDuration: `${carouselTransitionDuration}ms`,
+               style={{
+                 transitionDuration: `${carouselTransitionDuration}ms`,
                 transform: `translateX(-${currentIndex * 100}%)`,
-              }}
+               }}
             >
-              <img className="w-full rounded-md" src={img1} alt="1" />
-              <img className="w-full rounded-md" src={img1} alt="2" />
-              <img className="w-full rounded-md" src={img1} alt="3" />
-              <img className="w-full rounded-md" src={img1} alt="4" />
+              <img className="" src={img1} alt={alt} />
+              <img className="" src={img2} alt={alt} />
+              <img className="" src={img3} alt={alt} />
+              <img className="" src={img4} alt={alt} /> 
             </div>
+
             <div className="absolute inset-0 flex items-center justify-between p-6">
+              
               <button
-                className="p-1 rounded-full shadow bg-black text-white hover:bg-slate-300 hover:text-black"
+                className="p-1 rounded-full z-10 shadow bg-black text-white hover:bg-slate-300 hover:text-black"
                 onClick={prevSlide}
               >
+                
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

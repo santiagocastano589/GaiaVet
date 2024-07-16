@@ -9,7 +9,7 @@ export default {
     extend: {
       colors: {
 
-        'blue-border': '#00E3CC',
+        
         'buttons': '#00FFE5',
         'header' : '#19C5B3',
         'blue-border': '#19C5B3',
@@ -17,7 +17,7 @@ export default {
       },
       backgroundImage: {
         'fondo': "url('src/assets/FondoPatitas.svg')",
-
+        'fondo1': "url('src/assets/peluqueria4.jpg')",
       },
       height:{
         'MenuNav': '35rem'
