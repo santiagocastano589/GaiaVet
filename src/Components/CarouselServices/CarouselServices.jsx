@@ -25,7 +25,7 @@ export const CarouselServices = () => {
 
   return (
     <>
-      <div className="w-full h-screen mb-2 overflow-hidden flex justify-center z-0">
+      <div className="w-full h-screen mb-2 pt-1 flex top-0 z-0 ">
         <div className="w-full">
           <div className="overflow-hidden relative h-full">
             <div
