@@ -16,12 +16,13 @@ export const NavMenu = ({ onClose }) => {
       </div>
       <div className="w-full h-3/5 flex items-center ">
         <ul className="w-full h-full flex flex-col justify-center">
-          <MenuItems nameItem="Inicio" to="inicio" type="scroll" />
+          <MenuItems nameItem="Inicio" to="/" type="Link" />
           <MenuItems nameItem="Sobre Nosotros" to="sobre" type="scroll" />
           <MenuItems nameItem="Nuestros Productos" to="productos" type="scroll" />
           <MenuItems nameItem="Nuestros Servicios" to="servicios" type="scroll" />
           <MenuItems nameItem="Contactanos" to="contactanos" type="scroll" />
           <MenuItems nameItem="Perfil" to="/Profile" type="link" />
+          <MenuItems nameItem="Mascotas" to="/Pets" type="link" />
         </ul>
       </div>
       <div className="w-full h-1/4 flex flex-col items-center justify-center ">

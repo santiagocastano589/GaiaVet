@@ -10,6 +10,7 @@ import './App.css'
 import { PetDaycare } from './Components/PetDaycare/PetDaycare';
 import { GeneralInquiry } from './Components/GeneralInquiry/GeneralInquiry';
 import { Pets } from './Components/Pets/Pets';
+import { Profile } from './Components/Pages/Profile/Profile';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Record />} />
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/pets" element={<Pets />} />
 
           {/* Services */}
           <Route path="/peluqueria" element={<HairSalon title='Peluqueria' description=' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo.' />} />
@@ -30,7 +32,7 @@ function App() {
           <Route path="/guarderia" element={<PetDaycare title='Guarderia' description=' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo.' />} />
 
           <Route path="/consulta" element={<GeneralInquiry title='consulta' description=' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo.' />} />
-          <Route path="/pets" element={<Pets />} />
+          
 
         </Routes>
       </div>

@@ -8,8 +8,8 @@ export default {
 
     extend: {
       colors: {
-
-        
+        'fondoTarjeta': '#0D332F',
+        'FondoPet': '#D2F9F5',
         'buttons': '#00FFE5',
         'header' : '#19C5B3',
         'blue-border': '#19C5B3',

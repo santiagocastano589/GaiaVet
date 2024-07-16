@@ -20,7 +20,7 @@ export const Record = () => {
           </div>
 
           <h2 className='my-3'>REGISTRO</h2>
-          <p className='my-2'>¿Ya tienes cuenta?<Link to={'/login'} className='text-blue-700'>Inicia Sesión</Link></p>
+          <p className='my-2'>¿Ya tienes cuenta? <Link to={'/login'} className='text-blue-700'>Inicia Sesión</Link></p>
 
           <form className='flex flex-col ' action="">
 
