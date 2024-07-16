@@ -11,8 +11,9 @@ export const ContainerPets = ({ namePet, documento, tipo, raza }) => {
   };
 
   return (
-    <div className='flex justify-center my-10 '>
-      <div className='h-48 w-4/5 flex items-center bg-FondoPet justify-between rounded-3xl'>
+    <div className='flex justify-center'>
+        
+      <div className='h-48 w-4/5 flex items-center bg-FondoPet justify-between rounded-3xl mt-28'>
         <div className='w-96 flex justify-evenly '>
           <img className='w-40 h-40 rounded-full' src={baño1} alt="" />
 
@@ -27,7 +28,6 @@ export const ContainerPets = ({ namePet, documento, tipo, raza }) => {
           Ver más
         </button>
       </div>
-
       {isOpen && (
         <PetDetailsModal
           namePet={namePet}

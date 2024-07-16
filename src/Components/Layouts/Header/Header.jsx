@@ -13,7 +13,7 @@ export const Header = ({title}) => {
   };
 
   return (
-    <header className='ola w-full h-28 bg-cover flex justify-center z-50 '>
+    <header className='ola w-full h-28 bg-cover flex justify-center z-50 absolute'>
       <div className='w-4/5 flex items-center justify-between'>
         <Link to={"/"} className='w-16 flex items-center'>
           <img className='bg-white p-1 rounded-full' src={logo} alt="" />

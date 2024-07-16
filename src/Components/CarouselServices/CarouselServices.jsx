@@ -23,7 +23,7 @@ export const CarouselServices = ({img1,img2,img3,img4, alt}) => {
   }, []);
   return (
     <>
-      <div className="w-full h-screen mb-2 overflow-hidden  flex justify-center  ">
+      <div className="w-full h-screen mb-2 overflow-hidden mt-4 flex justify-center  ">
 
       
 

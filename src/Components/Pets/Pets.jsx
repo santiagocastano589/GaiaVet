@@ -5,7 +5,7 @@ import { ContainerPets } from '../ContainerPets/ContainerPets'
 export const Pets = () => {
   return (
     <>
-    <Header title="Busca tu mascota"/>
+    <Header title="Busca"/>
 
     <div className=''>
     <ContainerPets namePet="firuu" documento="1311211" tipo="perro" raza="criollo"/>
