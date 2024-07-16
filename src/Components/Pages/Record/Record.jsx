@@ -9,18 +9,18 @@ import { Link } from 'react-router-dom';
 export const Record = () => {
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header />
+      <Header title='Registro' />
       <div className='flex justify-center items-center z-0 pt-36 pb-10 '>
 
 
-        <div className="bg-white flex justify-center items-center  flex-col border-solid border-2 border-blue-border rounded-lg">
+        <div className="bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4">
 
-          <div className='w-24 bg-blue-border rounded-full my-6'>
+          <div className='w-24 p-3 bg-blue-border rounded-full my-6'>
             <img className='' src={logo} alt="" />
           </div>
 
           <h2 className='my-3'>REGISTRO</h2>
-          <p className='my-2'>¿Ya tienes cuenta?<Link to={'/login'} className='text-blue-700'>Inicia Sesión</Link></p>
+          <p className='my-2'>¿Ya tienes cuenta? <Link to={'/login'} className='text-blue-700'>Inicia Sesión</Link></p>
 
           <form className='flex flex-col ' action="">
 

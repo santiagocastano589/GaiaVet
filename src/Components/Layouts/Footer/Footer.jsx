@@ -6,13 +6,18 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
-    <footer className=''>
-      <div className='bg-white h-24 flex items-center justify-evenly text-2xl border-solid border-2 border-blue-border'>
-          <p>
-            &copy; GaiaVet  
-          </p>
+    <footer className='bg-buttonProducts text-white'>
+      <div className=' h-24 flex items-center justify-evenly text-2xl border-solid'>
+          <div className='text-center'>
+            <p>
+              &copy; GaiaVet  
+            </p>
+            <p>Armenia, Colombia</p>
+          </div>
         <div className='flex '>
-            <div> <p>gaiavet@gmail.com</p> </div>
+            <div>
+               <p>gaiavet@gmail.com</p> 
+            </div>
             <div className='flex items-center mx-4 text-3xl'><FaFacebook className='mx-2' /><FaWhatsapp className='mx-2' /><FaInstagram className='mx-2' /><FaXTwitter className='mx-2' /></div>
         </div>
       </div>
