@@ -25,11 +25,11 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
   return (
     <div className="w-full fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
       
-      <div className="w-[40rem] h-[24rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   bg-fondoTarjeta rounded-md shadow-sm">
+      <div className="w-[65rem] h-[30rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   bg-fondoTarjeta rounded-md shadow-sm">
 
-      <div className='flex justify-between'>
+      <div className='flex justify-between bg-black w-full'>
         
-        <div className=" p-6 text-white flex flex-col items-center">
+        <div className=" p-6 text-white flex flex-col  w-2/3 ">
 
           <InputPet htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={handleNameChange}/>
 
@@ -43,14 +43,14 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
 
           <InputPet htmlFor="peso" nameLabel="Peso:" id="peso" value={editedName} onChange={handleNameChange}/>
 
-          <div className=' w-full flex justify-between mt-5 text-black'>
+          <div className=' w-full  mt-5 text-black'>
             <button className='bg-gray-200 p-3 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
             <button className='bg-gray-200 p-3 rounded-md hover:bg-gray-400 hover:text-white'>Editar</button>
             <button className='bg-gray-200 p-3 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
           </div>
         </div>
           
-        <div className="h-[24rem] w-60 bg-white ">
+        <div className="h-[30rem] w-72 bg-white ">
           
           <button type="button" className="float-end" onClick={onClose}>
             <span className="sr-only">Cerrar</span>   
@@ -59,7 +59,7 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
             </svg>
           </button>
 
-          <div className='flex flex-col items-center mt-12'>
+          <div className='flex flex-col items-center mt-24'>
             
             <img className='w-48 h-48 rounded-full' src={baño1} alt="" />
             <h5 className="text-3xl font-bold text-gray-900">{namePet} </h5> 

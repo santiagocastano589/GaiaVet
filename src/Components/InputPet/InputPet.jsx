@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InputPet = ({htmlFor,nameLabel,id,value,onChange}) => {
+const InputPet = ({htmlFor,nameLabel,id,value,onchange}) => {
   return (
     <div className='flex items-center mt-3'>
 
