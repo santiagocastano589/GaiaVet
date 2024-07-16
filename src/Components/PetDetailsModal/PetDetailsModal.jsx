@@ -25,11 +25,11 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
   return (
     <div className="w-full fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
       
-      <div className="w-[65rem] h-[30rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2   bg-fondoTarjeta rounded-md shadow-sm">
+      <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-fondo  rounded-lg shadow-sm">
 
-      <div className='flex justify-between bg-black w-full'>
+      <div className='flex justify-between w-full'>
         
-        <div className=" p-6 text-white flex flex-col  w-2/3 ">
+        <div className=" p-10 text-white flex flex-col justify-center items-center ">
 
           <InputPet htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={handleNameChange}/>
 
@@ -43,16 +43,17 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
 
           <InputPet htmlFor="peso" nameLabel="Peso:" id="peso" value={editedName} onChange={handleNameChange}/>
 
-          <div className=' w-full  mt-5 text-black'>
-            <button className='bg-gray-200 p-3 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
-            <button className='bg-gray-200 p-3 rounded-md hover:bg-gray-400 hover:text-white'>Editar</button>
-            <button className='bg-gray-200 p-3 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
+          <div className=' w-full   mt-14 text-black flex justify-end '>
+            <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
+            <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Editar</button>
+            <button className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
           </div>
+
         </div>
           
-        <div className="h-[30rem] w-72 bg-white ">
+        <div className="h-[32rem] w-80 bg-fondoTarjeta rounded-lg">
           
-          <button type="button" className="float-end" onClick={onClose}>
+          <button type="button" className="float-end text-white p-3" onClick={onClose}>
             <span className="sr-only">Cerrar</span>   
             <svg aria-hidden="true" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10L4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -61,8 +62,8 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
 
           <div className='flex flex-col items-center mt-24'>
             
-            <img className='w-48 h-48 rounded-full' src={baño1} alt="" />
-            <h5 className="text-3xl font-bold text-gray-900">{namePet} </h5> 
+            <img className='w-60 h-60 rounded-full' src={baño1} alt="" />
+            <h5 className="text-3xl font-bold mt-6 text-white">{namePet} </h5> 
           </div>
 
         </div>

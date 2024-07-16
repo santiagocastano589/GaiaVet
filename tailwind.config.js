@@ -15,7 +15,7 @@ export default {
         'header' : '#19C5B3',
 
         'blue-border': '#19C5B3',
-        'fondoTarjeta': '#5B6867',
+        'fondoTarjeta': '#0D332F',
       },
       backgroundImage: {
         'fondo': "url('src/assets/FondoPatitas.svg')",
