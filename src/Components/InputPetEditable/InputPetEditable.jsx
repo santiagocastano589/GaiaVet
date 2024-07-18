@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InputPet = ({htmlFor,nameLabel,id,value,onChange}) => {
+const InputPetEditable = ({htmlFor,nameLabel,id,value,onChange}) => {
   return (
     <div className='flex items-center mt-3'>
 
@@ -11,11 +11,11 @@ const InputPet = ({htmlFor,nameLabel,id,value,onChange}) => {
         name={id}
         value={value}
         onChange={onChange}
-        className="p-1 w-[30rem] bg-gray-200 text-black rounded-lg text-lg focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+        className="p-1 w-[30rem] bg-gray-200 text-black rounded-lg text-lg focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" // Add focus styles
       />
-            
+
     </div>
   )
 }
-  
-export default InputPet
+
+export default InputPetEditable

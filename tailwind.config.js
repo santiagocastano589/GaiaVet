@@ -12,7 +12,7 @@ export default {
         'header' : '#19C5B3',
         'buttonProducts': '#1E6C64',
 
-        'blue-border': '#19C5B3',
+        'blue-border': '#32A89C',
         'fondoTarjeta': '#0D332F',
         'FondoPet': '#D2F9F5',
       },

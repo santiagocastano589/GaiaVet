@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import baño1 from '../../assets/baño1.jpg';
-import InputPet from '../InputPet/InputPet';
 import EditedModal from '../EditeModal/EditeModal';
-
+import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 
 const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
   const [editedDocumento, setEditedDocumento] = useState(documento);
@@ -15,9 +14,6 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
   const handleModal = () => {
     setIsOpen(!isOpen);
   };
-
- 
-
   const handleDocumentoChange = (event) => {
     setEditedDocumento(event.target.value);
   };
@@ -41,17 +37,17 @@ const PetDetailsModal = ({ namePet, documento, tipo, raza, onClose }) => {
         
         <div className=" p-10 text-white flex flex-col justify-center items-center ">
 
-          <InputPet htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={handleNameChange}/>
+          <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={handleNameChange}/>
 
-          <InputPet htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={handleDocumentoChange}/>
+          <InputPetNoEditable htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={handleDocumentoChange}/>
 
-          <InputPet htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={handleTipoChange}/>
+          <InputPetNoEditable htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={handleTipoChange}/>
             
-          <InputPet htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange}/>
+          <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange}/>
 
-          <InputPet htmlFor="edad" nameLabel="Edad:" id="edad" value="5 años"/>
+          <InputPetNoEditable htmlFor="edad" nameLabel="Edad:" id="edad" value="5 años"/>
 
-          <InputPet htmlFor="peso" nameLabel="Peso:" id="peso" value="30 kilos"/>
+          <InputPetNoEditable htmlFor="peso" nameLabel="Peso:" id="peso" value="30 kilos"/>
 
           <div className=' w-full   mt-14 text-black flex justify-end '>
             <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
