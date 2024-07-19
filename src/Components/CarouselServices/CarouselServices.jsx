@@ -27,7 +27,7 @@ export const CarouselServices = ({img1,img2,img3,img4, alt}) => {
 
       
 
-        <div className="w-screen object-cover  mt-16 ">
+        <div className="w-screen object-cover  mt-12 ">
           <div className=" overflow-hidden relative h-full ">
 
             <div

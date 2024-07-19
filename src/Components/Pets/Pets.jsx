@@ -8,9 +8,17 @@ export const Pets = () => {
     <Header title="Busca tu mascota"/>
 
     <div className=''>
-    <ContainerPets namePet="firuu" documento="1311211" tipo="perro" raza="criollo"/>
-    <ContainerPets namePet="juan" documento="33333" tipo="perro" raza="criollo"/>
-    <ContainerPets namePet="alex" documento="888" tipo="perro" raza="criollo"/>
+
+    <div className='flex justify-center pt-48'>
+    <div className='flex flex-row items-center w-2/4'>
+      <input type="text" placeholder='Ingresa tu documento o nombre de tu mascota' className='flex-grow rounded-md border border-gray-300 p-2' />
+      <button type="button" class='ml-2 bg-blue-border hover:bg-teal-300 hover:text-black text-white font-bold py-2 px-4 rounded-md'>Buscar</button>
+    </div> 
+    </div>
+
+    <ContainerPets namePet="FIRULAIS" documento="1212331" tipo="perro" raza="criollo"/>
+    <ContainerPets namePet="JUAN" documento="33333" tipo="perro" raza="criollo"/>
+    <ContainerPets namePet="ALEX" documento="888" tipo="perro" raza="criollo"/>
 
     </div>
     </>

@@ -7,13 +7,14 @@ export default {
   theme: {
 
     extend: {
-      colors: {
-        'fondoTarjeta': '#0D332F',
-        'FondoPet': '#D2F9F5',
+      colors: {  
         'buttons': '#00FFE5',
         'header' : '#19C5B3',
-        'blue-border': '#19C5B3',
-        'buttonProducts': '#1E6C64'
+        'buttonProducts': '#1E6C64',
+
+        'blue-border': '#32A89C',
+        'fondoTarjeta': '#0D332F',
+        'FondoPet': '#D2F9F5',
       },
       backgroundImage: {
         'fondo': "url('src/assets/FondoPatitas.svg')",
