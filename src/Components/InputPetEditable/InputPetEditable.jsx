@@ -8,7 +8,6 @@ const InputPetEditable = ({htmlFor,nameLabel,id,value,onChange}) => {
         <input
         type="text"
         id={id}
-        name={id}
         value={value}
         onChange={onChange}
         className="p-1 w-[30rem] bg-gray-200 text-black rounded-lg text-lg focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500" // Add focus styles
