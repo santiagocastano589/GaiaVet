@@ -15,6 +15,7 @@ export const InputProfile = ({ lblName, initialValue }) => {
         </div>
 
         <input
+          disabled
           type="text"
           value={value}
           onChange={handleChange}

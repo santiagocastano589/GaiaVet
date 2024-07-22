@@ -24,7 +24,7 @@ export const Profile = () => {
 
                 <div className='w-full flex flex-col justify-center items-center   '>
                     
-                    <div className='w-2/4 h-  bg-blue-border rounded-xl p-8'>
+                    <div className='w-2/4 h-auto  bg-blue-border rounded-xl p-8'>
 
                         <InputProfile lblName='Nombre' initialValue='Jeronimo' />
                         <InputProfile lblName='Apellido' initialValue='Arias Mosquera' />
