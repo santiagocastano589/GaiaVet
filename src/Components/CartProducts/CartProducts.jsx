@@ -12,7 +12,7 @@ export const CartProducts = ({ title, description, price, image }) => {
   };
 
   return (
-    <div className='w-2/5 bg-white flex justify-evenly rounded-3xl items-center px-4 my-4 shadow-2xl'>
+    <div className='w-2/5 bg-white flex justify-evenly rounded-3xl items-center px-4 my-4 shadow-2xl sm:w-[40rem]'>
       <div className='w-2/6  rounded-xl'>
         <img src={image} alt='' />
       </div>

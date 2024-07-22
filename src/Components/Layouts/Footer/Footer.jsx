@@ -6,8 +6,8 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export const Footer = () => {
   return (
-    <footer className='bg-buttonProducts text-white'>
-      <div className=' h-24 flex items-center justify-evenly text-2xl border-solid'>
+    <footer className='bg-buttonProducts text-white sm:w-[57rem]'>
+      <div className=' h-24 flex items-center justify-evenly text-2xl border-solid sm:w-[57rem]'>
           <div className='text-center'>
             <p>
               &copy; GaiaVet  
