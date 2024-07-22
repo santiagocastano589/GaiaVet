@@ -1,10 +1,10 @@
 import React from 'react'
 
-const InputPet = ({htmlFor,nameLabel,id,value,onchange}) => {
+const InputPetNoEditable = ({htmlFor,nameLabel,id,value,onchange}) => {
   return (
     <div className='flex items-center mt-3'>
 
-        <label className='w-24 text-black text-xl' htmlFor={htmlFor}>{nameLabel}</label>
+        <label className='w-28 text-black text-xl' htmlFor={htmlFor}>{nameLabel}</label>
             <input
               type="text"
               id={id}
@@ -12,9 +12,9 @@ const InputPet = ({htmlFor,nameLabel,id,value,onchange}) => {
               onChange={onchange}
               className="p-1 w-[30rem] bg-gray-200 text-black rounded-lg text-lg"
         />
-            
+
     </div>
   )
 }
 
-export default InputPet
+export default InputPetNoEditable
