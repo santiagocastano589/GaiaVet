@@ -28,7 +28,7 @@ export const Login = () => {
     const loginEnd = { ...dataLogin.current };
 
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const response = await fetch('https://gaiavet-back.onrender.com/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

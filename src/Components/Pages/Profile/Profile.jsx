@@ -20,7 +20,7 @@ export const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/me', {
+        const response = await fetch('https://gaiavet-back.onrender.com/me', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -54,7 +54,7 @@ export const Profile = () => {
 
   const handleSaveClick = async () => {
     try {
-      const response = await fetch('http://localhost:3000/usuario', {
+      const response = await fetch('https://gaiavet-back.onrender.com/usuario', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
