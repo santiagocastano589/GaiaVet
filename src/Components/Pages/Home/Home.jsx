@@ -14,7 +14,7 @@ import { Element } from 'react-scroll';
 
 export const Home = () => {
   return (
-    <div className='w-full h-full sm:w-[57rem] lg:w-[65rem] '>
+    <div className='w-full h-full sm:w-[57rem] md:w-full lg:w-[100vw] '>
       <Header title='GaiaVet' />
       <Main>
         <Element name="inicio">

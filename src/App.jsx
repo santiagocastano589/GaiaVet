@@ -15,7 +15,7 @@ import { Profile } from './Components/Pages/Profile/Profile';
 function App() {
   return (
     <Router>
-      <div className='bgImg sm:w-[57rem]'>
+      <div className='bgImg sm:w-[57rem] lg:w-[100vw]'>
         <Routes>
           {/* Pages */}
           <Route exact path="/" element={<Home />} />
