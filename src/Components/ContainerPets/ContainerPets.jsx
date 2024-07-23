@@ -13,8 +13,8 @@ export const ContainerPets = ({ namePet, documento, tipo, raza }) => {
   return (
     <div className='flex justify-center'>
         
-      <div className='h-48 w-4/5 flex items-center bg-FondoPet justify-between rounded-3xl mt-32'>
-        <div className='w-96 flex justify-evenly '>
+      <div className='h-48 w-4/5 flex items-center bg-FondoPet justify-between rounded-3xl my-8'>
+        <div className='w-[30rem] flex justify-evenly '>
           <img className='w-40 h-40 rounded-full' src={baño1} alt="" />
 
           <div className='flex flex-col justify-evenly'>
