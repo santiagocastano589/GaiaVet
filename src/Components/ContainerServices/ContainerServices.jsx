@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 export const ContainerServices = () => {
   return (
-    <div className='w-full p-4 py-20 flex items-center justify-evenly sm:flex-wrap sm:h-[80vh]  sm:w-full sm:justify-center '>
+    <div className='w-full p-4 py-20 flex items-center justify-evenly sm:flex-wrap sm:h-[80vh]  sm:w-full sm:justify-center xl:flex xl:items-center '>
 
         <Link to={'/peluqueria'}><CartServices image={peluqueria} service={'Peluqueria'} alt={'Peluqueria'}/></Link>
         <Link to={'/baño'}><CartServices image={baño} service={'Baño'} alt={'Baño'}/></Link>
