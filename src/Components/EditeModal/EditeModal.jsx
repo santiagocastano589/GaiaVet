@@ -55,7 +55,7 @@ const EditedModal = ({ namePet, documento, tipo, raza, onClose }) => {
         <div className="h-[32rem] w-80 bg-fondoTarjeta rounded-lg">
           <div className='flex flex-col items-center mt-24'>
                        
-            <img className='w-60 h-60 rounded-full' src={baño1} alt="" />
+            <img className='w-60 h-60 rounded-full object-cover' src={baño1} alt="" />
             <h5 className="text-3xl font-bold mt-6 text-white">{namePet} </h5> 
 
           </div>

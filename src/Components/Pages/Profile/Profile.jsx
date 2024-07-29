@@ -18,7 +18,7 @@ export const Profile = () => {
 
                 <div className='flex flex-col items-center justify-center w-full'>
                     
-                        <img className='rounded-full w-80 h-80 my-5' src={ImgUser} alt="" />
+                        <img className='rounded-full w-80 h-80 my-5 object-cover' src={ImgUser} alt="" />
                         <p className='text-5xl mb-5'>Jeronimo Arias Mosquera</p>
                 </div>
 

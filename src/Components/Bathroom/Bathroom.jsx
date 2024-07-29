@@ -3,6 +3,8 @@ import baño1 from '../../assets/baño1.jpg'
 import baño2 from '../../assets/baño2.jpg'
 import baño3 from '../../assets/baño3.jpg'
 import baño4 from '../../assets/baño4.jpg'
+import estrella from '../../assets/estrella.webp'
+
 import { ContainerCard } from '../ContainerCard/ContainerCard'
 import { CarouselServices } from '../CarouselServices/CarouselServices'
 import { Header } from '../Layouts/Header/Header'
@@ -68,6 +70,21 @@ export const Bathroom = ({title,description,servicio}) => {
         
         </div>
 
+        <div className='border-solid border-2 border-gray mt-10 w-1/3 h-80 rounded-3xl p-3 flex flex-col items-center justify-between ms-10 bg-white'>
+            <h1 className='text-3xl'>Deja tu opinión</h1>
+            
+            <p className='text-base'> Las opiniones son publicas y contienen la información de tu cuenta</p>
+            <div className='flex justify-between w-48'> 
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />           
+            </div>
+
+            <textarea className='w-3/4 h-28 bg-gray-200 p-3 rounded-xl' placeholder='Escribe tu comentario' name="" id=""></textarea>
+            <button className='bg-blue-border p-2 w-56 rounded-full text-white'>Enviar</button>
+          </div>
       <div className='flex w-96 justify-evenly mt-6'>
           <h1 className='text-3xl'>Filtros :</h1>
          <button className='bg-gray-300 px-2'>Malas reseñas</button>
