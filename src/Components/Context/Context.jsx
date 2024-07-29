@@ -24,6 +24,8 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, [authToken]);
 
+
+
   return (
     <AuthContext.Provider value={{ authToken, user, setAuthToken }}>
       {children}

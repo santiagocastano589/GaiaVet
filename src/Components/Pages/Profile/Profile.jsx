@@ -4,8 +4,12 @@ import ImgUser from '../../../assets/perfil.webp';
 import './Profile.css';
 import { InputProfile } from '../../InputProfile/InputProfile';
 import { AuthContext } from '../../Context/Context';
+import { useNavigate } from 'react-router-dom';
 
 export const Profile = () => {
+
+  const navigate = useNavigate();
+
   const { authToken } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -20,7 +24,7 @@ export const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('https://gaiavet-back.onrender.com/me', {
+        const response = await fetch('http://localhost:3000/me', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -103,6 +107,13 @@ export const Profile = () => {
     });
   };
 
+
+  const closeSesion = ()=>{
+    localStorage.removeItem('token')
+    navigate('/');
+    window.location.reload();
+  }
+
   return (
     <>
       <Header />
@@ -134,7 +145,7 @@ export const Profile = () => {
         </div>
         <div className='flex justify-center'>
           <div className='w-3/5 flex justify-evenly my-10'>
-            <button className='w-60 h-12 rounded-xl bg-buttonProducts text-white' type="button">Cerrar Sesión</button>
+            <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white' type="button">Cerrar Sesión</button>
             <button className='w-60 h-12 rounded-xl bg-red-600 text-white' type="button">Eliminar cuenta</button>
           </div>
         </div>

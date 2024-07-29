@@ -13,6 +13,8 @@ import { ContactForm } from '../../ContactForm/ContactForm';
 import { Element } from 'react-scroll';
 
 export const Home = () => {
+
+
   return (
     <div className='w-full h-full'>
       <Header title='GaiaVet' />
