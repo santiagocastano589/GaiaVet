@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       if (authToken) {
-        const response = await fetch('http://localhost:3000/me', {
+        const response = await fetch('https://gaiavet-back.onrender.com/me', {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },

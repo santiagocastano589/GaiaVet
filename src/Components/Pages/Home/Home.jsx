@@ -11,6 +11,7 @@ import { Main } from "../../Layouts/Main/Main";
 import { ContainerInfo } from "../../ContainerInfo/ContainerInfo";
 import { ContactForm } from '../../ContactForm/ContactForm';
 import { Element } from 'react-scroll';
+import LocatorApi from '../../LocatorApi/LocatorApi';
 
 export const Home = () => {
 
@@ -44,12 +45,13 @@ export const Home = () => {
           <ContainerLocation 
             direction={'Cra 10 # 10-46, Circasia, Quindio, Colombia'} 
             phone={'3205677966'} 
-            image={mapa} 
             alt={'Ubicación'} 
           />
         <Element name="contactanos">
           <ContactForm />
         </Element>
+
+        
       </Main>
     </div>
   );

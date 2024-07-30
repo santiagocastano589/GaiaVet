@@ -26,10 +26,11 @@ export const NavMenu = ({ onClose }) => {
       <div className="w-full h-3/5 flex items-center ">
         <ul className="w-full h-full flex flex-col justify-center">
 
+        <MenuItems nameItem="Inicio" to="/" type="Link" />
         {
             !navContext.authToken &&  
             <>
-              <MenuItems nameItem="Inicio" to="/" type="Link" />
+              
               <MenuItems nameItem="Sobre Nosotros" to="sobre" type="scroll" />
               <MenuItems nameItem="Nuestros Productos" to="productos" type="scroll" />
               <MenuItems nameItem="Nuestros Servicios" to="servicios" type="scroll" />
@@ -38,8 +39,12 @@ export const NavMenu = ({ onClose }) => {
         }
 
           {
-            navContext.authToken && <MenuItems nameItem="Perfil" to="/Profile" type="link" />
-
+            navContext.authToken && 
+            <>
+              <MenuItems nameItem="Perfil" to="/Profile" type="link" />
+              <MenuItems nameItem="Tienda" to="/shop" type="link" />
+              <MenuItems nameItem="Mascotas" to="/pets" type="link" />
+            </>
           }
 
         </ul>

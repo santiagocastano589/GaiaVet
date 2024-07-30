@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Header } from '../../Layouts/Header/Header';
-import ImgUser from '../../../assets/perfil.webp';
+import ImgUser from '../../../assets/imgUser.png';
 import './Profile.css';
 import { InputProfile } from '../../InputProfile/InputProfile';
 import { AuthContext } from '../../Context/Context';
@@ -24,7 +24,7 @@ export const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/me', {
+        const response = await fetch('https://gaiavet-back.onrender.com/me', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${authToken}`,
