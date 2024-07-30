@@ -15,6 +15,8 @@ export const Record = () => {
     apellido: '',
     cedula: '',
     correo: '',
+    direccion:'',
+    telefono:'',
     contraseña: '',
   });
 
@@ -27,7 +29,7 @@ export const Record = () => {
     const dataEnd = { ...formData.current };
 
     try {
-      const response = await fetch('http://localhost:3000/auth/register', {
+      const response = await fetch('https://gaiavet-back.onrender.com/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,6 +39,7 @@ export const Record = () => {
 
       if (!response.ok) {
         throw new Error('Error en la solicitud');
+        
       }
 
       const data = await response.json();
@@ -74,6 +77,8 @@ export const Record = () => {
             <Input name='apellido' type='text' placeholder='Apellido' onChange={handleChange} />
             <Input name='cedula' type='text' placeholder='Numero de documento' onChange={handleChange} />
             <Input name='correo' type='text' placeholder='Correo Electronico' onChange={handleChange} />
+            <Input name='direccion' type='text' placeholder='Direccion' onChange={handleChange} />
+            <Input name='telefono' type='text' placeholder='Telefono' onChange={handleChange} />
             <Input name='contraseña' type='password' placeholder='Contraseña' onChange={handleChange} />
             <div className='flex justify-center items-center flex-col'>
               <Button textButton='Registrar' onClick={handleSubmit} />

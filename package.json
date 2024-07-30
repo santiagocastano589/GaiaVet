@@ -12,6 +12,8 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@googlemaps/extended-component-library": "^0.6.11",
+    "@react-google-maps/api": "^2.19.3",
     "express.js": "^1.0.0",
     "fetch": "^1.1.0",
     "mysql2": "^3.10.3",

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItems } from '../../MenuItems/MenuItems';
 import './NavMenu.css';
+import { AuthContext } from '../../Context/Context';
 
 export const NavMenu = ({ onClose }) => {
+
+  const navContext = useContext(AuthContext)
+  
+  if (navContext.authToken) {
+    console.log('sesion iniciada (nav)');    
+  }
+
+
   return (
     <div className="w-96 h-auto bg-white shadow-xl top-24 right-0 absolute animate-flip-down itim-regular rounded-md">
       <div className="h-12 flex justify-start">
@@ -16,22 +25,46 @@ export const NavMenu = ({ onClose }) => {
       </div>
       <div className="w-full h-3/5 flex items-center ">
         <ul className="w-full h-full flex flex-col justify-center">
-          <MenuItems nameItem="Inicio" to="/" type="Link" />
-          <MenuItems nameItem="Sobre Nosotros" to="sobre" type="scroll" />
-          <MenuItems nameItem="Nuestros Productos" to="productos" type="scroll" />
-          <MenuItems nameItem="Nuestros Servicios" to="servicios" type="scroll" />
-          <MenuItems nameItem="Contactanos" to="contactanos" type="scroll" />
-          <MenuItems nameItem="Perfil" to="/Profile" type="link" />
-          <MenuItems nameItem="Mascotas" to="/Pets" type="link" />
+
+        <MenuItems nameItem="Inicio" to="/" type="Link" />
+        {
+            !navContext.authToken &&  
+            <>
+              
+              <MenuItems nameItem="Sobre Nosotros" to="sobre" type="scroll" />
+              <MenuItems nameItem="Nuestros Productos" to="productos" type="scroll" />
+              <MenuItems nameItem="Nuestros Servicios" to="servicios" type="scroll" />
+              <MenuItems nameItem="Contactanos" to="contactanos" type="scroll" />
+            </>
+        }
+
+          {
+            navContext.authToken && 
+            <>
+              <MenuItems nameItem="Perfil" to="/Profile" type="link" />
+              <MenuItems nameItem="Tienda" to="/shop" type="link" />
+              <MenuItems nameItem="Mascotas" to="/pets" type="link" />
+            </>
+          }
+
         </ul>
       </div>
       <div className="w-full h-1/4 flex flex-col items-center justify-center ">
-        <Link to="/login" className="w-2/3 h-12 mt-2 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center">
-          Inicia Sesión
-        </Link>
-        <Link to="/register" className="w-2/3 h-12 mt-2 mb-4 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center">
+
+      {
+        !navContext.authToken && 
+
+        <>
+          <Link to="/login" className="w-2/3 h-12 mt-2 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center">
+            Inicia Sesión
+          </Link>
+
+          <Link to="/register" className="w-2/3 h-12 mt-2 mb-4 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center">
           Registrate
-        </Link>
+          </Link>
+        </>
+      }
+
       </div>
     </div>
   );

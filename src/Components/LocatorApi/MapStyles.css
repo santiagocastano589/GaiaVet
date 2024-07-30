@@ -1,0 +1,19 @@
+/* mapStyles.css */
+.custom-map-container .gm-style .gm-fullscreen-control {
+    margin: 1.8rem !important;
+  }
+  
+  .custom-map-container .gm-style button {
+    font-size: 12px !important;
+  }
+  
+  .custom-map-container .gm-style .gmnoprint {
+    margin-right: 2rem !important;
+    margin-bottom: 1rem !important;
+    font-size: 12px !important;
+  }
+  .custom-map-container .gm-style .ssQIHO-checkbox-menu-item{
+    width: 5rem !important;
+    font-size: 0.7rem !important;
+  }
+  
