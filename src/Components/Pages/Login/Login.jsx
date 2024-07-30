@@ -6,11 +6,14 @@ import { Button } from '../../Button/Button';
 import { Header } from '../../Layouts/Header/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Context';
+import Swal from 'sweetalert2'
+
 
 
 export const Login = () => {
 
   const loginContext = useContext(AuthContext)
+
 
   const [lSuccessfull,setLSuccessfull] = useState(false)
   const navigate = useNavigate();
@@ -35,32 +38,56 @@ export const Login = () => {
         },
         body: JSON.stringify(loginEnd),
       });
+
+      const data = await response.json();
   
       if (!response.ok) {
+        
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: data.message,
+        });
         throw new Error('Error en la solicitud');
+        
+        
 
-      }else if(response.ok){
-
-        const data = await response.json();
+      }else if(response.ok){ 
         localStorage.setItem('token', data.token)
         loginContext.setAuthToken(data.token)
-        console.log(loginContext.authToken);
-        console.log('Respuesta del servidor:', data);
-        setLSuccessfull(true)
-
+    
       }
 
-      alert('login exitoso');
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Inicio de sesión exitoso",
+        showConfirmButton: true
+      })
+
+      setLSuccessfull(true)
+
     } catch (error) {
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: 'Error interno del servidor',
+      });
+
       console.error('Error:', error);
     }
   }
+
 
   if (lSuccessfull) {
     navigate('/Profile');
   }
 
+  
+
   return (
+
     <div className='h-full w-full flex flex-col'>
       <Header title='Inicio de sesión' />
 

@@ -1,16 +1,25 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MenuItems } from '../../MenuItems/MenuItems';
 import './NavMenu.css';
 import { AuthContext } from '../../Context/Context';
 
+
 export const NavMenu = ({ onClose }) => {
+
+  const navigate = useNavigate()
 
   const navContext = useContext(AuthContext)
   
   if (navContext.authToken) {
     console.log('sesion iniciada (nav)');    
   }
+
+  const closeSesion = ()=>{
+    localStorage.removeItem('token')
+    navigate('/');
+    window.location.reload();
+  } 
 
 
   return (
@@ -44,6 +53,7 @@ export const NavMenu = ({ onClose }) => {
               <MenuItems nameItem="Perfil" to="/Profile" type="link" />
               <MenuItems nameItem="Tienda" to="/shop" type="link" />
               <MenuItems nameItem="Mascotas" to="/pets" type="link" />
+              <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4' type="button">Cerrar Sesión</button>
             </>
           }
 
