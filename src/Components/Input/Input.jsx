@@ -10,6 +10,7 @@ export const Input = ({ name, type, placeholder, onChange }) => {
         type={type}
         placeholder={placeholder}
         onChange={onChange}
+        required
       />
     </>
   );
