@@ -13,6 +13,7 @@ import { Pets } from './Components/Pets/Pets';
 import { Profile } from './Components/Pages/Profile/Profile';
 import { ProductsShop } from './Components/ProductsShop/ProductsShop';
 import { PetHistory } from './Components/PetHistory/PetHistory';
+import { PetRegister } from './Components/PetRegister/PetRegister';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/pets" element={<Pets />} />
           <Route path="/shop" element={<ProductsShop />} />
           <Route path="/petHistory" element={<PetHistory />} />
+          <Route path="/petRegister" element={<PetRegister />} />
 
           {/* Services */}
           <Route path="/peluqueria" element={<HairSalon title='Peluqueria' description=' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima nostrum delectus ad ducimus, nam tenetur. Enim cumque eveniet quae soluta dolorem quia impedit rem sapiente totam tenetur in, architecto quo.' />} />
