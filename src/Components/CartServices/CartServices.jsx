@@ -2,7 +2,7 @@ import React from 'react'
 
 export const CartServices = ({ service, image, alt }) => {
   return (
-    <div className='w-52 flex flex-col items-center hover:-translate-y-2 hover: duration-500 hover: cursor-pointer'>
+    <div className='w-52 flex flex-col items-center hover:-translate-y-2 hover: duration-500 hover: cursor-pointer my-3'>
         <div className='p-4 px-8 border-2 border-black rounded-t-3xl border-b-0'>
             <img src={image} alt={alt}/>
         </div>

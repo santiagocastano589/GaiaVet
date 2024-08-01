@@ -25,9 +25,6 @@ export const ContainerCard = ({name,comment,hour}) => {
     </div>
         </div>
     </div>
-
-    
-
     
     <div className="overflow-auto h-24"> 
        <p className='mx-3 ps-3'>{comment}</p>
