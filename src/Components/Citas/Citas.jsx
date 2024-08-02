@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
 import { Header } from '../Layouts/Header/Header';
-import 'react-calendar/dist/Calendar.css';
-import Calendar from 'react-calendar';
-import TimePicker from 'react-time-picker';
-import 'react-time-picker/dist/TimePicker.css';
-import 'react-clock/dist/Clock.css';
 import calendario from '../../assets/calendario.png'
 import baño from '../../assets/aseo-de-mascotas.png'
 import consultaGeneral from '../../assets/consulta.png'
@@ -14,17 +9,29 @@ import { CartServices } from '../CartServices/CartServices';
 
 
 export const Citas = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedTime, setSelectedTime] = useState('10:00');
+
     const [showMascotasModal, setShowMascotasModal] = useState(false);
     const [showServiciosModal, setShowServiciosModal] = useState(false);
+    const [selectedDate, setSelectedDate] = useState('');
 
-    const isSunday = (date) => date.getDay() === 0;
-    
+       
+    const handleDateChange = (event) => {
+        const selectedDate = new Date(event.target.value);
+        const today = new Date();
+        const isSunday = selectedDate.getDay() === 0;
+        const isPast = selectedDate < today;
+
+        if (isSunday || isPast) {
+            alert('No puedes seleccionar domingos o fechas pasadas');
+            return;
+        }
+
+        setSelectedDate(event.target.value);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Fecha seleccionada:', selectedDate);
-        console.log('Hora seleccionada:', selectedTime);
+
     };
 
     const handleMascotasClick = () => {
@@ -51,33 +58,15 @@ export const Citas = () => {
                     </div>
 
                     <div className='pt-10'>
-                        <label className='text-3xl' htmlFor="fecha">Fecha de la cita:</label>
-                        <div className='flex justify-center pb-5'>
-                        <Calendar
-                            id="fecha"
-                            onChange={setSelectedDate}
-                            value={selectedDate}
-                            minDate={new Date()}
-                            maxDate={new Date(2025, 11, 31)}
-                            locale="es"
-                            tileDisabled={({ date }) => isSunday(date)}
-                            tileClassName={({  date,  }) => {
-                                return isSunday(date) ? 'bg-gray-200 cursor-not-allowed' : '';
-                            }}
-                        />
-                        </div>
+                        <label className='text-3xl' htmlFor="fecha">Fecha y hora de la cita:</label>
+                        <input
+                         type="datetime-local" 
+                         value={selectedDate} 
+                         onChange={handleDateChange}
+                         className='p-2 ms-2' 
+                         />
                     </div>
 
-                    <div className='py-5'>
-                        <label className='text-3xl' htmlFor="hora">Hora de la cita:</label>
-                        <TimePicker
-                            id="hora"
-                            onChange={setSelectedTime}
-                            value={selectedTime}
-                            format="HH:mm" 
-                            clockClassName=''
-                        />
-                    </div>
 
                 <div className='flex justify-center my-4'>
                     <div className=' w-2/3 flex flex-wrap justify-evenly'>

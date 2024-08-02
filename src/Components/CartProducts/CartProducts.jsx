@@ -40,7 +40,7 @@ export const CartProducts = ({ title, description, price, image }) => {
             
           <button type="button" className="float-end bg-blue-border rounded-full p-1 m-2" onClick={handleCloseModal}>
             <span className="sr-only">Cerrar</span>   
-            <svg aria-hidden="true" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+            <svg aria-hidden="true" className="w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10L4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </button>
@@ -48,14 +48,14 @@ export const CartProducts = ({ title, description, price, image }) => {
           <div className='flex h-full'>
 
           <div className='flex flex-col justify-center items-center w-10/12 h-full'>
-            <img className='h-96' src={image} alt="" />
-            <p className='text-3xl font-semibold p-5 mt-9'>COP ${price}</p>
+            <img className='h-96 object-cover' src={image} alt="" />
+            <p className='text-3xl font-semibold '>COP ${price}</p>
           </div>
 
             <div className=' flex flex-col justify-evenly'>
             <div>
-            <h2 className='text-4xl'>{title}</h2>
-            <p className='text-lg'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, fugiat suscipit libero ea deleniti, quas eius non corrupti sit tempore a perferendis deserunt sunt nesciunt voluptatum doloremque, consectetur possimus necessitatibus.</p>
+            <h2 className='text-4xl mb-3'>{title}</h2>
+            <p className='text-lg '>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, fugiat suscipit libero ea deleniti, quas eius non corrupti sit tempore a perferendis deserunt sunt nesciunt voluptatum doloremque, consectetur possimus necessitatibus.</p>
             </div>
 
             <div className='flex flex-col justify-evenly h-48'>
