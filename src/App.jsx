@@ -11,6 +11,8 @@ import { PetDaycare } from './Components/PetDaycare/PetDaycare';
 import { GeneralInquiry } from './Components/GeneralInquiry/GeneralInquiry';
 import { Pets } from './Components/Pets/Pets';
 import { Profile } from './Components/Pages/Profile/Profile';
+import { ProductsShop } from './Components/Pages/ProductsShop/ProductsShop';
+
 
 import { Citas } from './Components/Citas/Citas';
 import { Review } from './Components/Pages/Review/Review';
@@ -26,8 +28,10 @@ function App() {
           <Route path="/register" element={<Record />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/pets" element={<Pets />} />
+          <Route path="/shop" element={<ProductsShop />} />
 
           <Route path="/reseña" element={<Review />} />
+          <Route path="/citas" element={<Citas />} />
           {/* Services */}
           <Route path="/peluqueria" element={<HairSalon title='Peluqueria' description='Enla peluqueria ofrecemos un servicio integral que va más allá de la estética, promoviendo la salud y el bienestar general de tu peludo amigo. A diferencia de una peluquería canina tradicional, la peluquería veterinaria cuenta con la ventaja de estar supervisada por profesionales de la salud animal, quienes pueden detectar y prevenir posibles problemas de salud durante el proceso de aseo.' />} />
 
@@ -45,6 +49,8 @@ function App() {
 
    
   );
+
+  
 
 }
 

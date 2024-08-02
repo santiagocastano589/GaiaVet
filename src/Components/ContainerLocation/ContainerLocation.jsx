@@ -2,6 +2,8 @@ import React from 'react'
 import { GoLocation } from "react-icons/go";
 import { IoCall } from "react-icons/io5";
 import { IoLogoWhatsapp } from "react-icons/io5";
+import LocatorApi from '../LocatorApi/LocatorApi';
+
 
 export const ContainerLocation = ({ direction, phone, image, alt}) => {
   return (
@@ -10,7 +12,7 @@ export const ContainerLocation = ({ direction, phone, image, alt}) => {
             <div className='w-1/3 h-56 flex flex-col justify-evenly text-2xl'>
 
                 <div className='flex items-center'>
-                    <GoLocation className='w-16' />
+                    <GoLocation className='w-16 mr-5' />
                     <p><b>Direccion: </b>{direction}</p>
                 </div>
 
@@ -25,8 +27,8 @@ export const ContainerLocation = ({ direction, phone, image, alt}) => {
                 </div>
             </div>
             
-            <div className='er p-4 flex justify-center items-center'>
-                <img src={image} alt={alt} className='w-96 h-96 rounded-mapBorder shadow-formShadow' />
+            <div className='w-96 h-96 '>
+                <LocatorApi />
             </div>
         </div>
     </div>

@@ -1,77 +1,130 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import google from '../../../assets/google.webp';
 import logo from '../../../assets/logoGaia.webp';
 import { Input } from '../../Input/Input';
 import { Button } from '../../Button/Button';
 import { Header } from '../../Layouts/Header/Header';
-import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const Record = () => {
+  const [successful, setSuccessful] = useState(false);
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
   const formData = useRef({
-    "nombre": "",
-    "apellido": "",
-    "cedula": "",
-    "correo": "",
-    "contraseña": ""
+    nombre: '',
+    apellido: '',
+    cedula: '',
+    correo: '',
+    direccion: '',
+    telefono: '',
+    contraseña: '',
   });
-
-
-
 
   const handleChange = (e) => {
     formData.current[e.target.name] = e.target.value;
+    setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: '' })); // Limpiar error al cambiar el valor
   };
-  
+
   const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
     const dataEnd = { ...formData.current };
-  
+
+    // Validar campos vacíos
+    const newErrors = {};
+    Object.keys(dataEnd).forEach((key) => {
+      if (!dataEnd[key]) {
+        newErrors[key] = 'Este campo es obligatorio';
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:3000/auth/register', {
+      const response = await fetch('https://gaiavet-back.onrender.com/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataEnd),
       });
-  
-      if (!response.ok) {
-        throw new Error('Error en la solicitud');
-      }
-  
       const data = await response.json();
-      console.log('Respuesta del servidor:', data);
-  
-      // Mostrar alert si el registro es exitoso
-      alert('Registro exitoso');
+
+      if (!response.ok) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: data.message,
+        });
+
+        throw new Error('Error en la solicitud');
+      } else if (response.ok) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Registro exitoso',
+          showConfirmButton: true,
+        });
+
+        setSuccessful(true);
+      }
     } catch (error) {
       console.error('Error:', error);
     }
   };
-  
-  
+
+  // Redirigir a la página de inicio de sesión si el registro es exitoso
+  if (successful) {
+    navigate('/login');
+  }
 
   return (
     <div className='h-full w-full flex flex-col'>
       <Header title='Registro' />
-      <div className='flex justify-center items-center z-0 pt-36 pb-10 '>
-        <div className="bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4">
+      <div className='flex justify-center items-center z-0 pt-36 pb-10'>
+        <div className='bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>
-            <img className='' src={logo} alt="" />
+            <img className='' src={logo} alt='' />
           </div>
           <h2 className='my-3'>REGISTRO</h2>
-          <p className='my-2'>¿Ya tienes cuenta? <Link to={'/login'} className='text-blue-700'>Inicia Sesión</Link></p>
+          <p className='my-2'>
+            ¿Ya tienes cuenta?{' '}
+            <Link to={'/login'} className='text-blue-700'>
+              Inicia Sesión
+            </Link>
+          </p>
           <form className='flex flex-col' onSubmit={handleSubmit}>
-            <Input name="nombre" type="text" placeholder='Nombre' onChange={handleChange} />
-            <Input name="apellido" type="text" placeholder='Apellido' onChange={handleChange} />
-            <Input name="cedula" type="text" placeholder='Numero de documento' onChange={handleChange} />
-            <Input name="correo" type="text" placeholder='Correo Electronico' onChange={handleChange} />
-            <Input name="contraseña" type="password" placeholder='Contraseña' onChange={handleChange} />
+            <Input lblName='Nombres' name='nombre' type='text' placeholder='Nombre' onChange={handleChange} />
+            {errors.nombre && <p className='text-red-500 mx-9'>{errors.nombre}</p>}
+
+            <Input lblName='Apellidos' name='apellido' type='text' placeholder='Apellido' onChange={handleChange} />
+            {errors.apellido && <p className='text-red-500 mx-9'>{errors.apellido}</p>}
+
+            <Input lblName='Numero de documento' name='cedula' type='text' placeholder='Numero de documento' onChange={handleChange} />
+            {errors.cedula && <p className='text-red-500 mx-9'>{errors.cedula}</p>}
+
+            <Input lblName='Correo electronico' name='correo' type='text' placeholder='Correo Electronico' onChange={handleChange} />
+            {errors.correo && <p className='text-red-500 mx-9'>{errors.correo}</p>}
+
+            <Input lblName='Direccion' name='direccion' type='text' placeholder='Direccion' onChange={handleChange} />
+            {errors.direccion && <p className='text-red-500 mx-9'>{errors.direccion}</p>}
+
+            <Input lblName='Telefono' name='telefono' type='text' placeholder='Telefono' onChange={handleChange} />
+            {errors.telefono && <p className='text-red-500 mx-9'>{errors.telefono}</p>}
+
+            <Input lblName='Contraseña' name='contraseña' type='password' placeholder='Contraseña' onChange={handleChange} />
+            {errors.contraseña && <p className='text-red-500 mx-9'>{errors.contraseña}</p>}
+
             <div className='flex justify-center items-center flex-col'>
-              <Button onClick={handleSubmit} textButton="Registrar" />
+              <Button textButton='Registrar' onClick={handleSubmit} />
               <button className='w-72 hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100'>
                 Registrate con Google
                 <div className='flex items-center mx-2 rounded-xl'>
-                  <img className='w-4 flex items-center' src={google} alt="" />
+                  <img className='w-4 flex items-center' src={google} alt='' />
                 </div>
               </button>
             </div>

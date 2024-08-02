@@ -19,7 +19,7 @@ export const ContactForm = () => {
 
             <div className='flex'>
                 <input type="checkbox" />
-                <p>Aceptar politicas de privacidad del sitio web</p>
+                <p className='pl-2'>Aceptar politicas de privacidad del sitio web</p>
             </div>
             <Button textButton='Enviar'/>
 

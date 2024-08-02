@@ -8,7 +8,14 @@ export const ContainerPets = ({ namePet, documento, tipo, raza }) => {
 
   const handleModalToggle = () => {
     setIsOpen(!isOpen);
+    
   };
+
+  if (isOpen) {
+    document.body.style.overflow = 'hidden'
+  }else{
+    document.body.style.overflow = 'auto';
+  }
 
   return (
     <div className='flex justify-center'>
@@ -24,7 +31,7 @@ export const ContainerPets = ({ namePet, documento, tipo, raza }) => {
             <p>Raza: {raza}</p>
           </div>
         </div>
-        <button type="button" className='bg-blue-border px-11 py-3 rounded-md me-12 hover:bg-teal-300' onClick={handleModalToggle}>
+        <button type="button" className='bg-blue-border px-11 py-3 rounded-md me-12 hover:bg-teal-300 text-white' onClick={handleModalToggle}>
           Ver más
         </button>
       </div>
