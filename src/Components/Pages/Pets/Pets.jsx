@@ -1,8 +1,22 @@
-import React from 'react'
-import { Header } from '../Layouts/Header/Header'
-import { ContainerPets } from '../ContainerPets/ContainerPets'
+import React,{useEffect, useState} from 'react'
+import { Header } from '../../Layouts/Header/Header'
+import { ContainerPets } from '../../ContainerPets/ContainerPets'
+
+
 
 export const Pets = () => {
+
+  // https://gaiavet-back.onrender.com/auth/login'
+
+  // useEffect(() => {
+  
+  //   const [petList,setPetList] = useState([])
+
+  //   return () => {
+      
+  //   }
+  // })
+
   return (
     <>
     <Header title="Busca tu mascota"/>

@@ -7,15 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { FaCamera } from 'react-icons/fa';
 import { SelectIcon } from '../../WindowModals/SelectIcon/SelectIcon';
-import perro6 from '../../../assets/Caras de perros/perro1.jpg'
+import perro6 from '../../../assets/Caras de perros/perro1.jpg';
 
 export const Profile = () => {
-
   const navigate = useNavigate();
   const { authToken } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [iconSelection,setIconSelection] = useState(false)
+  const [iconSelection, setIconSelection] = useState(false);
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -27,31 +26,31 @@ export const Profile = () => {
   });
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch('https://gaiavet-back.onrender.com/me', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const data = await response.json();
+      setUserData(data);
+      setFormData({
+        nombre: data.nombre,
+        apellido: data.apellido,
+        correo: data.correo,
+        direccion: data.direccion,
+        telefono: data.telefono,
+        icono: data.icono || ImgUser,
+      });
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('https://gaiavet-back.onrender.com/me', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-
-        const data = await response.json();
-        setUserData(data);
-        setFormData({
-          nombre: data.nombre,
-          apellido: data.apellido,
-          correo: data.correo,
-          direccion: data.direccion,
-          telefono: data.telefono,
-          icono: data.icono || ImgUser,
-        });
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
     fetchUserData();
   }, [authToken]);
 
@@ -63,76 +62,63 @@ export const Profile = () => {
     setEditMode(true);
   };
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
       },
       buttonsStyling: true,
     });
+
     swalWithBootstrapButtons.fire({
-      title: "Estas seguro de esto?",
-      text: "Tendras que esperar un tiempo para volver a actualizar la informacion",
-      icon: "warning",
+      title: '¿Estás seguro de esto?',
+      text: 'Tendrás que esperar un tiempo para volver a actualizar la información',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Si, Actualizar!",
-      cancelButtonText: "No, cancelar!",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonText: 'Sí, actualizar!',
+      cancelButtonText: 'No, cancelar!',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       reverseButtons: true,
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         swalWithBootstrapButtons.fire({
-          title: "Datos actualizada!",
-          text: "Tu información ha sido actualizada correctamente",
-          icon: "success",
-          confirmButtonColor: "#3085d6",
+          title: 'Datos actualizados!',
+          text: 'Tu información ha sido actualizada correctamente',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
         });
 
-        setUpdateUser(true);
+        try {
+          const response = await fetch('https://gaiavet-back.onrender.com/user', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+            body: JSON.stringify(formData),
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to update user data');
+          }
+
+          await fetchUserData();
+          setEditMode(false);
+        } catch (error) {
+          console.error('Error updating user data:', error);
+        }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         swalWithBootstrapButtons.fire({
-          title: "Cancelada",
-          text: "Tu informacion se mantendra como estaba :)",
-          icon: "error",
-          confirmButtonColor: "#3085d6",
+          title: 'Cancelada',
+          text: 'Tu información se mantendrá como estaba :)',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
         });
-        setUpdateUser(false);
         handleCancelClick();
       }
     });
-
-    if (updateUser) {
-      try {
-        const response = await fetch('https://gaiavet-back.onrender.com/usuario', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to update user data');
-        }
-
-        const updatedData = await response.json();
-        setUserData(updatedData);
-        setFormData({
-          nombre: updatedData.nombre,
-          apellido: updatedData.apellido,
-          correo: updatedData.correo,
-          direccion: updatedData.direccion,
-          telefono: updatedData.telefono,
-          icono: updatedData.icono || ImgUser,
-        });
-        setEditMode(false);
-      } catch (error) {
-        console.error('Error updating user data:', error);
-      }
-    }
   };
 
   const handleCancelClick = () => {
@@ -155,37 +141,22 @@ export const Profile = () => {
     });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImage(reader.result);
-        setFormData({
-          ...formData,
-          icono: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const closeSesion = () => {
     Swal.fire({
-      title: "GaiaVet",
-      text: "¿Deseas cerrar la sesion?",
-      icon: "warning",
+      title: 'GaiaVet',
+      text: '¿Deseas cerrar la sesión?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, cerrar sesion!",
-      cancelButtonText: "Cancelar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión!',
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: "Sesion cerrada",
-          text: "Tu sesión a sido cerrada correctamente",
-          icon: "success",
+          title: 'Sesión cerrada',
+          text: 'Tu sesión ha sido cerrada correctamente',
+          icon: 'success',
         });
         localStorage.removeItem('token');
         navigate('/');
@@ -197,20 +168,15 @@ export const Profile = () => {
     });
   };
 
- 
-
-  const controlSelection = ()=>{
-      
+  const controlSelection = () => {
     if (!iconSelection) {
-      setIconSelection(true)
-      document.body.style.overflow = 'hidden'
-    }else{
-      setIconSelection(false)
-      document.body.style.overflow = 'auto'
+      setIconSelection(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      setIconSelection(false);
+      document.body.style.overflow = 'auto';
     }
-
-    console.log(iconSelection);
-  }
+  };
 
   return (
     <>

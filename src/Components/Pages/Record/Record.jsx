@@ -45,7 +45,7 @@ export const Record = () => {
     }
 
     try {
-      const response = await fetch('https://gaiavet-back.onrender.com/auth/register', {
+      const response = await fetch('https://gaiavet-back.onrender.com/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
