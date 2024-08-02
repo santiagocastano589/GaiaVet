@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MenuItems } from '../../MenuItems/MenuItems';
 import './NavMenu.css';
 import { AuthContext } from '../../Context/Context';
+import Swal from 'sweetalert2'
 
 
 export const NavMenu = ({ onClose }) => {
@@ -16,9 +17,32 @@ export const NavMenu = ({ onClose }) => {
   }
 
   const closeSesion = ()=>{
-    localStorage.removeItem('token')
-    navigate('/');
-    window.location.reload();
+    Swal.fire({
+      title: "GaiaVet",
+      text: "¿Deseas cerrar la sesion?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, cerrar sesion!",
+      cancelButtonText:"Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Sesion cerrada",
+          text: "Tu sesión a sido cerrada correctamente",
+          icon: "success"
+        });
+        localStorage.removeItem('token')
+        navigate('/');
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2500);
+      }
+    });
+
+    
   } 
 
 

@@ -1,26 +1,31 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Header } from '../../Layouts/Header/Header';
 import ImgUser from '../../../assets/imgUser.png';
-import './Profile.css';
 import { InputProfile } from '../../InputProfile/InputProfile';
 import { AuthContext } from '../../Context/Context';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { FaCamera } from 'react-icons/fa';
+import { SelectIcon } from '../../WindowModals/SelectIcon/SelectIcon';
+import perro6 from '../../../assets/Caras de perros/perro1.jpg'
 
 export const Profile = () => {
 
   const navigate = useNavigate();
-
   const { authToken } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [iconSelection,setIconSelection] = useState(false)
+
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
     correo: '',
     direccion: '',
-    telefono: ''
+    telefono: '',
+    icono: '',
   });
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,7 +44,8 @@ export const Profile = () => {
           apellido: data.apellido,
           correo: data.correo,
           direccion: data.direccion,
-          telefono: data.telefono
+          telefono: data.telefono,
+          icono: data.icono || ImgUser,
         });
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -58,34 +64,74 @@ export const Profile = () => {
   };
 
   const handleSaveClick = async () => {
-    try {
-      const response = await fetch('https://gaiavet-back.onrender.com/usuario', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify(formData),
-      });
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons.fire({
+      title: "Estas seguro de esto?",
+      text: "Tendras que esperar un tiempo para volver a actualizar la informacion",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Si, Actualizar!",
+      cancelButtonText: "No, cancelar!",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire({
+          title: "Datos actualizada!",
+          text: "Tu información ha sido actualizada correctamente",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to update user data');
-      }else if (response.ok) {
-        alert('Actualizacion exitosa')
+        setUpdateUser(true);
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire({
+          title: "Cancelada",
+          text: "Tu informacion se mantendra como estaba :)",
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+        });
+        setUpdateUser(false);
+        handleCancelClick();
       }
+    });
 
-      const updatedData = await response.json();
-      setUserData(updatedData);
-      setFormData({
-        nombre: updatedData.nombre,
-        apellido: updatedData.apellido,
-        correo: updatedData.correo,
-        direccion: updatedData.direccion,
-        telefono: updatedData.telefono,
-      });
-      setEditMode(false);
-    } catch (error) {
-      console.error('Error updating user data:', error);
+    if (updateUser) {
+      try {
+        const response = await fetch('https://gaiavet-back.onrender.com/usuario', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update user data');
+        }
+
+        const updatedData = await response.json();
+        setUserData(updatedData);
+        setFormData({
+          nombre: updatedData.nombre,
+          apellido: updatedData.apellido,
+          correo: updatedData.correo,
+          direccion: updatedData.direccion,
+          telefono: updatedData.telefono,
+          icono: updatedData.icono || ImgUser,
+        });
+        setEditMode(false);
+      } catch (error) {
+        console.error('Error updating user data:', error);
+      }
     }
   };
 
@@ -96,6 +142,7 @@ export const Profile = () => {
       correo: userData.correo,
       direccion: userData.direccion,
       telefono: userData.telefono,
+      icono: userData.icono,
     });
     setEditMode(false);
   };
@@ -108,8 +155,22 @@ export const Profile = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+        setFormData({
+          ...formData,
+          icono: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-  const closeSesion = ()=>{
+  const closeSesion = () => {
     Swal.fire({
       title: "GaiaVet",
       text: "¿Deseas cerrar la sesion?",
@@ -118,62 +179,98 @@ export const Profile = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, cerrar sesion!",
-      cancelButtonText:"Cancelar"
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Sesion cerrada",
           text: "Tu sesión a sido cerrada correctamente",
-          icon: "success"
+          icon: "success",
         });
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
         navigate('/');
 
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 2500);
       }
     });
+  };
 
-    
-  } 
+ 
+
+  const controlSelection = ()=>{
+      
+    if (!iconSelection) {
+      setIconSelection(true)
+      document.body.style.overflow = 'hidden'
+    }else{
+      setIconSelection(false)
+      document.body.style.overflow = 'auto'
+    }
+
+    console.log(iconSelection);
+  }
 
   return (
     <>
       <Header />
-      <div className='w-full pt-40'>
-        <div className='w-full flex justify-center flex-col'>
-          <h2 className=' gorditas text-7xl self-center'>Gestión de perfil</h2>
-          <div className='flex flex-col items-center justify-center w-full'>
-            <img className='rounded-full w-72 h-72 my-5' src={ImgUser} alt="" />
-            <p className='text-5xl mb-5'>{userData.nombre + " " + userData.apellido}</p>
+      <div className="w-full pt-40">
+        <div className="w-full flex justify-center flex-col">
+          <h2 className="gorditas text-7xl self-center">Gestión de perfil</h2>
+          <div className="flex flex-col items-center justify-center w-full">
+            <div className="w-72 h-72 relative group flex items-center justify-center my-8">
+              <div className='h-full w-full'>
+                <img
+                  className="rounded-full w-full h-full shadow-formShadow object-contain"
+                  src={selectedImage || perro6}
+                  alt="User"
+                />
+              </div>
+
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                <FaCamera className="text-white text-3xl" />
+
+                <span className='absolute inset-0 w-full h-full opacity-0 cursor-pointer' onClick={controlSelection}></span>
+
+                {/* <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                /> */}
+              </div>
+                {iconSelection && <SelectIcon onClose={controlSelection} />}
+
+            </div>
+            <p className="text-5xl mb-5">{userData.nombre + " " + userData.apellido}</p>
           </div>
-          <div className='w-full flex flex-col justify-center items-center'>
-            <div className='w-2/4 h-auto bg-blue-border rounded-xl p-8'>
-              <InputProfile lblName='Nombre' name='nombre' initialValue={formData.nombre} editMode={editMode} onValueChange={handleChange} />
-              <InputProfile lblName='Apellido' name='apellido' initialValue={formData.apellido} editMode={editMode} onValueChange={handleChange} />
-              <InputProfile lblName='Correo' name='correo' initialValue={formData.correo} editMode={editMode} onValueChange={handleChange} />
-              <InputProfile lblName='Dirección' name='direccion' initialValue={formData.direccion} editMode={editMode} onValueChange={handleChange} />
-              <InputProfile lblName='Telefono' name='telefono' initialValue={formData.telefono} editMode={editMode} onValueChange={handleChange} />
-              
+          <div className="w-full flex flex-col justify-center items-center">
+            <div className="w-2/4 h-auto bg-blue-border rounded-xl p-8">
+              <InputProfile lblName="Nombre" name="nombre" initialValue={formData.nombre} editMode={editMode} onValueChange={handleChange} />
+              <InputProfile lblName="Apellido" name="apellido" initialValue={formData.apellido} editMode={editMode} onValueChange={handleChange} />
+              <InputProfile lblName="Correo" name="correo" initialValue={formData.correo} editMode={editMode} onValueChange={handleChange} />
+              <InputProfile lblName="Dirección" name="direccion" initialValue={formData.direccion} editMode={editMode} onValueChange={handleChange} />
+              <InputProfile lblName="Telefono" name="telefono" initialValue={formData.telefono} editMode={editMode} onValueChange={handleChange} />
+
               {!editMode ? (
-                <button onClick={handleEditClick} className='px-5 py-1 bg-black text-white rounded-lg float-end me-16 hover:bg-gray-700'>Editar</button>
+                <button onClick={handleEditClick} className="px-5 py-1 bg-black text-white rounded-lg float-end me-16 hover:bg-gray-700">Editar</button>
               ) : (
                 <>
-                  <button onClick={handleSaveClick} className='px-5 py-1 bg-white text-green-700 font-medium rounded-lg float-end mr-12'>Guardar</button>
-                  <button onClick={handleCancelClick} className='px-5 py-1 bg-red-600 text-white font-medium rounded-lg float-end mr-4'>Cancelar</button>
+                  <button onClick={handleSaveClick} className="px-5 py-1 bg-white text-green-700 font-medium rounded-lg float-end mr-12">Guardar</button>
+                  <button onClick={handleCancelClick} className="px-5 py-1 bg-red-600 text-white font-medium rounded-lg float-end mr-4">Cancelar</button>
                 </>
               )}
             </div>
           </div>
         </div>
-        <div className='flex justify-center'>
-          <div className='w-3/5 flex justify-evenly my-10'>
-            <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white' type="button">Cerrar Sesión</button>
-            <button className='w-60 h-12 rounded-xl bg-red-600 text-white' type="button">Eliminar cuenta</button>
+        <div className="flex justify-center">
+          <div className="w-3/5 flex justify-evenly my-10">
+            <button onClick={closeSesion} className="w-60 h-12 rounded-xl bg-buttonProducts text-white" type="button">Cerrar Sesión</button>
+            <button className="w-60 h-12 rounded-xl bg-red-600 text-white" type="button">Eliminar cuenta</button>
           </div>
         </div>
       </div>
     </>
   );
-}
+};

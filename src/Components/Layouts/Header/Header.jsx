@@ -38,9 +38,9 @@ export const Header = ({ title }) => {
       <div className='w-4/5 flex items-center justify-between'>
         <Link to={"/"} className='w-16 flex items-center'>
           <img className='bg-white p-1 rounded-full' src={logo} alt="" />
-          <h2 className='text-3xl gorditas p-3'>GaiaVet</h2>
+          <h2 className='text-3xl font-gorditas p-3'>GaiaVet</h2>
         </Link>
-        <h2 className='text-8xl font-bold text-stroke-2-white gorditas mt-16'>{title}</h2>
+        <h2 className='text-8xl font-bold text-stroke-2-white font-gorditas mt-16'>{title}</h2>
         <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
         {menuNav && <NavMenu onClose={() => setMenuNav(false)} />}
       </div>

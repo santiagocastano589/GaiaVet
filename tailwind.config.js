@@ -28,6 +28,10 @@ export default {
       },
       boxShadow:{
         'formShadow':'0px 0px 10px -5px #000 '
+      },
+      fontFamily:{
+        itim: ['Itim', 'sans-serif'],
+        gorditas: ['Gorditas', 'sans-serif']
       }
     },
   },

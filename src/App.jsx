@@ -11,7 +11,7 @@ import { PetDaycare } from './Components/PetDaycare/PetDaycare';
 import { GeneralInquiry } from './Components/GeneralInquiry/GeneralInquiry';
 import { Pets } from './Components/Pets/Pets';
 import { Profile } from './Components/Pages/Profile/Profile';
-import { ProductsShop } from './Components/ProductsShop/ProductsShop';
+import { ProductsShop } from './Components/Pages/ProductsShop/ProductsShop';
 
 
 function App() {

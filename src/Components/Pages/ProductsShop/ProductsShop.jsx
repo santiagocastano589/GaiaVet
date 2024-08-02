@@ -1,8 +1,8 @@
 import React from 'react'
-import { Header } from '../Layouts/Header/Header'
-import { Main } from '../Layouts/Main/Main'
-import { ContainerCategory } from "../ContainerCategory/ContainerCategory";
-import { ContainerProducts } from '../ContainerProducts/ContainerProducts';
+import { Header } from '../../Layouts/Header/Header'
+import { Main } from '../../Layouts/Main/Main'
+import { ContainerCategory } from "../../ContainerCategory/ContainerCategory";
+import { ContainerProducts } from '../../ContainerProducts/ContainerProducts';
 
 export const ProductsShop = () => {
   return (
