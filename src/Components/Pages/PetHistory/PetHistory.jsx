@@ -1,7 +1,7 @@
 import React from 'react'
-import { Header } from '../Layouts/Header/Header'
-import { InputHistory } from '../InputHistory/InputHistory'
-import { TableHeader } from '../TableHeader/TableHeader'
+import { Header } from '../../Layouts/Header/Header'
+import { InputHistory } from '../../InputHistory/InputHistory'
+import { TableHeader } from '../../TableHeader/TableHeader'
 
 export const PetHistory = () => {
   return (

@@ -73,6 +73,11 @@ export const Record = () => {
         setSuccessful(true);
       }
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: data.message,
+      });
       console.error('Error:', error);
     }
   };
