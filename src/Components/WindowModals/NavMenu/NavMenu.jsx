@@ -1,16 +1,49 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MenuItems } from '../../MenuItems/MenuItems';
 import './NavMenu.css';
 import { AuthContext } from '../../Context/Context';
+import Swal from 'sweetalert2'
+
 
 export const NavMenu = ({ onClose }) => {
+
+  const navigate = useNavigate()
 
   const navContext = useContext(AuthContext)
   
   if (navContext.authToken) {
     console.log('sesion iniciada (nav)');    
   }
+
+  const closeSesion = ()=>{
+    Swal.fire({
+      title: "GaiaVet",
+      text: "¿Deseas cerrar la sesion?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, cerrar sesion!",
+      cancelButtonText:"Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Sesion cerrada",
+          text: "Tu sesión a sido cerrada correctamente",
+          icon: "success"
+        });
+        localStorage.removeItem('token')
+        navigate('/');
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2500);
+      }
+    });
+
+    
+  } 
 
 
   return (
@@ -44,6 +77,7 @@ export const NavMenu = ({ onClose }) => {
               <MenuItems nameItem="Perfil" to="/Profile" type="link" />
               <MenuItems nameItem="Tienda" to="/shop" type="link" />
               <MenuItems nameItem="Mascotas" to="/pets" type="link" />
+              <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4' type="button">Cerrar Sesión</button>
             </>
           }
 

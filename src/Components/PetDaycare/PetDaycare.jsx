@@ -3,6 +3,7 @@ import peluqueria1 from '../../assets/peluqueria1.jpg'
 import peluqueria2 from '../../assets/peluqueria2.jpg'
 import peluqueria3 from '../../assets/peluqueria3.jpg'
 import peluqueria4 from '../../assets/peluqueria4.jpg'
+import estrella from '../../assets/estrella.webp'
 
 import { Button } from '../../Components/Button/Button'
 
@@ -30,16 +31,66 @@ export const PetDaycare = ({title,description}) => {
 
     <div className='mt-11'>
     
-    <div className='flex justify-center'>
+       <div className='flex flex-col items-center w-3/4 '>
         <p className='w-5/6'>{description}</p>
+        <div className='w-4/5 '>
+        <div className='pt-5'>
+        <h1 className='mb-2 gorditas text-2xl'>¿Qué incluye el servicio de guarderia básico?</h1>
+        <li className='list-none'>
+          <ul className='mb-2'>Espacio seguro y cómodo: Tu perro tendrá un lugar designado para dormir y descansar, ya sea en una jaula individual o en un área común con otros perros compatibles.</ul>
+          <ul className='mb-2'>Limpieza y desinfección: Las áreas de alojamiento se limpian y desinfectan con regularidad para mantener un ambiente higiénico y saludable.</ul>
+          <ul className='mb-2'>Control de temperatura: Se mantiene una temperatura adecuada en las instalaciones para garantizar la comodidad de los perros.</ul>
+          <ul className='mb-2'>Comida de alta calidad: Se proporciona a los perros una dieta balanceada y de alta calidad, de acuerdo a sus necesidades nutricionales y preferencias. Puedes llevar la comida habitual de tu perro o elegir entre las opciones que ofrece la guardería.</ul>
+          <ul className='mb-2'>Agua fresca: Los perros siempre tendrán acceso a agua fresca y limpia.</ul>
+          <ul className='mb-2'>Paseos diarios: Los perros disfrutan de paseos diarios al aire libre para realizar ejercicio, liberar energía y socializar con otros perros.</ul>
+          <ul className='mb-2'>Áreas de juego: Algunas guarderías cuentan con áreas de juego seguras y supervisadas donde los perros pueden correr, jugar y divertirse.</ul>
+        </li>
+
+        <div className='my-10'>
+          <h1 className='mb-2 gorditas text-2xl'>Servicios adicionales</h1>
+          <li className='list-none'>
+            <ul className='mb-2'>Aromaterapia: La aromaterapia utiliza aceites esenciales para promover la relajación y el bienestar del perro.</ul>
+            <ul className='mb-2'>rMasaje relajante: Un masaje no solo es placentero para tu perro, sino que también puede ayudar a reducir el estrés, mejorar la circulación y aliviar la tensión muscular.</ul>
+            <ul className='mb-2'>Terapias alternativas: terapias alternativas como Reiki o acupuntura para ayudar a calmar a los perros ansiosos o con dolor.</ul>
+          </li>
+        </div>
+
+        <div className='w-4/5'>
+          <h1 className='mb-2 gorditas text-2xl'>Beneficios del servicio de guarderia:</h1>
+          <li className='list-none'>
+            <ul className='mb-2'>Ejercicio y actividad física: Los perros y gatos en las guarderías disfrutan de paseos diarios, juegos y actividades al aire libre que les permiten liberar energía, mantenerse en forma y prevenir el sobrepeso.</ul>
+            <ul className='mb-2'>Alimentación saludable: Se les proporciona una dieta balanceada y de alta calidad, de acuerdo a sus necesidades nutricionales y preferencias.</ul>
+            <ul className='mb-2'>Higiene y cuidado: Se les brinda un baño regular, cepillado del pelaje, corte de uñas y limpieza de oídos, lo que mantiene su higiene y salud general.</ul>
+            <ul className='mb-2'>Supervisión veterinaria: Algunas guarderías cuentan con un veterinario que supervisa la salud de los animales y atiende cualquier necesidad médica que pueda surgir durante su estancia.</ul>
+            <ul className='mb-2'>Socialización: La interacción con otros perros o gatos en un ambiente controlado y supervisado les ayuda a socializar, reducir el estrés y mejorar sus habilidades de comunicación animal.</ul>
+          </li>
+        </div>
+        </div>
+        </div>
+        
     </div>
                    
         <div className='w-1/3 h-14 flex justify-center items-center rounded-r-full bg-blue-border mt-9'>
         
-          <h1>Reseñas del servicio</h1>
+        <h1 className='text-xl text-white'>Reseñas del servicio</h1>
         
         </div>
 
+        <div className='border-solid border-2 border-gray mt-10 w-1/3 h-80 rounded-3xl p-3 flex flex-col items-center justify-between ms-10 bg-white'>
+            <h1 className='text-3xl'>Deja tu opinión</h1>
+            
+            <p className='text-base'> Las opiniones son publicas y contienen la información de tu cuenta</p>
+            <div className='flex justify-between w-48'> 
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />
+                <img className='h-8 w-8' src={estrella} alt="" />           
+            </div>
+
+            <textarea className='w-3/4 h-28 bg-gray-200 p-3 rounded-xl' placeholder='Escribe tu comentario' name="" id=""></textarea>
+            <button className='bg-blue-border p-2 w-56 rounded-full text-white'>Enviar</button>
+          </div>
       <div className='flex w-96 justify-evenly mt-6'>
           <h1 className='text-3xl'>Filtros :</h1>
          <button className='bg-gray-300 px-2'>Malas reseñas</button>
