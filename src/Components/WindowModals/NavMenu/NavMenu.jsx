@@ -75,7 +75,7 @@ export const NavMenu = ({ onClose }) => {
             navContext.authToken && 
             <>
               <MenuItems nameItem="Perfil" to="/Profile" type="link" />
-              <MenuItems nameItem="Tienda" to="/shop" type="link" />
+              <MenuItems nameItem="Tienda" to="/products" type="link" />
               <MenuItems nameItem="Mascotas" to="/pets" type="link" />
               <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4' type="button">Cerrar Sesión</button>
             </>

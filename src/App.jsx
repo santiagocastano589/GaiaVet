@@ -17,6 +17,8 @@ import { ProductsShop } from './Components/Pages/ProductsShop/ProductsShop';
 
 import { Citas } from './Components/Citas/Citas';
 import { Review } from './Components/Pages/Review/Review';
+import { ProductRegister } from './Components/Pages/ProductRegister/ProductRegister';
+
 
 
 function App() {
@@ -30,9 +32,12 @@ function App() {
           <Route path="/register" element={<Record />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/pets" element={<Pets />} />
-          <Route path="/shop" element={<ProductsShop />} />
+          <Route path="/products" element={<ProductsShop />} />
           <Route path="/petHistory" element={<PetHistory />} />
           <Route path="/petRegister" element={<PetRegister />} />
+          
+          <Route path="/admin/productRegister" element={<ProductRegister />} />
+
 
           <Route path="/reseña" element={<Review />} />
           <Route path="/citas" element={<Citas />} />
