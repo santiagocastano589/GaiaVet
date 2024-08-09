@@ -1,8 +1,9 @@
-import React, { useState } from 'react';import peluqueria1 from '../../assets/peluqueria1.jpg'
+import React, { useState } from 'react';
+import peluqueria1 from '../../assets/peluqueria1.jpg'
 import peluqueria2 from '../../assets/peluqueria2.jpg'
 import peluqueria3 from '../../assets/peluqueria3.jpg'
 import peluqueria4 from '../../assets/peluqueria4.jpg'
-import estrellaVacia from '../../assets/estrella.webp'
+import estrellaVacia from '../../assets/estrella-vasia.png'
 import estrellaLlena from '../../assets/estrella-llena.png'
 import estrellaMedia from '../../assets/estrellaMedia.png'
 

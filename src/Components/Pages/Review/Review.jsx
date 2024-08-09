@@ -1,5 +1,5 @@
 import React from 'react';
-import estrella from '../../../assets/estrella.webp'
+import estrella from '../../../assets/estrella-vasia.png'
 import { Header } from '../../Layouts/Header/Header'
 import { Button } from '../../Button/Button'
 import { ContainerCard } from '../../ContainerCard/ContainerCard';

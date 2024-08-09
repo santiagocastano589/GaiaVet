@@ -1,5 +1,5 @@
 import React from 'react'
-import estrella from '../../assets/estrella.webp'
+import estrella from '../../assets/estrella-vasia.png'
 import peluqueria from '../../assets/peluqueria1.jpg'
 
 export const ContainerCard = ({name,comment,hour}) => {
