@@ -20,6 +20,7 @@ export const ProductsShop = () => {
                 <option>Productos de aseo</option>
             </select>
         </div>
+        
         <ContainerProducts/>
 
       </Main>
