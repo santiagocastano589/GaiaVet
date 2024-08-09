@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import baño1 from '../../assets/baño1.jpg';
 import InputPetEditable from '../InputPetEditable/InputPetEditable';
 
-const EditedModal = ({ namePet, documento, tipo, raza, onClose }) => {
+const EditedModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) => {
     const [editedDocumento, setEditedDocumento] = useState(documento);
     const [editedTipo, setEditedTipo] = useState(tipo);
     const [editedRaza, setEditedRaza] = useState(raza);
     const [editedName, setEditedName] = useState(namePet);
+    const [editedPeso, setEditedPeso] = useState(peso);
+    const [editedEdad, setEditedEdad] = useState(edad);
 
     const handleDocumentoChange = (event) => {
         setEditedDocumento(event.target.value);
@@ -40,9 +42,9 @@ const EditedModal = ({ namePet, documento, tipo, raza, onClose }) => {
             
           <InputPetEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange}/>
 
-          <InputPetEditable htmlFor="edad" nameLabel="Edad:" id="edad" value="5 años"/>
+          <InputPetEditable htmlFor="edad" nameLabel="Edad:" id="edad" value={editedEdad}/>
 
-          <InputPetEditable htmlFor="peso" nameLabel="Peso:" id="peso" value="30 kilos"/>
+          <InputPetEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso+' Kg'}/>
 
           <div className=' w-full   mt-14 text-black flex justify-end '>
             <button onClick={onClose} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Cancelar</button>

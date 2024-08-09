@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { FaCamera } from 'react-icons/fa';
 import { SelectIcon } from '../../WindowModals/SelectIcon/SelectIcon';
-import perro6 from '../../../assets/Caras de perros/perro1.jpg';
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -15,6 +14,7 @@ export const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [iconSelection, setIconSelection] = useState(false);
+  const [showConfirmButton, setShowConfirmButton] = useState(false); // Nuevo estado
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -22,7 +22,7 @@ export const Profile = () => {
     correo: '',
     direccion: '',
     telefono: '',
-    icono: '',
+    imagen: '',
   });
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -43,7 +43,7 @@ export const Profile = () => {
         correo: data.correo,
         direccion: data.direccion,
         telefono: data.telefono,
-        icono: data.icono || ImgUser,
+        imagen: data.imagen || ImgUser,
       });
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -89,6 +89,8 @@ export const Profile = () => {
           icon: 'success',
           confirmButtonColor: '#3085d6',
         });
+        
+        setShowConfirmButton(false)
 
         try {
           const response = await fetch('https://gaiavet-back.onrender.com/user', {
@@ -128,7 +130,7 @@ export const Profile = () => {
       correo: userData.correo,
       direccion: userData.direccion,
       telefono: userData.telefono,
-      icono: userData.icono,
+      imagen: userData.icono,
     });
     setEditMode(false);
   };
@@ -178,6 +180,21 @@ export const Profile = () => {
     }
   };
 
+  const handleIconSelect = (imagen) => {
+    setSelectedImage(imagen);
+    setFormData({
+      ...formData,
+      imagen: imagen,
+    });
+    setIconSelection(false);
+    document.body.style.overflow = 'auto';
+    setShowConfirmButton(true);
+  };
+
+  const handleConfirmImage = () => {
+    setShowConfirmButton(false);
+  };
+
   return (
     <>
       <Header />
@@ -185,30 +202,32 @@ export const Profile = () => {
         <div className="w-full flex justify-center flex-col">
           <h2 className="gorditas text-7xl self-center">Gestión de perfil</h2>
           <div className="flex flex-col items-center justify-center w-full">
-            <div className="w-72 h-72 relative group flex items-center justify-center my-8">
+            <div className="w-72 h-72 relative group flex flex-col items-center justify-center my-8">
               <div className='h-full w-full'>
                 <img
                   className="rounded-full w-full h-full shadow-formShadow object-contain"
-                  src={selectedImage || perro6}
+                  src={selectedImage || userData.imagen || ImgUser}
                   alt="User"
                 />
               </div>
 
               <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                 <FaCamera className="text-white text-3xl" />
-
                 <span className='absolute inset-0 w-full h-full opacity-0 cursor-pointer' onClick={controlSelection}></span>
-
-                {/* <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                /> */}
               </div>
-                {iconSelection && <SelectIcon onClose={controlSelection} />}
 
+              {iconSelection && <SelectIcon onClose={controlSelection} onSelect={handleIconSelect} />}
             </div>
+
+            {showConfirmButton && (
+              <button 
+                className='w-52 h-12 rounded-xl bg-buttonProducts text-white mb-10'
+                onClick={handleSaveClick} // Confirmar imagen al hacer clic
+              >
+                Confirmar imagen
+              </button>
+            )}
+
             <p className="text-5xl mb-5">{userData.nombre + " " + userData.apellido}</p>
           </div>
           <div className="w-full flex flex-col justify-center items-center">
