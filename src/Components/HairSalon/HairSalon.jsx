@@ -1,9 +1,10 @@
-import React from 'react'
-import peluqueria1 from '../../assets/peluqueria1.jpg'
+import React, { useState } from 'react';import peluqueria1 from '../../assets/peluqueria1.jpg'
 import peluqueria2 from '../../assets/peluqueria2.jpg'
 import peluqueria3 from '../../assets/peluqueria3.jpg'
 import peluqueria4 from '../../assets/peluqueria4.jpg'
-import estrella from '../../assets/estrella.webp'
+import estrellaVacia from '../../assets/estrella.webp'
+import estrellaLlena from '../../assets/estrella-llena.png'
+import estrellaMedia from '../../assets/estrellaMedia.png'
 
 import { Button } from '../../Components/Button/Button'
 import { ContainerCard } from '../ContainerCard/ContainerCard'
@@ -11,6 +12,30 @@ import { CarouselServices } from '../CarouselServices/CarouselServices'
 import { Header } from '../Layouts/Header/Header'
 
 export const HairSalon = ({title,description}) => {
+
+  const [rating, setRating] = useState(0); // Estado para las estrellas seleccionadas
+
+  const handleStarClick = (index) => {
+    if (rating === index + 0.5) {
+      // Si ya está seleccionada la media estrella, cambia a la estrella llena
+      setRating(index + 1);
+    } else {
+      // Selecciona la media estrella si no lo está
+      setRating(index + 0.5);
+    }
+  };
+
+  const renderStar = (index) => {
+    if (rating >= index + 1) {
+      return estrellaLlena; // Estrella llena
+    } else if (rating >= index + 0.5) {
+      return estrellaMedia; // Media estrella
+    } else {
+      return estrellaVacia; // Estrella vacía
+    }
+  };
+
+
   return (
     <>
     <Header  />
@@ -78,11 +103,15 @@ export const HairSalon = ({title,description}) => {
             
             <p className='text-base'> Las opiniones son publicas y contienen la información de tu cuenta</p>
             <div className='flex justify-between w-48'> 
-                <img className='h-8 w-8' src={estrella} alt="" />
-                <img className='h-8 w-8' src={estrella} alt="" />
-                <img className='h-8 w-8' src={estrella} alt="" />
-                <img className='h-8 w-8' src={estrella} alt="" />
-                <img className='h-8 w-8' src={estrella} alt="" />           
+            {[...Array(5)].map((_, index) => (
+                <img
+                  key={index}
+                  className='h-8 w-8 cursor-pointer'
+                  src={renderStar(index)}
+                  alt='Estrella'
+                  onClick={() => handleStarClick(index)}
+                />
+              ))}          
             </div>
 
             <textarea className='w-3/4 h-28 bg-gray-200 p-3 rounded-xl' placeholder='Escribe tu comentario' name="" id=""></textarea>
