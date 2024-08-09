@@ -11,8 +11,9 @@ import { PetDaycare } from './Components/PetDaycare/PetDaycare';
 import { GeneralInquiry } from './Components/GeneralInquiry/GeneralInquiry';
 import { Pets } from './Components/Pages/Pets/Pets';
 import { Profile } from './Components/Pages/Profile/Profile';
+import { PetHistory } from './Components/PetHistory/PetHistory';
+import { PetRegister } from './Components/PetRegister/PetRegister';
 import { ProductsShop } from './Components/Pages/ProductsShop/ProductsShop';
-
 
 import { Citas } from './Components/Citas/Citas';
 import { Review } from './Components/Pages/Review/Review';
@@ -30,6 +31,8 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/pets" element={<Pets />} />
           <Route path="/shop" element={<ProductsShop />} />
+          <Route path="/petHistory" element={<PetHistory />} />
+          <Route path="/petRegister" element={<PetRegister />} />
 
           <Route path="/reseña" element={<Review />} />
           <Route path="/citas" element={<Citas />} />
