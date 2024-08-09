@@ -195,6 +195,28 @@ export const Profile = () => {
     setShowConfirmButton(false);
   };
 
+  const deleteUser = async ()=>{
+    try {
+      const response = await fetch('https://gaiavet-back.onrender.com/me/deleteAcount', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al eliminar el usuario');
+      }
+  
+      const data = await response.json();
+      console.log('Usuario eliminado exitosamente:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+
   return (
     <>
       <Header />
@@ -252,7 +274,7 @@ export const Profile = () => {
         <div className="flex justify-center">
           <div className="w-3/5 flex justify-evenly my-10">
             <button onClick={closeSesion} className="w-60 h-12 rounded-xl bg-buttonProducts text-white" type="button">Cerrar Sesión</button>
-            <button className="w-60 h-12 rounded-xl bg-red-600 text-white" type="button">Eliminar cuenta</button>
+            <button onClick={deleteUser} className="w-60 h-12 rounded-xl bg-red-600 text-white" type="button">Eliminar cuenta</button>
           </div>
         </div>
       </div>

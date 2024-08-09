@@ -7,34 +7,67 @@ import PetDetailsModal from '../../PetDetailsModal/PetDetailsModal';
 export const Pets = () => {
   const [petList, setPetList] = useState([]);
   const [selectedPet, setSelectedPet] = useState(null);
-
   const { authToken } = useContext(AuthContext);
 
+  const accesRole = localStorage.getItem('role')
+  console.log(accesRole);
+  
+  
+
   useEffect(() => {
+
     const fetchPets = async () => {
       if (!authToken) return; // Asegúrate de que authToken esté disponible
 
-      try {
-        const response = await fetch('https://gaiavet-back.onrender.com/Pets', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
+      if (accesRole == 'administrador') {
 
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-          setPetList(data);
-          console.log(petList);
-          
-        } else {
-          console.error('La respuesta no es un array:', data);
+        try {
+          const response = await fetch('https://gaiavet-back.onrender.com/Pets', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+  
+          const data = await response.json();
+  
+          if (Array.isArray(data)) {
+            setPetList(data);
+            console.log(petList);
+            
+          } else {
+            console.error('La respuesta no es un array:', data);
+          }
+        } catch (error) {
+          console.log('Error al traer las mascotas:', error);
         }
-      } catch (error) {
-        console.log('Error al traer las mascotas:', error);
+      }else if (accesRole == 'User') {
+
+        try {
+          const response = await fetch('https://gaiavet-back.onrender.com/Pet', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+  
+          const data = await response.json();
+  
+          if (Array.isArray(data)) {
+            setPetList(data);
+            console.log(petList);
+            
+          } else {
+            console.error('La respuesta no es un array:', data);
+          }
+        } catch (error) {
+          console.log('Error al traer las mascotas:', error);
+        }
       }
+
+      
     };
 
     fetchPets();

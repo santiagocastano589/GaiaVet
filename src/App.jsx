@@ -11,8 +11,8 @@ import { PetDaycare } from './Components/PetDaycare/PetDaycare';
 import { GeneralInquiry } from './Components/GeneralInquiry/GeneralInquiry';
 import { Pets } from './Components/Pages/Pets/Pets';
 import { Profile } from './Components/Pages/Profile/Profile';
-import { PetHistory } from './Components/PetHistory/PetHistory';
-import { PetRegister } from './Components/PetRegister/PetRegister';
+import { PetHistory } from './Components/Pages/PetHistory/PetHistory';
+import { PetRegister } from './Components/Pages/PetRegister/PetRegister';
 import { ProductsShop } from './Components/Pages/ProductsShop/ProductsShop';
 
 import { Citas } from './Components/Citas/Citas';
