@@ -76,7 +76,7 @@ export const Login = () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Error interno del servidor',
+        text: data.message,
       });
 
       console.error('Error:', error);
