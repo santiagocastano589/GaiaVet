@@ -24,6 +24,9 @@ export const EmployeeRegister = () => {
   };
 
   const handleSubmit = async (e) => {
+
+    console.log(employee);
+    
     e.preventDefault();
 
     if (!authToken) {
@@ -39,7 +42,7 @@ export const EmployeeRegister = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/registerE', {
+      const response = await fetch('https://gaiavet-back.onrender.com/registerE', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,6 +53,12 @@ export const EmployeeRegister = () => {
 
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
+
+      if (!response.ok) {
+        console.log(data.message);
+        throw new Error('Error al eliminar el usuario');
+        
+      }
 
       if (response.ok) {
         alert('Empleado registrado con éxito');
@@ -81,7 +90,7 @@ export const EmployeeRegister = () => {
             <img className='' src={logo} alt='logo' />
           </div>
           <h2 className='my-3'>REGISTRAR EMPLEADO</h2>
-          <form className='flex flex-col' onSubmit={handleSubmit}>
+          <form className='flex flex-col'>
             <Input lblName={'Cedula del Empleado'} name='cedulaEmpleado' type='text' placeholder='Ingrese la cedula del empleado' onChange={handleChange} value={employee.cedulaEmpleado} />
             <Input lblName={'Nombre del empleado'} name='nombre' type='text' placeholder='Ingrese el nombre del empleado' onChange={handleChange} value={employee.nombre} />
             <Input lblName={'Apellido del empleado'} name='apellido' type='text' placeholder='Ingrese el apellido del empleado' onChange={handleChange} value={employee.apellido} />
@@ -90,7 +99,7 @@ export const EmployeeRegister = () => {
             <Input lblName={'Correo del empleado'} name='correo' type='email' placeholder='Ingrese el correo del empleado' onChange={handleChange} value={employee.correo} />
             <Input lblName={'Contraseña del empleado'} name='contraseña' type='password' placeholder='Ingrese la contraseña del empleado' onChange={handleChange} value={employee.contraseña} />
             <div className='flex justify-center items-center flex-col'>
-              <Button textButton='Registrar Empleado' type='submit' />
+              <Button onClick={handleSubmit} textButton='Registrar Empleado' type='submit' />
             </div>
           </form>
         </div>

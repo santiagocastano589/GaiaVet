@@ -160,7 +160,8 @@ export const Profile = () => {
           text: 'Tu sesión ha sido cerrada correctamente',
           icon: 'success',
         });
-        localStorage.removeItem('token');
+        localStorage.removeItem('token','role');
+        localStorage.removeItem('role');
         navigate('/');
 
         setTimeout(() => {
