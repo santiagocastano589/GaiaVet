@@ -3,7 +3,7 @@ import gato from '../../assets/comidaGato.png';
 import InputProducts from '../InputProducts/InputProducts';
 import { AuthContext } from '../Context/Context';
 
-const ProductRegisterModal = ({ onClose }) => {
+const ProductRegisterModal = ({ onClose, onProductAdded }) => {
   const [product, setProduct] = useState({
     nombreProducto: '',
     descripcion: '',
@@ -34,6 +34,7 @@ const ProductRegisterModal = ({ onClose }) => {
       const data = await response.json();
       if (response.ok) {
         alert('Producto registrado con éxito');
+        onProductAdded(data);
         onClose();
       } else {
         alert('Error al registrar el producto: ' + data.message);

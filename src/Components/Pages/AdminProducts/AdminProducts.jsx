@@ -25,7 +25,6 @@ export const AdminProducts = () => {
 
         if (Array.isArray(data)) {
           setProductsList(data);
-          console.log(productsList);
         } else {
           console.error('La respuesta no es un array:', data);
         }
@@ -43,6 +42,10 @@ export const AdminProducts = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleProductAdded = (newProduct) => {
+    setProductsList((prevList) => [...prevList, newProduct]);
   };
 
   return (
@@ -84,7 +87,7 @@ export const AdminProducts = () => {
           </div>
         </div>
       </div>
-      {isModalOpen && <ProductRegisterModal onClose={closeModal} />}
+      {isModalOpen && <ProductRegisterModal onClose={closeModal} onProductAdded={handleProductAdded} />}
     </>
   );
 }

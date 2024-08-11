@@ -3,12 +3,22 @@ import './Header.css';
 import logo from '../../../assets/logoGaia.webp';
 import menu from '../../../assets/Iconos/MenuHamburguesa.svg';
 import { NavMenu } from '../../WindowModals/NavMenu/NavMenu';
-import { Link } from 'react-router-dom';
+import { Cart } from '../../WindowModals/Cart/Cart';
+
+import { Link, useLocation } from 'react-router-dom';
+
+import { LiaShoppingCartSolid } from "react-icons/lia";
+
 
 export const Header = ({ title }) => {
+
+  const location = useLocation();
+  
   const [menuNav, setMenuNav] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [showIconCart,setIconShowCart] = useState(false)
+  const [showCart,setShowCart] = useState(false)
 
   const controlOpenMenu = () => {
     setMenuNav(!menuNav);
@@ -31,6 +41,29 @@ export const Header = ({ title }) => {
       window.removeEventListener('scroll', controlHeader);
     };
   }, [lastScrollY]);
+
+useEffect(() => {
+
+  if (location.pathname == '/products') {
+    setIconShowCart(true)
+  }else if (location.pathname != '/products') {
+    setIconShowCart(false)
+  }
+  
+}, [])
+
+const controlCart = ()=>{
+
+  if (!showCart) {
+    setShowCart(true)
+    document.body.style.overflow = 'hidden';
+  }else{
+    setShowCart(false)
+    document.body.style.overflow = 'auto';
+  }
+}
+
+  
   
 
   return (
@@ -41,8 +74,15 @@ export const Header = ({ title }) => {
           <h2 className='text-3xl font-gorditas p-3'>GaiaVet</h2>
         </Link>
         <h2 className='text-8xl font-bold text-stroke-2-white font-gorditas mt-16'>{title}</h2>
+        
+        <div className='flex'>
+
         <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
-        {menuNav && <NavMenu onClose={() => setMenuNav(false)} />}
+          {showIconCart && <LiaShoppingCartSolid onClick={controlCart} className='text-5xl absolute right-20 top-7 cursor-pointer' />}
+          {showCart && <Cart onClose={controlCart} />}
+          {menuNav && <NavMenu onClose={() => setMenuNav(false)} />}
+        </div>
+
       </div>
     </header>
   );

@@ -142,6 +142,7 @@ export const Pets = () => {
             raza={selectedPet.raza}
             peso={selectedPet.peso}
             edad={selectedPet.edad}
+            foto={selectedPet.foto}
             onClose={() => handleModalToggle(null)}
           />
         )}

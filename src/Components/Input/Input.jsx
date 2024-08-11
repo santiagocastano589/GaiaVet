@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Input = ({lblName, name, type, placeholder, onChange }) => {
+export const Input = ({lblName, name, type, placeholder, onChange, accept }) => {
   return (
     <>
       <label className='my-4 mx-9'>{lblName}</label>
@@ -11,6 +11,7 @@ export const Input = ({lblName, name, type, placeholder, onChange }) => {
         placeholder={placeholder}
         onChange={onChange}
         required
+        accept={accept}
       />
     </>
   );

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import baño1 from '../../assets/baño1.jpg';
 import InputPetEditable from '../InputPetEditable/InputPetEditable';
 
-const EditedModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) => {
+const EditedModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClose }) => {
     const [editedDocumento, setEditedDocumento] = useState(documento);
     const [editedTipo, setEditedTipo] = useState(tipo);
     const [editedRaza, setEditedRaza] = useState(raza);
     const [editedName, setEditedName] = useState(namePet);
     const [editedPeso, setEditedPeso] = useState(peso);
     const [editedEdad, setEditedEdad] = useState(edad);
+    const [editedFoto, setEditedFoto] = useState(foto);
 
     const handleDocumentoChange = (event) => {
         setEditedDocumento(event.target.value);
@@ -42,7 +43,7 @@ const EditedModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) => {
             
           <InputPetEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange}/>
 
-          <InputPetEditable htmlFor="edad" nameLabel="Edad:" id="edad" value={editedEdad}/>
+          <InputPetEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad}/>
 
           <InputPetEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso+' Kg'}/>
 
@@ -57,7 +58,8 @@ const EditedModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) => {
         <div className="h-[32rem] w-80 bg-fondoTarjeta rounded-lg">
           <div className='flex flex-col items-center mt-24'>
                        
-            <img className='w-60 h-60 rounded-full object-cover' src={baño1} alt="" />
+            <img className='w-60 h-60 rounded-full object-cover' src={editedFoto} alt="" />
+
             <h5 className="text-3xl font-bold mt-6 text-white">{namePet} </h5> 
 
           </div>
