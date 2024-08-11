@@ -18,6 +18,8 @@ export const Pets = () => {
 
     const fetchPets = async () => {
       if (!authToken) return; // Asegúrate de que authToken esté disponible
+      
+      
 
       if (accesRole == 'administrador') {
 
@@ -142,6 +144,7 @@ export const Pets = () => {
             raza={selectedPet.raza}
             peso={selectedPet.peso}
             edad={selectedPet.edad}
+            foto={selectedPet.foto}
             onClose={() => handleModalToggle(null)}
           />
         )}

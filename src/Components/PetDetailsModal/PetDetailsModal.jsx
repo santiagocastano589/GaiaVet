@@ -3,13 +3,14 @@ import baño1 from '../../assets/baño1.jpg';
 import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 
-const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) => {
+const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClose }) => {
   const [editedDocumento, setEditedDocumento] = useState(documento);
   const [editedTipo, setEditedTipo] = useState(tipo);
   const [editedRaza, setEditedRaza] = useState(raza);
   const [editedName, setEditedName] = useState(namePet);
   const [editedPeso, setEditedPeso] = useState(peso);
   const [editedEdad, setEditedEdad] = useState(edad);
+  const [editedFoto, setEditedFoto] = useState(foto);
   
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,7 +48,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) 
             
           <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange}/>
 
-          <InputPetNoEditable htmlFor="edad" nameLabel="Edad:" id="edad" value={editedEdad}/>
+          <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad}/>
 
           <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso+' Kg'}/>
 
@@ -70,7 +71,8 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) 
 
           <div className='flex flex-col items-center mt-24'>
             
-            <img className='w-60 h-60 rounded-full object-cover' src={baño1} alt="" />
+            <img className='w-60 h-60 rounded-full object-cover' src={editedFoto} alt="" />
+
             <h5 className="text-3xl font-bold mt-6 text-white">{namePet} </h5> 
           </div>
 
@@ -85,6 +87,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, onClose }) 
           raza={raza}
           edad={edad}
           peso={peso}
+          foto={foto}
           onClose={() => handleModal()}        />
       )}
     </div>

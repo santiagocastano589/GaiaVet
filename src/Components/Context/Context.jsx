@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
   const [user, setUser] = useState(null);
+  const [cart,setCart] = useState([])
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,8 +43,12 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, [authToken]);
 
+  useEffect(() => {
+    console.log('carrito:', cart);
+  }, [cart]);
+
   return (
-    <AuthContext.Provider value={{ authToken, user, setAuthToken }}>
+    <AuthContext.Provider value={{ authToken, user, setAuthToken,cart,setCart }}>
       {children}
     </AuthContext.Provider>
   );
