@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Context/Context';
 import { Header } from '../../Layouts/Header/Header';
+import ProductRegisterModal from '../../ProductRegisterModal/ProductRegisterModal';
 
 export const AdminProducts = () => {
   const [productsList, setProductsList] = useState([]);
   const { authToken } = useContext(AuthContext);
-
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,7 +37,13 @@ export const AdminProducts = () => {
     fetchProducts();
   }, [authToken]);
 
- 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -45,6 +51,14 @@ export const AdminProducts = () => {
       <div className="flex justify-center pt-48">
         <div className="w-full flex justify-center my-10">
           <div className="w-[90%] h-[20rem] p-6 mb-[20rem]">
+            <div className="flex justify-end mb-4">
+              <button 
+                className="bg-teal-500 text-white py-2 px-4 rounded hover:bg-teal-400"
+                onClick={openModal}
+              >
+                Registrar Producto
+              </button>
+            </div>
             <table className="w-full bg-white border-4">
               <thead>
                 <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm">
@@ -53,7 +67,6 @@ export const AdminProducts = () => {
                   <th className="py-3 px-6 text-center">Descripcion</th>
                   <th className="py-3 px-6 text-center">Stock</th>
                   <th className="py-3 px-6 text-center">Precio</th>
-                  
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm">
@@ -64,8 +77,6 @@ export const AdminProducts = () => {
                     <td className="py-3 px-6 text-center">{product.descripcion}</td>
                     <td className="py-3 px-6 text-center">{product.stock}</td>
                     <td className="py-3 px-6 text-center">{product.precio}</td>
-                    
-                    
                   </tr>
                 ))}
               </tbody>
@@ -73,6 +84,7 @@ export const AdminProducts = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && <ProductRegisterModal onClose={closeModal} />}
     </>
-  )
+  );
 }
