@@ -25,7 +25,7 @@ export const Cart = ({ onClose }) => {
         idProduct:1,
         title: "Croketas para perrito",
         quantity: 1,
-        price: 100,
+        price: 15000,
       });
 
       const { id } = response.data;
