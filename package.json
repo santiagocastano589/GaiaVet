@@ -13,7 +13,9 @@
   },
   "dependencies": {
     "@googlemaps/extended-component-library": "^0.6.11",
+    "@mercadopago/sdk-react": "^0.0.19",
     "@react-google-maps/api": "^2.19.3",
+    "axios": "^1.7.3",
     "cloudinary": "^2.4.0",
     "express.js": "^1.0.0",
     "fetch": "^1.1.0",

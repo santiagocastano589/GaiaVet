@@ -1,6 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ProductCart } from './ProductCart/ProductCart';
 import { AuthContext } from '../../Context/Context';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import axios from 'axios';
 
 export const Cart = ({ onClose }) => {
   const cartContext = useContext(AuthContext);
@@ -14,8 +16,34 @@ export const Cart = ({ onClose }) => {
     return !isNaN(price) ? total + price : total;
   }, 0).toFixed(2);
 
+  const [preferenceId, setPreferenceId] = useState(null);
+  initMercadoPago('APP_USR-3ba60abc-9bdf-4cb8-b724-62265a471d75');
+
+  const createPreference = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/create_preference', {
+        idProduct:1,
+        title: "Croketas para perrito",
+        quantity: 1,
+        price: 100,
+      });
+
+      const { id } = response.data;
+      return id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleBuy = async () => {
+    const id = await createPreference();
+    if (id) {
+      setPreferenceId(id);
+    }
+  };
+
   return (
-    <div className="w-screen h-screen fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-end font-itim" onClick={onClose}>
+    <div className="w-screen h-screen fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-end font-itim">
       <div className="w-[26vw] h-screen bg-white rounded-s-3xl flex flex-col animate-flip-down p-4">
         <div className='h-[5%] self-end'>
           <p
@@ -56,7 +84,10 @@ export const Cart = ({ onClose }) => {
             </div>
 
             <div className='h-[70%] flex flex-col items-center justify-evenly'>
-              <button type="button" className='w-3/4 text-white bg-buttonProducts py-2 rounded-3xl'>Comprar Carrito</button>
+              <button type="button" className='w-3/4 text-white bg-buttonProducts py-2 rounded-3xl' onClick={handleBuy}>Comprar Carrito</button>
+              {preferenceId && 
+                <Wallet initialization={{ preferenceId : preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />
+              }
               <button type="button" className='w-3/5 py-1 rounded-3xl cursor-pointer hover:bg-gray-300 duration-700'>Eliminar carrito</button>
             </div>
           </div>
