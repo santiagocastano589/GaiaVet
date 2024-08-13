@@ -44,12 +44,22 @@ export const ProductRegister = () => {
       alert('Error al registrar el producto');
     }
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };  
 
   return (
     <>
       <div className='h-full w-full flex flex-col'>
         <Header title='Registrar Producto' />
         <div className='flex justify-center items-center z-0 pt-36 pb-10 '>
+
           <div className='bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
             <div className='w-24 p-3 bg-blue-border rounded-full my-6'>
               <img className='' src={logo} alt='' />
@@ -64,6 +74,10 @@ export const ProductRegister = () => {
               <Input lblName={'Stock del producto'} name='stock' type='number' placeholder='Ingrese la cantidad disponible del producto' onChange={handleChange} />
               <div className='flex justify-center items-center flex-col'>
                 <Button textButton='Registrar Producto' onClick={handleSubmit} />
+                <div>
+      <Button textButton="Abrir Modal" onClick={openModal} />
+      <ProductRegisterModal isOpen={isModalOpen} onClose={closeModal} />
+    </div>
               </div>
             </form>
           </div>
@@ -72,3 +86,4 @@ export const ProductRegister = () => {
     </>
   );
 };
+

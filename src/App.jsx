@@ -19,7 +19,6 @@ import { Citas } from './Components/Citas/Citas';
 import { Review } from './Components/Pages/Review/Review';
 
 
-import { ProductRegister } from './Components/Pages/ProductRegister/ProductRegister';
 import { AdminProducts } from './Components/Pages/AdminProducts/AdminProducts';
 import { EmployeeRegister } from './Components/EmployeeRegister/EmployeeRegister';
 
@@ -40,7 +39,6 @@ function App() {
           <Route path="/petHistory" element={<PetHistory />} />
           <Route path="/petRegister" element={<PetRegister />} />
           
-          <Route path="/admin/productRegister" element={<ProductRegister />} />
           <Route path="/admin/productList" element={<AdminProducts />} />
           <Route path="/admin/registerEmployee" element={<EmployeeRegister />} />
 

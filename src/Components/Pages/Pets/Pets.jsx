@@ -17,9 +17,7 @@ export const Pets = () => {
   useEffect(() => {
 
     const fetchPets = async () => {
-      if (!authToken) return; // Asegúrate de que authToken esté disponible
-      
-      
+      if (!authToken) return;
 
       if (accesRole == 'administrador') {
 
