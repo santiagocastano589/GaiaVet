@@ -99,7 +99,7 @@ export const Citas = () => {
 
                 <div className=' p-3 flex flex-wrap justify-evenly'>
 
-                    <div className='bg-emerald-200 w-1/3 flex flex-col items-center m-4 p-3 rounded-xl'>
+                    <div className='bg-emerald-100 w-1/3 flex flex-col items-center m-4 p-3 rounded-xl'>
                         <h1 className='text-lg'>Cita de firu</h1>
                         <p>Domingo 16 de febrero a las 9 AM</p>
                         <p>Servicio: Baño de mascotas</p>
