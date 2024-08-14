@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const ProductCart = ({img,title,category,price}) => {
-  const [quantity, setQuantity] = useState(5);
+  const [quantity, setQuantity] = useState(1);
 
   const handleIncrement = () => {
     if (quantity < 50) {

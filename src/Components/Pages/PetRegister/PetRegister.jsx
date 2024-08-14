@@ -140,7 +140,7 @@ export const PetRegister = () => {
         </div>
 
         <div className='w-96 h-96 p-4 bg-white self-start mt-20 rounded-3xl shadow-formShadow'>
-          <img className='w-full h-full rounded-3xl object-cover' src={selectedImage ? URL.createObjectURL(selectedImage) : 'https://res.cloudinary.com/dxg8bqs9x/image/upload/v1722549987/samples/animals/cat.jpg'} alt="Aca se vera tu mascota" />
+          <img className='w-full h-full rounded-3xl object-contain' src={selectedImage ? URL.createObjectURL(selectedImage) : 'https://res.cloudinary.com/dxg8bqs9x/image/upload/v1722549987/samples/animals/cat.jpg'} alt="Aca se vera tu mascota" />
         </div>
       </div>
     </div>
