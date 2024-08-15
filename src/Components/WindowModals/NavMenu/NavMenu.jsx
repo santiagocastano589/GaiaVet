@@ -87,9 +87,7 @@ export const NavMenu = ({ onClose }) => {
           {adminRole && 
             <>
               <MenuItems nameItem="Mascotas" to="/pets" type="link" />
-              <MenuItems nameItem="Crear producto" to="/admin/productRegister" type="link" />
               <MenuItems nameItem="Lista de productos" to="/admin/productList" type="link" />
-              <MenuItems nameItem="Registrar empleado" to="/admin/registerEmployee" type="link" />
               <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4' type="button">Cerrar Sesión</button>
             </>
           }
