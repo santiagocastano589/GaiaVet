@@ -17,9 +17,7 @@ export const Pets = () => {
   useEffect(() => {
 
     const fetchPets = async () => {
-      if (!authToken) return; // Asegúrate de que authToken esté disponible
-      
-      
+      if (!authToken) return;
 
       if (accesRole == 'administrador') {
 
@@ -103,7 +101,7 @@ export const Pets = () => {
           <div className="w-[80%] h-[20rem] p-6 mb-[20rem]">
             <table className="w-full bg-white border-4">
               <thead>
-                <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm">
+                <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm pb-10">
                   <th className="py-3 px-6 text-center">Documento</th>
                   <th className="py-3 px-6 text-center">Nombre</th>
                   <th className="py-3 px-6 text-center">Tipo</th>

@@ -20,12 +20,17 @@ export const Cart = ({ onClose }) => {
   initMercadoPago('APP_USR-3ba60abc-9bdf-4cb8-b724-62265a471d75');
 
   const createPreference = async () => {
+
+    const generateCartDescription = ()=>{
+      return cartItems.map(product => `${product.titleProduct} (x${1})`).join(', ')
+    }
+
     try {
       const response = await axios.post('http://localhost:3000/create_preference', {
         idProduct:1,
-        title: "Croketas para perrito",
+        title: generateCartDescription(),
         quantity: 1,
-        price: 100,
+        price: totalAmount,
       });
 
       const { id } = response.data;

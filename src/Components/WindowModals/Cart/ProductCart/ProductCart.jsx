@@ -19,7 +19,7 @@ export const ProductCart = ({img,title,category,price}) => {
     <div className='h-[30%] mt-4 flex rounded-3xl '>
       <img
         className='w-1/4 h-full rounded-xl object-cover'
-        src="https://res.cloudinary.com/dxg8bqs9x/image/upload/v1722549993/samples/shoe.jpg"
+        src={img}
         alt="Product"
       />
 

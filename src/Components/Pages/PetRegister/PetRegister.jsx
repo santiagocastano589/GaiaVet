@@ -125,7 +125,7 @@ export const PetRegister = () => {
             <img className='' src={logo} alt='' />
           </div>
           <h2 className='my-3'>REGISTRO DE MASCOTAS</h2>
-          <form className='flex flex-col' onSubmit={handleSubmit}>
+          <form className='flex flex-col'>
             <Input name='foto' lblName='Foto de la mascota' type='file' placeholder='Seleccionar imagen de mascota' accept='image/*' onChange={handleChange} />
             <Input name='nombre' lblName='Nombre de la mascota' type='text' placeholder='Ingrese el nombre de la mascota' onChange={handleChange} />
             <Input name='tipo' lblName='Tipo de mascota' type='text' placeholder='Ingrese el tipo de mascota' onChange={handleChange} />
