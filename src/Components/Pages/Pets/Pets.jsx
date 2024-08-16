@@ -98,10 +98,13 @@ export const Pets = () => {
         </div>
         
         <div className="w-full flex justify-center my-10">
-          <div className="w-[80%] h-[20rem] p-6 mb-[20rem]">
+          <div className="w-[80%] h-[100vh] p-6 mb-[10rem]">
+            <div className='overflow-y-auto max-h-[100vh] '>
+
             <table className="w-full bg-white border-4">
               <thead>
                 <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm pb-10">
+                  <th className="py-3 px-6 text-center">Imagen</th>
                   <th className="py-3 px-6 text-center">Documento</th>
                   <th className="py-3 px-6 text-center">Nombre</th>
                   <th className="py-3 px-6 text-center">Tipo</th>
@@ -113,12 +116,13 @@ export const Pets = () => {
               <tbody className="text-gray-600 text-sm">
                 {petList.map((pet) => (
                   <tr key={pet.idMascota} className="border-b border-gray-200 hover:bg-gray-100">
-                    <td className="py-3 px-6 text-center">{pet.idMascota}</td>
-                    <td className="py-3 px-6 text-center">{pet.nombre}</td>
-                    <td className="py-3 px-6 text-center">{pet.tipo}</td>
-                    <td className="py-3 px-6 text-center">{pet.edad}</td>
-                    <td className="py-3 px-6 text-center">{pet.raza}</td>
-                    <td className="py-3 px-6 text-center">
+                    <td className="py-1 px-2 text-center text-lg flex items-center justify-center"><img src={pet.foto} alt={pet.nombre} className='w-[15rem] h-[10rem] object-contain'/></td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.idMascota}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.nombre}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.TipoMascota}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.edad}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.raza}</td>
+                    <td className="py-1 px-2 text-center ">
                       <button
                         type="button"
                         className='bg-blue-border px-11 py-3 rounded-md hover:bg-teal-300 text-white'
@@ -131,6 +135,7 @@ export const Pets = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
 
@@ -138,7 +143,7 @@ export const Pets = () => {
           <PetDetailsModal
             namePet={selectedPet.nombre}
             documento={selectedPet.idMascota}
-            tipo={selectedPet.tipo}
+            tipo={selectedPet.TipoMascota}
             raza={selectedPet.raza}
             peso={selectedPet.peso}
             edad={selectedPet.edad}
