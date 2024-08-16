@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import baño1 from '../../assets/baño1.jpg';
+import React, { useEffect, useState, useContext } from 'react';
 import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
+import { AuthContext } from '../Context/Context';
 
 const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClose }) => {
   const [editedDocumento, setEditedDocumento] = useState(documento);
@@ -31,6 +31,54 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClo
   const handleNameChange = (event) => {
     setEditedName(event.target.value);
   };
+  const [petList, setPetList] = useState([]);
+  const { authToken } = useContext(AuthContext);
+  const accesRole = localStorage.getItem('role')
+
+  console.log(accesRole);
+  
+  
+
+  useEffect(() => {
+
+    const fetchPets = async () => {
+      if (!authToken) return;
+
+      if (accesRole == 'user') {
+
+        try {
+          const response = await fetch('https://gaiavet-back.onrender.com/DeletePet', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+  
+          const data = await response.json();
+  
+          if (Array.isArray(data)) {
+            setPetList(data);
+            console.log(petList);
+            
+          } else {
+            console.error('La respuesta no es un array:', data);
+          }
+        } catch (error) {
+          console.log('Error al traer la mascotas:', error);
+        }
+      
+      }
+      
+    };
+
+    fetchPets();
+  }, [authToken]);
+
+  const handleDeleteClick = () => {
+    alert('hola')
+    
+  };
   return (
     <div className="w-full fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
       
@@ -55,7 +103,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClo
           <div className=' w-full   mt-14 text-black flex justify-end '>
             <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
             <button onClick={handleModal} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Editar</button>
-            <button className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
+            <button onClick={handleDeleteClick} className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
           </div>
 
         </div>

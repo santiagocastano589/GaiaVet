@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Header } from '../../Layouts/Header/Header';
-import { ContainerPets } from '../../ContainerPets/ContainerPets';
 import { AuthContext } from '../../Context/Context';
 import PetDetailsModal from '../../PetDetailsModal/PetDetailsModal';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Header } from '../Layouts/Header/Header';
 import calendario from '../../assets/calendario.png'
 import baño from '../../assets/aseo-de-mascotas.png'
@@ -6,6 +6,7 @@ import consultaGeneral from '../../assets/consulta.png'
 import peluqueria from '../../assets/peluqueria.png'
 import baño1 from '../../assets/baño1.jpg';
 import { CartServices } from '../CartServices/CartServices';
+import {AuthContext} from '../Context/Context'
 
 export const Citas = () => {
 
@@ -15,6 +16,7 @@ export const Citas = () => {
     const [selectedDate, setSelectedDate] = useState('');
     const [editData, setEditData] = useState(null);
 
+   
     const handleDateChange = (event) => {
         const selectedDate = new Date(event.target.value);
         const today = new Date();
@@ -99,7 +101,7 @@ export const Citas = () => {
 
                 <div className=' p-3 flex flex-wrap justify-evenly'>
 
-                    <div className='bg-emerald-100 w-1/3 flex flex-col items-center m-4 p-3 rounded-xl'>
+                    <div className='bg-teal-100 w-1/3 flex flex-col items-center m-4 p-3 rounded-xl'>
                         <h1 className='text-lg'>Cita de firu</h1>
                         <p>Domingo 16 de febrero a las 9 AM</p>
                         <p>Servicio: Baño de mascotas</p>
@@ -123,7 +125,69 @@ const ModalMascotas = ({ show, onClose }) => {
     if (!show) {
         return null;
     }
+    const [petList, setPetList] = useState([]);
+    const { authToken } = useContext(AuthContext);
 
+    const accesRole = localStorage.getItem('role')
+    console.log(accesRole);
+    useEffect(() => {
+
+        const fetchPets = async () => {
+          if (!authToken) return;
+    
+          if (accesRole == 'user') {
+    
+            try {
+              const response = await fetch('https://gaiavet-back.onrender.com/Pets', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${authToken}`,
+                },
+              });
+      
+              const data = await response.json();
+      
+              if (Array.isArray(data)) {
+                setPetList(data);
+                console.log(petList);
+                
+              } else {
+                console.error('La respuesta no es un array:', data);
+              }
+            } catch (error) {
+              console.log('Error al traer las mascotas:', error);
+            }
+          }else if (accesRole == 'User') {
+    
+            try {
+              const response = await fetch('https://gaiavet-back.onrender.com/Pet', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${authToken}`,
+                },
+              });
+      
+              const data = await response.json();
+      
+              if (Array.isArray(data)) {
+                setPetList(data);
+                console.log(petList);
+                
+              } else {
+                console.error('La respuesta no es un array:', data);
+              }
+            } catch (error) {
+              console.log('Error al traer las mascotas:', error);
+            }
+          }
+    
+          
+        };
+    
+        fetchPets();
+      }, [authToken]);
     return (
         <div className="w-full fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
           
@@ -135,27 +199,16 @@ const ModalMascotas = ({ show, onClose }) => {
             <div className='flex h-96 flex-col items-center overflow-auto '>
 
               <div className='flex flex-wrap  justify-evenly py-10 '>
+
+                {petList.map((pet)=>(
+                    <div  key={pet.idMascota} className='bg-blue-border border-solid border-2 border-gray w-64 h-64 rounded-3xl p-3 flex flex-col justify-evenly items-center my-4'>
+                        <img className='w-32 h-32 object-cover rounded-full' src={pet.foto} alt="" />
+                        <p className='text-white text-2xl font-semibold'>{pet.nombre}s</p>
+                        <button className='bg-white w-3/5 h-8 rounded-2xl font-semibold hover:bg-gray-300'>seleccionar</button>
+                    </div>
+                ))
+                }
                 
-                <div className='bg-blue-border border-solid border-2 border-gray w-64 h-64 rounded-3xl p-3 flex flex-col justify-evenly items-center my-4'>
-                  <img className='w-32 h-32 object-cover rounded-full' src={baño1} alt="" />
-                  <p className='text-white text-2xl font-semibold'>firulais</p>
-                  <button className='bg-white w-3/5 h-8 rounded-2xl font-semibold hover:bg-gray-300'>seleccionar</button>
-                </div>
-                <div className='bg-blue-border border-solid border-2 border-gray w-64 h-64 rounded-3xl p-3 flex flex-col justify-evenly items-center my-4'>
-                  <img className='w-32 h-32 object-cover rounded-full' src={baño1} alt="" />
-                  <p className='text-white text-2xl font-semibold'>firulais</p>
-                  <button className='bg-white w-3/5 h-8 rounded-2xl font-semibold hover:bg-gray-300'>seleccionar</button>
-                </div>
-                <div className='bg-blue-border border-solid border-2 border-gray w-64 h-64 rounded-3xl p-3 flex flex-col justify-evenly items-center my-4'>
-                  <img className='w-32 h-32 object-cover rounded-full' src={baño1} alt="" />
-                  <p className='text-white text-2xl font-semibold'>firulais</p>
-                  <button className='bg-white w-3/5 h-8 rounded-2xl font-semibold hover:bg-gray-300'>seleccionar</button>
-                </div>
-                <div className='bg-blue-border border-solid border-2 border-gray w-64 h-64 rounded-3xl p-3 flex flex-col justify-evenly items-center my-4'>
-                  <img className='w-32 h-32 object-cover rounded-full' src={baño1} alt="" />
-                  <p className='text-white text-2xl font-semibold'>firulais</p>
-                  <button className='bg-white w-3/5 h-8 rounded-2xl font-semibold hover:bg-gray-300'>seleccionar</button>
-                </div>
                 
                </div>
               </div>
