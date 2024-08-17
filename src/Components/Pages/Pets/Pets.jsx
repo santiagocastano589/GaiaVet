@@ -115,12 +115,13 @@ export const Pets = () => {
               <tbody className="text-gray-600 text-sm">
                 {petList.map((pet) => (
                   <tr key={pet.idMascota} className="border-b border-gray-200 hover:bg-gray-100">
-                    <td className="py-3 px-6 text-center">{pet.idMascota}</td>
-                    <td className="py-3 px-6 text-center">{pet.nombre}</td>
-                    <td className="py-3 px-6 text-center">{pet.TipoMascota}</td>
-                    <td className="py-3 px-6 text-center">{pet.edad}</td>
-                    <td className="py-3 px-6 text-center">{pet.raza}</td>
-                    <td className="py-3 px-6 text-center">
+                    <td className="py-1 px-2 text-center text-lg flex items-center justify-center"><img src={pet.foto} alt={pet.nombre} className='w-[15rem] h-[10rem] object-contain'/></td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.idMascota}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.nombre}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.TipoMascota}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.edad}</td>
+                    <td className="py-1 px-2 text-center text-lg">{pet.raza}</td>
+                    <td className="py-1 px-2 text-center ">
                       <button
                         type="button"
                         className='bg-blue-border px-11 py-3 rounded-md hover:bg-teal-300 text-white'
