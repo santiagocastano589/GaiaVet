@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Header } from '../../Layouts/Header/Header';
-import { ContainerPets } from '../../ContainerPets/ContainerPets';
 import { AuthContext } from '../../Context/Context';
 import PetDetailsModal from '../../PetDetailsModal/PetDetailsModal';
 
@@ -115,7 +114,7 @@ export const Pets = () => {
                   <tr key={pet.idMascota} className="border-b border-gray-200 hover:bg-gray-100">
                     <td className="py-3 px-6 text-center">{pet.idMascota}</td>
                     <td className="py-3 px-6 text-center">{pet.nombre}</td>
-                    <td className="py-3 px-6 text-center">{pet.tipo}</td>
+                    <td className="py-3 px-6 text-center">{pet.TipoMascota}</td>
                     <td className="py-3 px-6 text-center">{pet.edad}</td>
                     <td className="py-3 px-6 text-center">{pet.raza}</td>
                     <td className="py-3 px-6 text-center">
@@ -138,7 +137,7 @@ export const Pets = () => {
           <PetDetailsModal
             namePet={selectedPet.nombre}
             documento={selectedPet.idMascota}
-            tipo={selectedPet.tipo}
+            tipo={selectedPet.TipoMascota}
             raza={selectedPet.raza}
             peso={selectedPet.peso}
             edad={selectedPet.edad}
