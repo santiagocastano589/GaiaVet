@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Product } from '../Product/Product';
 import { AuthContext } from '../Context/Context';
 
-export const ContainerProducts = () => {
+export const ContainerProducts = ({ searchText, selectedCategory }) => {
   const [products, setProducts] = useState([]);
   const { authToken } = useContext(AuthContext);
 
@@ -18,6 +18,7 @@ export const ContainerProducts = () => {
             Authorization: `Bearer ${authToken}`,
           },
         });
+
 
         const data = await response.json();
 
@@ -35,15 +36,18 @@ export const ContainerProducts = () => {
     fetchProducts();
   }, [authToken]);
 
-  // Log de los productos para verificar
-  useEffect(() => {
-    console.log('Productos:', products);
-  }, [products]);
+  const filteredProducts = products.filter(product => {
+    const matchesSearchText = product.nombreProducto.toLowerCase().includes(searchText.toLowerCase());
+    const matchesCategory = selectedCategory ? product.categoria === selectedCategory : true;
+    return matchesSearchText && matchesCategory;
+  });
+
+ 
 
   return (
     <div className='w-full flex flex-wrap p-4 justify-center items-center'>
-      {products.length > 0 ? (
-        products.map((product) => (
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((product) => (
           <Product
             key={product.idProducto}
             id={product.idProducto}
@@ -56,7 +60,7 @@ export const ContainerProducts = () => {
           />
         ))
       ) : (
-        <p>No hay productos disponibles.</p>
+        <p className='pb-[20rem]'>No hay productos disponibles.</p>
       )}
     </div>
   );

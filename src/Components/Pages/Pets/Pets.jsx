@@ -69,11 +69,11 @@ export const Pets = () => {
       <Header title="Buscar mascota" />
       <div className="">
         <div className="flex justify-center pt-48">
-          <div className="flex flex-row items-center w-2/4">
+          <div className="flex flex-row items-center w-[60rem]">
             <input
               type="text"
               placeholder="Busca tu mascota de manera rapida"
-              className="flex-grow rounded-md border border-gray-300 p-2"
+              className="w-full px-4 py-2 bg-white border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-gray-700 placeholder-gray-400"
               value={searchTerm}
               onChange={handleSearchChange}
             />
