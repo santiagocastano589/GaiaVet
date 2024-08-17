@@ -97,10 +97,13 @@ export const Pets = () => {
         </div>
         
         <div className="w-full flex justify-center my-10">
-          <div className="w-[80%] h-[20rem] p-6 mb-[20rem]">
+          <div className="w-[80%] h-[100vh] p-6 mb-[10rem]">
+            <div className='overflow-y-auto max-h-[100vh] '>
+
             <table className="w-full bg-white border-4">
               <thead>
                 <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm pb-10">
+                  <th className="py-3 px-6 text-center">Imagen</th>
                   <th className="py-3 px-6 text-center">Documento</th>
                   <th className="py-3 px-6 text-center">Nombre</th>
                   <th className="py-3 px-6 text-center">Tipo</th>
@@ -130,6 +133,7 @@ export const Pets = () => {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
 

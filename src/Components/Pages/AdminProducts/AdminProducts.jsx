@@ -61,8 +61,8 @@ export const AdminProducts = () => {
     <>
       <Header title="Lista de Productos" />
       <div className="flex justify-center pt-48">
-        <div className="w-full flex justify-center my-10 overflow-hidden">
-          <div className="w-[90%] h-[20rem] p-6 mb-[20rem]">
+        <div className="w-full flex justify-center overflow-hidden">
+          <div className="w-[90%] h-[20rem] p-6 mb-[20rem] ">
             <div className="flex items-center justify-between mb-4 bg-teal-200 h-[8rem] px-4 rounded-xl">
               <h3 className=''>Hola!!  Presiona el boton para registrar un nuevo producto</h3>
               <button 
@@ -72,8 +72,8 @@ export const AdminProducts = () => {
                 Registrar Producto
               </button>
             </div>
-            <div className='overflow-y-auto max-h-[30rem]'>
-            <table className="w-full bg-white border-4">
+            <div className='overflow-y-auto max-h-[30rem] '>
+            <table className="w-full h-[100vh] bg-white border-4 mb-10">
               <thead>
                 <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm ">
                   <th className="py-3 px-6 text-center">Imagen del Producto</th>
