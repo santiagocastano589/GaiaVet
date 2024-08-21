@@ -75,10 +75,34 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClo
     fetchPets();
   }, [authToken]);
 
-  const handleDeleteClick = () => {
-    alert('hola')
-    
+  const handleDeleteClick = async () => {
+    if (!authToken || !editedDocumento) return;
+  
+    const confirmed = window.confirm("¿Estás seguro de que deseas eliminar esta mascota?");
+    if (!confirmed) return;
+  
+    try {
+      const response = await fetch(`https://gaiavet-back.onrender.com/DeletePet/${editedDocumento}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        alert('Mascota eliminada exitosamente');
+        // Actualiza la lista de mascotas removiendo la mascota eliminada
+        setPetList(petList.filter(pet => pet.documento !== editedDocumento));
+        onClose(); // Cierra el modal
+      } else {
+        alert('Error al eliminar la mascota');
+      }
+    } catch (error) {
+      console.error('Error al eliminar la mascota:', error);
+    }
   };
+  
   return (
     <div className="w-full fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
       
