@@ -21,6 +21,7 @@ import { Review } from './Components/Pages/Review/Review';
 
 import { AdminProducts } from './Components/Pages/AdminProducts/AdminProducts';
 import { EmployeeRegister } from './Components/EmployeeRegister/EmployeeRegister';
+import { UserList } from './Components/UserList/UserList';
 
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/petHistory" element={<PetHistory />} />
           <Route path="/petRegister" element={<PetRegister />} />
           
+          <Route path="/admin/usersList" element={<UserList />} />
           <Route path="/admin/productList" element={<AdminProducts />} />
           <Route path="/admin/registerEmployee" element={<EmployeeRegister />} />
 
