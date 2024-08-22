@@ -29,7 +29,7 @@ export const Product = ({ id, image, title, alt, description, price, category })
   };
 
   return (
-    <div className="w-[20rem] h-[77vh] m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
+    <div className="w-[20rem] h-full m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
       <div className='w-full rounded-xl flex justify-center p-2 '>
         <img className=' rounded-2xl' src={image} alt={alt} />
       </div>
