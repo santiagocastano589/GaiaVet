@@ -12,6 +12,7 @@ export const Login = () => {
   const loginContext = useContext(AuthContext);
   const [lSuccessfull, setLSuccessfull] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // Estado para controlar la carga
   const navigate = useNavigate();
 
   const dataLogin = useRef({
@@ -25,10 +26,10 @@ export const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+    e.preventDefault();
+    
     const loginEnd = { ...dataLogin.current };
 
-    // Validar campos vacíos
     const newErrors = {};
     Object.keys(loginEnd).forEach((key) => {
       if (!loginEnd[key]) {
@@ -40,6 +41,8 @@ export const Login = () => {
       setErrors(newErrors);
       return;
     }
+
+    setIsLoading(true); // Mostrar el símbolo de carga
 
     try {
       const response = await fetch('https://gaiavet-back.onrender.com/auth/login', {
@@ -59,7 +62,7 @@ export const Login = () => {
           text: data.message,
         });
         throw new Error('Error en la solicitud');
-      } else if (response.ok) {
+      } else {
         localStorage.setItem('token', data.token);
         loginContext.setAuthToken(data.token);
 
@@ -76,10 +79,11 @@ export const Login = () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: data.message,
+        text: 'Hubo un problema con el inicio de sesión',
       });
-
       console.error('Error:', error);
+    } finally {
+      setIsLoading(false); // Ocultar el símbolo de carga
     }
   };
 
@@ -110,7 +114,8 @@ export const Login = () => {
               ¿Olvidaste la contraseña?
             </a>
             <div className='flex justify-center items-center flex-col'>
-              <Button onClick={handleSubmit} textButton='Iniciar sesion' />
+              {isLoading && <div> Cargando </div>}
+              <Button onClick={handleSubmit} textButton='Iniciar sesión' />
               <button className='w-72 hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100 '>
                 Iniciar sesion con Google
                 <div className='flex items-center mx-2 rounded-xl'>

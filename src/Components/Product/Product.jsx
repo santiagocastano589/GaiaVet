@@ -16,7 +16,8 @@ export const Product = ({ id, image, title, alt, description, price, category })
         imageProduct: image,
         titleProduct: title,
         priceProduct: price,
-        categoryProduct: category
+        categoryProduct: category,
+        count:1
       }
     ]);
 
