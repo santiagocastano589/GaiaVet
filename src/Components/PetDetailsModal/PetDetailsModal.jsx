@@ -11,6 +11,7 @@ const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onC
   const [editedPeso, setEditedPeso] = useState(peso);
   const [editedEdad, setEditedEdad] = useState(edad);
   const [editedFoto, setEditedFoto] = useState(foto);
+  const [editedTemperamento, setEditedTemperamento] = useState(temperamento)
   
   const [isOpen, setIsOpen] = useState(false);
   const [petList, setPetList] = useState([]);
