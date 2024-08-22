@@ -195,10 +195,9 @@ export const Profile = () => {
   const handleConfirmImage = () => {
     setShowConfirmButton(false);
   };
-
   const deleteUser = async ()=>{
     try {
-      const response = await fetch('https://gaiavet-back.onrender.com/me/deleteAcount', {
+      const response = await fetch('https://gaiavet-back.onrender.com/me/deleteAccount', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -212,6 +211,10 @@ export const Profile = () => {
   
       const data = await response.json();
       console.log('Usuario eliminado exitosamente:', data);
+      localStorage.removeItem('token','role');
+      localStorage.removeItem('role');
+      navigate('/');
+      window.location.reload();
     } catch (error) {
       console.error('Error:', error);
     }
