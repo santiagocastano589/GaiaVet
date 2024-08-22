@@ -26,8 +26,8 @@ export const ProductsShop = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
                 <option value=''>Todos los productos</option>
-                <option value='Comida para perros'>Comida de perros</option>
-                <option value='Comida para gatos'>Comida de gatos</option>
+                <option value='Comida para perros'>Comida para perros</option>
+                <option value='Comida para gatos'>Comida para gatos</option>
                 <option value='Aseo para tu mascota'>Productos de aseo</option>
             </select>
         </div>
