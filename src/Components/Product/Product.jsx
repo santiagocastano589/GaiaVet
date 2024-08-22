@@ -29,11 +29,11 @@ export const Product = ({ id, image, title, alt, description, price, category })
   };
 
   return (
-    <div className="w-[20rem] h-full m-4 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
+    <div className="w-[20rem] m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
       <div className='w-full rounded-xl flex justify-center p-2 '>
         <img className=' rounded-2xl' src={image} alt={alt} />
       </div>
-      <div className='w-full flex flex-col justify-evenly text-justify px-6 h-[20rem]'>
+      <div className='w-full flex flex-col justify-evenly text-justify px-6'>
         <h2 className='text-4xl gorditas text-center my-2'>
           {title}
         </h2>

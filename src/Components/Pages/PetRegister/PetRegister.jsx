@@ -7,7 +7,6 @@ import { Header } from '../../Layouts/Header/Header';
 import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
 
-
 export const PetRegister = () => {
   const { authToken } = useContext(AuthContext);
   const [successful, setSuccessful] = useState(false);
@@ -36,11 +35,13 @@ export const PetRegister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!selectedImage) {
+    // Validar que todos los campos obligatorios están completos
+    const { nombre, TipoMascota, raza, edad, peso, temperamento } = formData.current;
+    if (!nombre || !TipoMascota || !raza || !edad || !peso || !temperamento || !selectedImage) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Por favor selecciona una imagen para la mascota.',
+        text: 'Por favor complete todos los campos y seleccione una imagen para la mascota.',
       });
       return;
     }

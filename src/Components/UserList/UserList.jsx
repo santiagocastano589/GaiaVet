@@ -53,6 +53,7 @@ export const UserList = () => {
         user.telefono?.toString().includes(searchTerm) ||
         user.direccion?.toLowerCase().includes(searchTerm.toLowerCase())
       );
+     
     setFilteredUserList(filteredUsers);
   }, [searchTerm, userList]);
 
