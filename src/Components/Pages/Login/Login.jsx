@@ -7,6 +7,7 @@ import { Header } from '../../Layouts/Header/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
+import { WindowLoad } from '../../WindowModals/WindowLoad/WindowLoad';
 
 export const Login = () => {
   const loginContext = useContext(AuthContext);
@@ -114,7 +115,7 @@ export const Login = () => {
               ¿Olvidaste la contraseña?
             </a>
             <div className='flex justify-center items-center flex-col'>
-              {isLoading && <div> Cargando </div>}
+              {isLoading && <WindowLoad />}
               <Button onClick={handleSubmit} textButton='Iniciar sesión' />
               <button className='w-72 hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100 '>
                 Iniciar sesion con Google
