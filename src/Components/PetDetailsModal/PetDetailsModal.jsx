@@ -3,7 +3,7 @@ import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 import { AuthContext } from '../Context/Context';
 
-const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onClose }) => {
+const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, temperamento, onClose }) => {
   const [editedDocumento, setEditedDocumento] = useState(documento);
   const [editedTipo, setEditedTipo] = useState(tipo);
   const [editedRaza, setEditedRaza] = useState(raza);
@@ -78,6 +78,7 @@ const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onC
             <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange} />
             <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad} />
             <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso + ' Kg'} />
+            <InputPetNoEditable htmlFor="temperamento" nameLabel="Temp:" id="temperamento" value={editedTemperamento} />
 
             <div className='w-full mt-14 text-black flex justify-end'>
               <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
@@ -111,6 +112,7 @@ const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onC
           edad={edad}
           peso={peso}
           foto={foto}
+          temperamento={temperamento}
           onClose={handleModal}
         />
       )}
