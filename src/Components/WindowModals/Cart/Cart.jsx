@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { ProductCart } from './ProductCart/ProductCart';
+import { ProductCart } from "./ProductCart/ProductCart";
 import { AuthContext } from '../../Context/Context';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import axios from 'axios';
@@ -7,43 +7,49 @@ import axios from 'axios';
 export const Cart = ({ onClose }) => {
   const cartContext = useContext(AuthContext);
 
-  // Verificar si cartContext.cart es un array válido
   const cartItems = Array.isArray(cartContext.cart) ? cartContext.cart : [];
 
-  // Calcular el total dinámicamente
   const totalAmount = cartItems.reduce((total, product) => {
     const price = parseFloat(product.priceProduct);
-    return !isNaN(price) ? total + price : total;
+    return !isNaN(price) ? total + price * product.count : total;
   }, 0).toFixed(2);
 
   const [preferenceId, setPreferenceId] = useState(null);
   initMercadoPago('APP_USR-3ba60abc-9bdf-4cb8-b724-62265a471d75');
 
   const createPreference = async () => {
-
-    const generateCartDescription = ()=>{
-      return cartItems.map(product => `${product.titleProduct} (x${1})`).join(', ')
+    // Generar la descripción del carrito para Mercado Pago
+    const generateCartDescription = () => {
+      return cartItems.map(product => `${product.titleProduct} (x${product.count})`).join(', ');
     }
-
+  
+    // Crear el array de productos para la disminución de stock
+    const productsArray = cartItems.map(product => ({
+      idProduct: product.idProduct,
+      title: product.titleProduct,
+      count: product.count,
+      price: parseFloat(product.priceProduct)
+    }));
+  
     try {
+      // Enviar los datos para crear la preferencia de Mercado Pago
       const response = await axios.post('https://gaiavet-back.onrender.com/create_preference', {
-        idPurchase:1,
         title: generateCartDescription(),
-        quantity: 1,
-        price: totalAmount,
-      },
-
-      cartItems
-
-    );
-
+        price: parseFloat(totalAmount),  // Asegúrate de que el precio total esté en formato numérico
+        products: productsArray  // Array de productos para la disminución de stock
+      });
+  
       const { id } = response.data;
-      return id;
+  
+      if (id) {
+        // Aquí puedes realizar cualquier acción adicional con el ID de la preferencia
+        setPreferenceId(id);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error al crear la preferencia:", error);
     }
   };
-
+  
   const handleBuy = async () => {
     const id = await createPreference();
     if (id) {
@@ -51,13 +57,24 @@ export const Cart = ({ onClose }) => {
     }
   };
 
+  const updateQuantity = (idProduct, newQuantity) => {
+    cartContext.setCart(prevCart => {
+      if (newQuantity <= 0) {
+        return prevCart.filter(product => product.idProduct !== idProduct);
+      }
+      return prevCart.map(product =>
+        product.idProduct === idProduct
+          ? { ...product, count: newQuantity }
+          : product
+      );
+    });
+  };
 
-  const products = [
-    {
-      productId: idProduct,
-
-    }
-  ]
+  const removeProduct = (idProduct) => {
+    cartContext.setCart(prevCart =>
+      prevCart.filter(product => product.idProduct !== idProduct)
+    );
+  };
 
   return (
     <div className="w-screen h-screen fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-end font-itim">
@@ -80,10 +97,14 @@ export const Cart = ({ onClose }) => {
                 cartItems.map((product) => (
                   <ProductCart
                     key={product.idProduct}
-                    img={product.imageProduct || ''} // Asegúrate de proporcionar la URL de la imagen si es necesario
+                    img={product.imageProduct || ''} 
                     title={product.titleProduct}
                     category={product.categoryProduct}
                     price={product.priceProduct}
+                    quantity={product.count}
+                    stock={product.stockProduct}  // Pasar el stock correctamente
+                    onQuantityChange={(newQuantity) => updateQuantity(product.idProduct, newQuantity)}
+                    onRemove={() => removeProduct(product.idProduct)}
                   />
                 ))
               ) : (
@@ -102,10 +123,9 @@ export const Cart = ({ onClose }) => {
 
             <div className='h-[70%] flex flex-col items-center justify-evenly'>
               <button type="button" className='w-3/4 text-white bg-buttonProducts py-2 rounded-3xl' onClick={handleBuy}>Comprar Carrito</button>
-              {preferenceId && 
-                <Wallet initialization={{ preferenceId : preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />
+              {preferenceId &&
+                <Wallet initialization={{ preferenceId: preferenceId }} />
               }
-              <button type="button" className='w-3/5 py-1 rounded-3xl cursor-pointer hover:bg-gray-300 duration-700'>Eliminar carrito</button>
             </div>
           </div>
         </div>

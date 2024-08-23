@@ -1,22 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
-export const ProductCart = ({img,title,category,price}) => {
-  const [quantity, setQuantity] = useState(1);
+export const ProductCart = ({ img, title, category, price, quantity: initialQuantity, onQuantityChange, onRemove, stock }) => {
+  const [quantity, setQuantity] = useState(initialQuantity);
+
+  useEffect(() => {
+    setQuantity(initialQuantity);
+  }, [initialQuantity]);
 
   const handleIncrement = () => {
-    if (quantity < 50) {
-      setQuantity(prevQuantity => prevQuantity + 1);
+    if (quantity < stock) {
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      onQuantityChange(newQuantity);
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'No hay suficiente stock disponible',
+        showConfirmButton: true,
+      });
     }
   };
 
   const handleDecrement = () => {
     if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      onQuantityChange(newQuantity);
+    } else {
+      handleRemove(); // Si la cantidad llega a 0, elimina el producto
     }
   };
 
+  const handleRemove = () => {
+    onRemove();
+  };
+
   return (
-    <div className='h-[30%] mt-4 flex rounded-3xl '>
+    <div className='h-[30%] mt-4 flex rounded-3xl'>
       <img
         className='w-1/4 h-full rounded-xl object-cover'
         src={img}
@@ -25,8 +47,9 @@ export const ProductCart = ({img,title,category,price}) => {
 
       <div className='w-3/4 pl-2'>
         <h3 className='text-gray-700'>{title}</h3>
-        <p className='text-gray-700 text-sm'>Categoria: {category}</p>
+        <p className='text-gray-700 text-sm'>Categoría: {category}</p>
         <p>$ {price}</p>
+        <p className='text-sm'>Disponibles: {stock}</p>
 
         <div className="relative flex items-center max-w-[6.4rem]">
           <button
@@ -67,7 +90,9 @@ export const ProductCart = ({img,title,category,price}) => {
           </button>
         </div>
 
-        <p className='text-center w-16 text-gray-700 hover:border-b hover:border-gray-500 duration-300 cursor-pointer'>Eliminar</p>
+        <p onClick={handleRemove} className='text-center w-16 text-gray-700 hover:border-b hover:border-gray-500 duration-300 cursor-pointer'>
+          Eliminar
+        </p>
       </div>
     </div>
   );
