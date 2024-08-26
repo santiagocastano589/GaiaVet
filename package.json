@@ -19,6 +19,7 @@
     "cloudinary": "^2.4.0",
     "express.js": "^1.0.0",
     "fetch": "^1.1.0",
+    "flowbite-react": "^0.10.1",
     "jwt-decode": "^4.0.0",
     "mysql2": "^3.10.3",
     "react": "^18.2.0",

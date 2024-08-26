@@ -3,6 +3,7 @@ import { AuthContext } from '../../Context/Context';
 import { Header } from '../../Layouts/Header/Header';
 import UpdateProduct from '../../WindowModals/ProductsModals/UpdateProduct/UpdateProduct';
 import ProductRegisterModal from "../ProductRegisterModal/ProductRegisterModal";
+import Swal from 'sweetalert2';
 
 export const AdminProducts = () => {
   const [productsList, setProductsList] = useState([]);
@@ -76,6 +77,58 @@ export const AdminProducts = () => {
     setEditOpen(true);
   };
 
+  const handleDelete = async (productId) => {
+    if (!authToken) return;
+  
+    Swal.fire({
+      title: 'GaiaVet',
+      text: '¿Deseas eliminar este producto? Esto eliminará su stock e información en la tienda.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`https://gaiavet-back.onrender.com/producto/${productId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+  
+          if (response.ok) {
+            setProductsList(prevList => prevList.filter(product => product.idProducto !== productId));
+            setFilteredProductList(prevList => prevList.filter(product => product.idProducto !== productId));
+            
+            Swal.fire({
+              title: 'Eliminado',
+              text: 'El producto ha sido eliminado con éxito.',
+              icon: 'success',
+            });
+          } else {
+            const errorData = await response.json();
+            Swal.fire({
+              title: 'Error',
+              text: `Hubo un error al eliminar el producto: ${errorData.message}`,
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: 'Error',
+            text: `Hubo un error al eliminar el producto: ${error.message}`,
+            icon: 'error',
+          });
+        }
+      }
+    });
+  };
+  
+
   return (
     <>
       <Header title="Lista de Productos" />
@@ -131,7 +184,12 @@ export const AdminProducts = () => {
                         >
                           Editar
                         </button>
-                        <button className="px-5 py-1 w-28 bg-red-600 hover:bg-opacity-70 duration-300 text-white font-medium rounded-lg float-end">Eliminar</button>
+                        <button 
+                          onClick={() => handleDelete(product.idProducto)}
+                          className="px-5 py-1 w-28 bg-red-600 hover:bg-opacity-70 duration-300 text-white font-medium rounded-lg float-end"
+                        >
+                          Eliminar
+                        </button>
                       </td>
                     </tr>
                   ))}

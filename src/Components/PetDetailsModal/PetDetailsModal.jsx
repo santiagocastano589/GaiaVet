@@ -2,8 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 import { AuthContext } from '../Context/Context';
+import Swal from 'sweetalert2';
 
-const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onClose }) => {
+const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, temperamento, onClose }) => {
   const [editedDocumento, setEditedDocumento] = useState(documento);
   const [editedTipo, setEditedTipo] = useState(tipo);
   const [editedRaza, setEditedRaza] = useState(raza);
@@ -11,6 +12,7 @@ const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onC
   const [editedPeso, setEditedPeso] = useState(peso);
   const [editedEdad, setEditedEdad] = useState(edad);
   const [editedFoto, setEditedFoto] = useState(foto);
+  const [editedTemperamento, setEditedTemperamento] = useState(temperamento)
   
   const [isOpen, setIsOpen] = useState(false);
   const [petList, setPetList] = useState([]);
@@ -42,28 +44,55 @@ const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onC
   
 
   const handleDeleteClick = async () => {
-    try {
-      const response = await fetch(`https://gaiavet-back.onrender.com/DeletePet/${documento}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-  
-      if (response.ok) {
-        
-        setPetList(prevList => prevList.filter(pet => pet.documento !== documento));
-        onClose();
-        window.location.reload()
-        console.log('Mascota eliminada con éxito');
-      } else {
-        console.error('Error al eliminar la mascota');
-      }
-    } catch (error) {
-      console.error('Error al intentar eliminar la mascota:', error);
-    }
-  };
+    Swal.fire({
+        title: 'GaiaVet',
+        text: '¿Estás seguro de que deseas eliminar esta mascota? Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+                const response = await fetch(`https://gaiavet-back.onrender.com/DeletePet/${documento}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                });
+
+                if (response.ok) {
+                    setPetList(prevList => prevList.filter(pet => pet.documento !== documento));
+                    onClose();
+                    window.location.reload();
+                    Swal.fire({
+                        title: 'Eliminado',
+                        text: 'La mascota ha sido eliminada con éxito.',
+                        icon: 'success',
+                    });
+                    console.log('Mascota eliminada con éxito');
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al eliminar la mascota. Inténtalo de nuevo.',
+                        icon: 'error',
+                    });
+                    console.error('Error al eliminar la mascota');
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error al intentar eliminar la mascota. Inténtalo de nuevo.',
+                    icon: 'error',
+                });
+                console.error('Error al intentar eliminar la mascota:', error);
+            }
+        }
+    });
+};
   
 
   return (
@@ -77,6 +106,7 @@ const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onC
             <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange} />
             <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad} />
             <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso + ' Kg'} />
+            <InputPetNoEditable htmlFor="temperamento" nameLabel="Temp:" id="temperamento" value={editedTemperamento} />
 
             <div className='w-full mt-14 text-black flex justify-end'>
               <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
@@ -110,6 +140,7 @@ const PetDetailsModal = ({ edad, peso, namePet, documento, tipo, raza, foto, onC
           edad={edad}
           peso={peso}
           foto={foto}
+          temperamento={temperamento}
           onClose={handleModal}
         />
       )}

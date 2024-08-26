@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import InputProducts from '../../../InputProducts/InputProducts';
 import { AuthContext } from '../../../Context/Context';
+import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 const ProductUpdate = ({ id, img, name, description, category, price, stock, onClose, onProductAdded }) => {
   const [product, setProduct] = useState({
@@ -50,47 +52,78 @@ const ProductUpdate = ({ id, img, name, description, category, price, stock, onC
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let imageUrl = img; 
-
-    if (imageFile) {
-      try {
-        imageUrl = await uploadImageToCloudinary(imageFile);
-      } catch (error) {
-        alert('Error al subir la imagen');
-        return;
-      }
-    }
-
-    const updatedProduct = { ...product, imagen: imageUrl };
-
-    try {
-      const response = await fetch(`https://gaiavet-back.onrender.com/producto/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify(updatedProduct),
-      });
-
-      const data = await response.json();
-      
-      if (response.ok) {
-        alert('Producto actualizado con éxito');
-        if (typeof onProductAdded === 'function') {
-          onProductAdded(updatedProduct);
+  
+    Swal.fire({
+      title: 'GaiaVet',
+      text: '¿Deseas actualizar este producto? Los cambios se guardarán en la tienda.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'Cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let imageUrl = img; 
+  
+        if (imageFile) {
+          try {
+            imageUrl = await uploadImageToCloudinary(imageFile);
+          } catch (error) {
+            Swal.fire({
+              title: 'Error',
+              text: 'Error al subir la imagen',
+              icon: 'error',
+            });
+            return;
+          }
         }
-        onClose();
-        window.location.reload()
-      } else {
-        alert('Error al actualizar el producto: ' + data.message);
+  
+        const updatedProduct = { ...product, imagen: imageUrl };
+  
+        try {
+          const response = await fetch(`https://gaiavet-back.onrender.com/producto/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+            body: JSON.stringify(updatedProduct),
+          });
+  
+          const data = await response.json();
+          
+          if (response.ok) {
+            Swal.fire({
+              title: 'Actualizado',
+              text: 'El producto ha sido actualizado con éxito.',
+              icon: 'success',
+            });
+  
+            if (typeof onProductAdded === 'function') {
+              onProductAdded(updatedProduct);
+            }
+            onClose();
+            window.location.reload();
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: `Error al actualizar el producto: ${data.message}`,
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Error al actualizar el producto',
+            icon: 'error',
+          });
+        }
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error al actualizar el producto');
-    }
+    });
   };
+  
 
   return (
     <div className="w-full fixed z-50 inset-0 bg-black bg-opacity-80 transition-all ease-in-out duration-300 font-itim">
@@ -99,7 +132,7 @@ const ProductUpdate = ({ id, img, name, description, category, price, stock, onC
           <div className="w-[80%] h-[30rem] p-4 text-white flex flex-col items-center justify-evenly">
             <h3 className='gorditas text-black text-4xl'>Actualización de productos</h3>
             
-            <form className="flex flex-col w-full items-center" onSubmit={handleSubmit}>
+            <form className="flex flex-col w-full items-center" onSubmit={handleSubmit} >
               <InputProducts nameLabel={'Imagen del producto:'} name='imagen' type='file' onChange={handleImageChange} />
               <InputProducts nameLabel={'Nombre del producto:'} value={product.nombreProducto} name='nombreProducto' type='text' onChange={handleChange} />
               <InputProducts nameLabel={'Descripción del producto:'} value={product.descripcion} name='descripcion' type='text' onChange={handleChange} />
@@ -108,7 +141,7 @@ const ProductUpdate = ({ id, img, name, description, category, price, stock, onC
               <InputProducts nameLabel={'Stock del producto:'} value={product.stock} name='stock' type='number' onChange={handleChange} />
               
               <div className='w-[90%] text-black flex justify-end mt-4'>
-                <button type="submit" className="px-5 py-1 bg-white text-green-700 font-medium rounded-lg float-end mr-12 hover:bg-green-100 duration-200">Guardar</button>
+                <button type="submit" className="px-5 py-1 bg-white text-green-700 font-medium rounded-lg float-end mr-12 hover:bg-green-100 duration-200" >Guardar</button>
                 <button type="button" className="px-5 py-1 bg-red-600 text-white font-medium rounded-lg float-end mr-4 hover:bg-opacity-70 duration-200" onClick={onClose}>Cancelar</button>
               </div>
             </form>
