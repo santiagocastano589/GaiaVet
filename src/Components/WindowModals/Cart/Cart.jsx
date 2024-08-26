@@ -26,12 +26,16 @@ export const Cart = ({ onClose }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/create_preference', {
-        idProduct:1,
+      const response = await axios.post('https://gaiavet-back.onrender.com/create_preference', {
+        idPurchase:1,
         title: generateCartDescription(),
         quantity: 1,
         price: totalAmount,
-      });
+      },
+
+      cartItems
+
+    );
 
       const { id } = response.data;
       return id;
@@ -46,6 +50,14 @@ export const Cart = ({ onClose }) => {
       setPreferenceId(id);
     }
   };
+
+
+  const products = [
+    {
+      productId: idProduct,
+
+    }
+  ]
 
   return (
     <div className="w-screen h-screen fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-end font-itim">

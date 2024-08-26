@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Context/Context';
 import { Header } from '../../Layouts/Header/Header';
-import ProductRegisterModal from '../ProductRegisterModal/ProductRegisterModal';
+import UpdateProduct from '../../WindowModals/ProductsModals/UpdateProduct/UpdateProduct';
+import ProductRegisterModal from "../ProductRegisterModal/ProductRegisterModal";
+import Swal from 'sweetalert2';
 
 export const AdminProducts = () => {
   const [productsList, setProductsList] = useState([]);
   const { authToken } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [editOpen, setEditOpen] = useState(false);
   const [filteredProductList, setFilteredProductList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,10 +32,10 @@ export const AdminProducts = () => {
         if (Array.isArray(data)) {
           setProductsList(data);
           setFilteredProductList(data);
+          
         } else {
           console.error('La respuesta no es un array:', data);
         }
-        
       } catch (error) {
         console.log('Error al traer los productos:', error);
       }
@@ -42,10 +45,20 @@ export const AdminProducts = () => {
   }, [authToken]);
 
   useEffect(() => {
-  console.log(productsList);
-  
-  }, [productsList])
-  
+    const results = productsList.filter(product => 
+      product.idProducto?.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.nombreProducto?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.precio?.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.stock?.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.descripcion?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.categoria?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProductList(results);
+  }, [searchTerm, productsList]);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -59,44 +72,82 @@ export const AdminProducts = () => {
     setProductsList((prevList) => [...prevList, newProduct]);
   };
 
-  useEffect(() => {
-    const results = productsList.filter(product => 
-      product.idProducto.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.nombreProducto.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.precio.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.stock.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.descripcion.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.categoria.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredProductList(results);
-  }, [searchTerm, productsList]);
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+  const controlUpdate = (product) => {
+    setSelectedProduct(product);
+    setEditOpen(true);
   };
+
+  const handleDelete = async (productId) => {
+    if (!authToken) return;
+  
+    Swal.fire({
+      title: 'GaiaVet',
+      text: '¿Deseas eliminar este producto? Esto eliminará su stock e información en la tienda.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`https://gaiavet-back.onrender.com/producto/${productId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+  
+          if (response.ok) {
+            setProductsList(prevList => prevList.filter(product => product.idProducto !== productId));
+            setFilteredProductList(prevList => prevList.filter(product => product.idProducto !== productId));
+            
+            Swal.fire({
+              title: 'Eliminado',
+              text: 'El producto ha sido eliminado con éxito.',
+              icon: 'success',
+            });
+          } else {
+            const errorData = await response.json();
+            Swal.fire({
+              title: 'Error',
+              text: `Hubo un error al eliminar el producto: ${errorData.message}`,
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: 'Error',
+            text: `Hubo un error al eliminar el producto: ${error.message}`,
+            icon: 'error',
+          });
+        }
+      }
+    });
+  };
+  
+
   return (
     <>
       <Header title="Lista de Productos" />
       <div className='w-full flex justify-center'>
-          <div className="flex flex-row items-center justify-center w-[60rem] pt-48">
-              <input
-                type="text"
-                placeholder="Busca el producto deseado de manera rapida"
-                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-gray-700 placeholder-gray-400"
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-          </div>
+        <div className="flex flex-row items-center justify-center w-[60rem] pt-48">
+          <input
+            type="text"
+            placeholder="Busca el producto deseado de manera rápida"
+            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-gray-700 placeholder-gray-400"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
       </div>
       <div className="flex justify-center ">
-      
-      
         <div className="w-full flex justify-center overflow-hidden">
-          
           <div className="w-[90%] p-6 mb-[10rem] ">
-              
             <div className="flex items-center justify-between mb-4 bg-teal-200 h-[8rem] px-4 rounded-xl">
-              <h3 className=''>Hola!!  Presiona el boton para registrar un nuevo producto</h3>
+              <h3>Hola!! Presiona el botón para registrar un nuevo producto</h3>
               <button 
                 className="bg-teal-500 text-white py-2 px-4 rounded h-[3rem] hover:bg-teal-400"
                 onClick={openModal}
@@ -104,38 +155,64 @@ export const AdminProducts = () => {
                 Registrar Producto
               </button>
             </div>
-            <div className='overflow-y-auto max-h-[30rem] '>
-            <table className="w-full bg-white border-4 mb-4">
-              <thead>
-                <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm ">
-                  <th className="py-3 px-6 text-center">Imagen del Producto</th>
-                  <th className="py-3 px-6 text-center">Nombre Producto</th>
-                  <th className="py-3 px-6 text-center">Categoria</th>
-                  <th className="py-3 px-6 text-center">Descripcion</th>
-                  <th className="py-3 px-6 text-center">Stock</th>
-                  <th className="py-3 px-6 text-center">Precio</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-600 text-sm">
-                {filteredProductList.map((product) => (
-                  <tr key={product.idProducto} className="border-b border-gray-200 hover:bg-gray-100">
-                    <td className="py-3 px-6 text-center object-contain"><img className='w-[15vw]' src={product.imagen} alt="" /></td>
-                    <td className="py-3 px-6 text-center">{product.nombreProducto}</td>
-                    <td className="py-3 px-6 text-center">{product.categoria}</td>
-                    <td className="py-3 px-6 text-center">{product.descripcion}</td>
-                    <td className="py-3 px-6 text-center">{product.stock}</td>
-                    <td className="py-3 px-6 text-center">{product.precio}</td>
+            <div className='overflow-y-auto max-h-[80vh] '>
+              <table className=" bg-white border-4 mb-4 flex flex-col">
+                <thead>
+                  <tr className=" bg-teal-500 text-gray-800 uppercase text-lg ">
+                    <th className="py-3 px-6 text-center w-1/6">Imagen del Producto</th>
+                    <th className="py-3 px-6 text-center w-1/6">Nombre Producto</th>
+                    <th className="py-3 px-6 text-center w-1/6">Categoría</th>
+                    <th className="py-3 px-6 text-center w-1/6">Descripción</th>
+                    <th className="py-3 px-6 text-center w-1/6">Stock</th>
+                    <th className="py-3 px-6 text-center w-1/6">Precio</th>
+                    <th className="py-3 px-6 text-center w-1/6">Administrar</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-
+                </thead>
+                <tbody className="text-gray-600 text-base w-full ">
+                  {filteredProductList.map((product) => (
+                    <tr key={product.idProducto} className="border-b border-gray-200 hover:bg-gray-100 w-full flex items-center">
+                      <td className="py-3 px-6 text-center object-contain w-1/6"><img className='w-[15vw]' src={product.imagen} alt="" /></td>
+                      <td className="py-3 px-6 text-center w-1/6">{product.nombreProducto}</td>
+                      <td className="py-3 px-6 text-center w-1/6">{product.categoria}</td>
+                      <td className="py-3 px-6 text-center w-1/6">{product.descripcion}</td>
+                      <td className="py-3 px-6 text-center w-1/6">{product.stock}</td>
+                      <td className="py-3 px-6 text-center w-1/6">{product.precio}</td>
+                      <td className="h-full py-3 px-6 flex flex-col items-center ">
+                        <button 
+                          onClick={() => controlUpdate(product)} 
+                          className="px-5 py-1 w-28 bg-buttonProducts hover:bg-opacity-70 duration-300 text-white font-medium rounded-lg float-end mb-4"
+                        >
+                          Editar
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(product.idProducto)}
+                          className="px-5 py-1 w-28 bg-red-600 hover:bg-opacity-70 duration-300 text-white font-medium rounded-lg float-end"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            
           </div>
         </div>
       </div>
       {isModalOpen && <ProductRegisterModal onClose={closeModal} onProductAdded={handleProductAdded} />}
+      {editOpen && selectedProduct && (
+        <UpdateProduct 
+          onClose={() => setEditOpen(false)}
+          id={selectedProduct.idProducto} 
+          img={selectedProduct.imagen} 
+          name={selectedProduct.nombreProducto} 
+          description={selectedProduct.descripcion}
+          category={selectedProduct.categoria}
+          stock={selectedProduct.stock}
+          price={selectedProduct.precio}
+          onProductAdded={handleProductAdded}
+        />
+      )}
     </>
   );
-}
+};

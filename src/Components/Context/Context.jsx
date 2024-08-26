@@ -20,12 +20,10 @@ export const AuthProvider = ({ children }) => {
           if (role) {
             // Guardar el rol en el localStorage
             localStorage.setItem('role', role);
-            console.log('Role saved in localStorage:', role);
+
           } else {
-            console.error('Role not found in token');
           }
         } catch (error) {
-          console.error('Error decoding token:', error);
         }
 
         // Hacer la solicitud para obtener los datos del usuario
@@ -43,9 +41,6 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, [authToken]);
 
-  useEffect(() => {
-    console.log('carrito:', cart);
-  }, [cart]);
 
   return (
     <AuthContext.Provider value={{ authToken, user, setAuthToken,cart,setCart }}>
