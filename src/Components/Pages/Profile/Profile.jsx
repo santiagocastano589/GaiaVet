@@ -14,7 +14,7 @@ export const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [iconSelection, setIconSelection] = useState(false);
-  const [showConfirmButton, setShowConfirmButton] = useState(false); // Nuevo estado
+  const [showConfirmButton, setShowConfirmButton] = useState(false);
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -63,15 +63,7 @@ export const Profile = () => {
   };
 
   const handleSaveClick = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger',
-      },
-      buttonsStyling: true,
-    });
-
-    swalWithBootstrapButtons.fire({
+    Swal.fire({
       title: '¿Estás seguro de esto?',
       text: 'Tendrás que esperar un tiempo para volver a actualizar la información',
       icon: 'warning',
@@ -83,15 +75,6 @@ export const Profile = () => {
       reverseButtons: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire({
-          title: 'Datos actualizados!',
-          text: 'Tu información ha sido actualizada correctamente',
-          icon: 'success',
-          confirmButtonColor: '#3085d6',
-        });
-        
-        setShowConfirmButton(false)
-
         try {
           const response = await fetch('https://gaiavet-back.onrender.com/user', {
             method: 'PUT',
@@ -108,11 +91,25 @@ export const Profile = () => {
 
           await fetchUserData();
           setEditMode(false);
+
+          Swal.fire({
+            title: 'Datos actualizados!',
+            text: 'Tu información ha sido actualizada correctamente',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+          });
         } catch (error) {
           console.error('Error updating user data:', error);
+
+          Swal.fire({
+            title: 'Error!',
+            text: 'Hubo un problema al actualizar tus datos. Por favor, intenta nuevamente.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+          });
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        swalWithBootstrapButtons.fire({
+        Swal.fire({
           title: 'Cancelada',
           text: 'Tu información se mantendrá como estaba :)',
           icon: 'error',
@@ -160,7 +157,7 @@ export const Profile = () => {
           text: 'Tu sesión ha sido cerrada correctamente',
           icon: 'success',
         });
-        localStorage.removeItem('token','role');
+        localStorage.removeItem('token', 'role');
         localStorage.removeItem('role');
         navigate('/');
 
@@ -196,27 +193,58 @@ export const Profile = () => {
     setShowConfirmButton(false);
   };
 
-  const deleteUser = async ()=>{
-    try {
-      const response = await fetch('https://gaiavet-back.onrender.com/me/deleteAcount', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error('Error al eliminar el usuario');
-      }
-  
-      const data = await response.json();
-      console.log('Usuario eliminado exitosamente:', data);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
+  const deleteUser = async () => {
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar tu cuenta?',
+      text: 'Esta acción es irreversible y eliminará todos tus datos.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'No, cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch('https://gaiavet-back.onrender.com/me/deleteAcount', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
 
+          if (!response.ok) {
+            throw new Error('Error al eliminar el usuario');
+          }
+
+          Swal.fire({
+            title: 'Cuenta eliminada!',
+            text: 'Tu cuenta ha sido eliminada correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+          });
+
+          localStorage.removeItem('token', 'role');
+          localStorage.removeItem('role');
+          navigate('/');
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 2500);
+        } catch (error) {
+          console.error('Error:', error);
+
+          Swal.fire({
+            title: 'Error!',
+            text: 'Hubo un problema al eliminar tu cuenta. Por favor, intenta nuevamente.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+          });
+        }
+      }
+    });
+  };
 
   return (
     <>
