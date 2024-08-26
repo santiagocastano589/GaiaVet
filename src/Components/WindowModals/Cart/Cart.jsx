@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { ProductCart } from './ProductCart/ProductCart';
+import Swal from 'sweetalert2';
+import { ProductCart } from "./ProductCart/ProductCart";
 import { AuthContext } from '../../Context/Context';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import axios from 'axios';
@@ -7,13 +8,11 @@ import axios from 'axios';
 export const Cart = ({ onClose }) => {
   const cartContext = useContext(AuthContext);
 
-  // Verificar si cartContext.cart es un array válido
   const cartItems = Array.isArray(cartContext.cart) ? cartContext.cart : [];
 
-  // Calcular el total dinámicamente
   const totalAmount = cartItems.reduce((total, product) => {
     const price = parseFloat(product.priceProduct);
-    return !isNaN(price) ? total + price : total;
+    return !isNaN(price) ? total + price * product.count : total;
   }, 0).toFixed(2);
 
   const [preferenceId, setPreferenceId] = useState(null);
@@ -21,30 +20,83 @@ export const Cart = ({ onClose }) => {
 
   const createPreference = async () => {
 
-    const generateCartDescription = ()=>{
-      return cartItems.map(product => `${product.titleProduct} (x${1})`).join(', ')
-    }
-
+    const productsArray = cartItems.map(product => ({
+      idProduct: product.idProduct,
+      title: product.titleProduct,
+      count: product.count,
+      price: parseFloat(product.priceProduct)
+    }));
+  
     try {
-      const response = await axios.post('http://localhost:3000/create_preference', {
-        idProduct:1,
-        title: generateCartDescription(),
-        quantity: 1,
-        price: totalAmount,
+      
+      const response = await axios.post('https://gaiavet-back.onrender.com/create_preference', {
+        title: 'Tu compra en GaiaVet',
+        price: parseFloat(totalAmount),  
+        products: productsArray  
       });
-
+  
       const { id } = response.data;
-      return id;
+  
+      if (id) {
+        setPreferenceId(id);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error al crear la preferencia:", error);
     }
   };
-
+  
   const handleBuy = async () => {
-    const id = await createPreference();
-    if (id) {
-      setPreferenceId(id);
+    if (cartItems.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'El carrito está vacío',
+        text: 'Añade productos al carrito antes de proceder con la compra.',
+        confirmButtonText: 'OK'
+      });
+      return;
     }
+
+    await createPreference();
+  };
+
+  const updateQuantity = (idProduct, newQuantity) => {
+    cartContext.setCart(prevCart => {
+      if (newQuantity <= 0) {
+        return prevCart.filter(product => product.idProduct !== idProduct);
+      }
+      return prevCart.map(product =>
+        product.idProduct === idProduct
+          ? { ...product, count: newQuantity }
+          : product
+      );
+    });
+  };
+
+  const removeProduct = (idProduct) => {
+    cartContext.setCart(prevCart =>
+      prevCart.filter(product => product.idProduct !== idProduct)
+    );
+  };
+
+  const removeAllProducts = () => {
+    Swal.fire({
+      icon: 'warning',
+      title: '¿Estás seguro?',
+      text: 'Se eliminarán todos los productos del carrito.',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cartContext.setCart([]); 
+        Swal.fire({
+          icon: 'success',
+          title: 'Carrito vaciado',
+          text: 'Todos los productos han sido eliminados.',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
   };
 
   return (
@@ -68,10 +120,14 @@ export const Cart = ({ onClose }) => {
                 cartItems.map((product) => (
                   <ProductCart
                     key={product.idProduct}
-                    img={product.imageProduct || ''} // Asegúrate de proporcionar la URL de la imagen si es necesario
+                    img={product.imageProduct || ''} 
                     title={product.titleProduct}
                     category={product.categoryProduct}
                     price={product.priceProduct}
+                    quantity={product.count}
+                    stock={product.stockProduct}
+                    onQuantityChange={(newQuantity) => updateQuantity(product.idProduct, newQuantity)}
+                    onRemove={() => removeProduct(product.idProduct)}
                   />
                 ))
               ) : (
@@ -89,11 +145,24 @@ export const Cart = ({ onClose }) => {
             </div>
 
             <div className='h-[70%] flex flex-col items-center justify-evenly'>
-              <button type="button" className='w-3/4 text-white bg-buttonProducts py-2 rounded-3xl' onClick={handleBuy}>Comprar Carrito</button>
-              {preferenceId && 
-                <Wallet initialization={{ preferenceId : preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />
-              }
-              <button type="button" className='w-3/5 py-1 rounded-3xl cursor-pointer hover:bg-gray-300 duration-700'>Eliminar carrito</button>
+              {preferenceId === null ? (
+                <button 
+                  type="button" 
+                  className='w-3/4 text-white bg-buttonProducts py-2 rounded-3xl'
+                  onClick={handleBuy}
+                >
+                  Comprar Carrito
+                </button>
+              ) : (
+                <Wallet initialization={{ preferenceId: preferenceId }} />
+              )}
+              <button 
+                type="button" 
+                className='w-3/5 py-1 rounded-3xl cursor-pointer hover:bg-gray-300 duration-700'
+                onClick={removeAllProducts}
+              >
+                Eliminar carrito
+              </button>
             </div>
           </div>
         </div>

@@ -2,30 +2,69 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../Context/Context';
 import Swal from 'sweetalert2';
 
-
-export const Product = ({ id, image, title, alt, description, price, category }) => {
+export const Product = ({ id, image, title, alt, description, price, category, stock }) => {
   const productContext = useContext(AuthContext);
 
   const addProduct = () => {
-    
-    // Asegúrate de que la actualización del carrito se realice correctamente
-    productContext.setCart(prevCart => [
-      ...prevCart,
-      {
-        idProduct: id,
-        imageProduct: image,
-        titleProduct: title,
-        priceProduct: price,
-        categoryProduct: category
-      }
-    ]);
+    // Verificar si hay stock disponible antes de agregar el producto al carrito
+    productContext.setCart(prevCart => {
+      const existingProductIndex = prevCart.findIndex(product => product.idProduct === id);
+      const existingProduct = prevCart[existingProductIndex];
 
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Producto agregado con exito',
-        showConfirmButton: true,
-      });
+      if (existingProduct) {
+        if (existingProduct.count < stock) {
+          const updatedCart = [...prevCart];
+          updatedCart[existingProductIndex].count += 1;
+
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Producto agregado con éxito',
+            showConfirmButton: true,
+          });
+
+          return updatedCart;
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay suficiente stock disponible',
+            showConfirmButton: true,
+          });
+          return prevCart;
+        }
+      } else {
+        if (stock > 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Producto agregado con éxito',
+            showConfirmButton: true,
+          });
+
+          return [
+            ...prevCart,
+            {
+              idProduct: id,
+              imageProduct: image,
+              titleProduct: title,
+              priceProduct: price,
+              categoryProduct: category,
+              stockProduct:stock,
+              count: 1
+            }
+          ];
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay stock disponible',
+            showConfirmButton: true,
+          });
+          return prevCart;
+        }
+      }
+    });
   };
 
   return (
@@ -42,6 +81,9 @@ export const Product = ({ id, image, title, alt, description, price, category })
         </p>
         <p className='text-base'>
           {description}
+        </p>
+        <p className='text-base font-semibold'>
+          Disponibles: {stock}
         </p>
         <div className='w-full flex justify-center my-4'>
           <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl'>Agregar</button>
