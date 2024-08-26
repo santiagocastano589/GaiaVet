@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Swal from 'sweetalert2';
 import { ProductCart } from "./ProductCart/ProductCart";
 import { AuthContext } from '../../Context/Context';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
@@ -18,12 +19,7 @@ export const Cart = ({ onClose }) => {
   initMercadoPago('APP_USR-3ba60abc-9bdf-4cb8-b724-62265a471d75');
 
   const createPreference = async () => {
-    // Generar la descripción del carrito para Mercado Pago
-    const generateCartDescription = () => {
-      return cartItems.map(product => `${product.titleProduct} (x${product.count})`).join(', ');
-    }
-  
-    // Crear el array de productos para la disminución de stock
+
     const productsArray = cartItems.map(product => ({
       idProduct: product.idProduct,
       title: product.titleProduct,
@@ -32,17 +28,16 @@ export const Cart = ({ onClose }) => {
     }));
   
     try {
-      // Enviar los datos para crear la preferencia de Mercado Pago
+      
       const response = await axios.post('https://gaiavet-back.onrender.com/create_preference', {
-        title: generateCartDescription(),
-        price: parseFloat(totalAmount),  // Asegúrate de que el precio total esté en formato numérico
-        products: productsArray  // Array de productos para la disminución de stock
+        title: 'Tu compra en GaiaVet',
+        price: parseFloat(totalAmount),  
+        products: productsArray  
       });
   
       const { id } = response.data;
   
       if (id) {
-        // Aquí puedes realizar cualquier acción adicional con el ID de la preferencia
         setPreferenceId(id);
       }
     } catch (error) {
@@ -51,10 +46,17 @@ export const Cart = ({ onClose }) => {
   };
   
   const handleBuy = async () => {
-    const id = await createPreference();
-    if (id) {
-      setPreferenceId(id);
+    if (cartItems.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'El carrito está vacío',
+        text: 'Añade productos al carrito antes de proceder con la compra.',
+        confirmButtonText: 'OK'
+      });
+      return;
     }
+
+    await createPreference();
   };
 
   const updateQuantity = (idProduct, newQuantity) => {
@@ -74,6 +76,27 @@ export const Cart = ({ onClose }) => {
     cartContext.setCart(prevCart =>
       prevCart.filter(product => product.idProduct !== idProduct)
     );
+  };
+
+  const removeAllProducts = () => {
+    Swal.fire({
+      icon: 'warning',
+      title: '¿Estás seguro?',
+      text: 'Se eliminarán todos los productos del carrito.',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cartContext.setCart([]); 
+        Swal.fire({
+          icon: 'success',
+          title: 'Carrito vaciado',
+          text: 'Todos los productos han sido eliminados.',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
   };
 
   return (
@@ -102,7 +125,7 @@ export const Cart = ({ onClose }) => {
                     category={product.categoryProduct}
                     price={product.priceProduct}
                     quantity={product.count}
-                    stock={product.stockProduct}  // Pasar el stock correctamente
+                    stock={product.stockProduct}
                     onQuantityChange={(newQuantity) => updateQuantity(product.idProduct, newQuantity)}
                     onRemove={() => removeProduct(product.idProduct)}
                   />
@@ -122,10 +145,24 @@ export const Cart = ({ onClose }) => {
             </div>
 
             <div className='h-[70%] flex flex-col items-center justify-evenly'>
-              <button type="button" className='w-3/4 text-white bg-buttonProducts py-2 rounded-3xl' onClick={handleBuy}>Comprar Carrito</button>
-              {preferenceId &&
+              {preferenceId === null ? (
+                <button 
+                  type="button" 
+                  className='w-3/4 text-white bg-buttonProducts py-2 rounded-3xl'
+                  onClick={handleBuy}
+                >
+                  Comprar Carrito
+                </button>
+              ) : (
                 <Wallet initialization={{ preferenceId: preferenceId }} />
-              }
+              )}
+              <button 
+                type="button" 
+                className='w-3/5 py-1 rounded-3xl cursor-pointer hover:bg-gray-300 duration-700'
+                onClick={removeAllProducts}
+              >
+                Eliminar carrito
+              </button>
             </div>
           </div>
         </div>
