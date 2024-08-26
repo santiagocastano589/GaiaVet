@@ -3,7 +3,8 @@ import baño1 from '../../assets/baño1.jpg';
 import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 
-const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClose }) => {
+const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, temperamento, onClose }) => {
+
   const [editedDocumento, setEditedDocumento] = useState(documento);
   const [editedTipo, setEditedTipo] = useState(tipo);
   const [editedRaza, setEditedRaza] = useState(raza);
@@ -11,6 +12,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClo
   const [editedPeso, setEditedPeso] = useState(peso);
   const [editedEdad, setEditedEdad] = useState(edad);
   const [editedFoto, setEditedFoto] = useState(foto);
+  const [editedTemperamento, setEditedTemperamento] = useState(temperamento)
   
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,6 +54,8 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClo
 
           <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso+' Kg'}/>
 
+          <InputPetNoEditable htmlFor="temperamento" nameLabel="Temp:" id="temperamento" value={editedTemperamento}/>
+
           <div className=' w-full   mt-14 text-black flex justify-end '>
             <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
             <button onClick={handleModal} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Editar</button>
@@ -88,6 +92,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, onClo
           edad={edad}
           peso={peso}
           foto={foto}
+          temperamento={temperamento}
           onClose={() => handleModal()}        />
       )}
     </div>

@@ -16,7 +16,7 @@ export const PetRegister = () => {
 
   const formData = useRef({
     nombre: '',
-    tipo: '',
+    TipoMascota: '',
     raza: '',
     edad: '',
     peso: '',
@@ -125,10 +125,10 @@ export const PetRegister = () => {
             <img className='' src={logo} alt='' />
           </div>
           <h2 className='my-3'>REGISTRO DE MASCOTAS</h2>
-          <form className='flex flex-col' onSubmit={handleSubmit}>
+          <form className='flex flex-col'>
             <Input name='foto' lblName='Foto de la mascota' type='file' placeholder='Seleccionar imagen de mascota' accept='image/*' onChange={handleChange} />
             <Input name='nombre' lblName='Nombre de la mascota' type='text' placeholder='Ingrese el nombre de la mascota' onChange={handleChange} />
-            <Input name='tipo' lblName='Tipo de mascota' type='text' placeholder='Ingrese el tipo de mascota' onChange={handleChange} />
+            <Input name='TipoMascota' lblName='Tipo de mascota' type='text' placeholder='Ingrese el tipo de mascota' onChange={handleChange} />
             <Input name='raza' lblName='Raza de la mascota' type='text' placeholder='Ingrese la raza de la mascota' onChange={handleChange} />
             <Input name='edad' lblName='Edad de la mascota (meses)' type='number' placeholder='Ingrese la edad de la mascota (meses)' onChange={handleChange} />
             <Input name='peso' lblName='Peso de la mascota (Kg)' type='number' placeholder='Ingrese el peso de la mascota (Kg)' onChange={handleChange} />
