@@ -4,10 +4,11 @@ import logo from '../../../assets/logoGaia.webp';
 import { Input } from '../../Input/Input';
 import { Button } from '../../Button/Button';
 import { Header } from '../../Layouts/Header/Header';
-import { Link, useNavigate } from 'react-router-dom';
+import { json, Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
 import { WindowLoad } from '../../WindowModals/WindowLoad/WindowLoad';
+import { data } from 'autoprefixer';
 
 export const Login = () => {
   const loginContext = useContext(AuthContext);
@@ -27,6 +28,8 @@ export const Login = () => {
   };
 
   const handleSubmit = async (e) => {
+
+    
     e.preventDefault();
     
     const loginEnd = { ...dataLogin.current };
@@ -42,9 +45,10 @@ export const Login = () => {
       setErrors(newErrors);
       return;
     }
+    
+    let data = '';
 
     setIsLoading(true); // Mostrar el símbolo de carga
-
     try {
       const response = await fetch('https://gaiavet-back.onrender.com/auth/login', {
         method: 'POST',
@@ -52,16 +56,19 @@ export const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(loginEnd),
+        
       });
 
-      const data = await response.json();
+      data = await response.json()
+
 
       if (!response.ok) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: data.message,
+          text: data || data.message || 'Error interno, intenta otra vez mas tarde',
         });
+       
         throw new Error('Error en la solicitud');
       } else {
         localStorage.setItem('token', data.token);
@@ -76,15 +83,16 @@ export const Login = () => {
 
         setLSuccessfull(true);
       }
-    } catch (error) {
+    }
+     catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Hubo un problema con el inicio de sesión',
+        text: data.message || data || 'Error al iniciar sesion, intenta de nuevo',
       });
-      console.error('Error:', error);
+      
     } finally {
-      setIsLoading(false); // Ocultar el símbolo de carga
+      setIsLoading(false);
     }
   };
 
