@@ -1,18 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "outputDirectory": "build"
-      }
-    }
-  ],
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/build/index.html"
-    }
-  ]
+    { "source": "/(.*)", "destination": "./index.html" }
+  ],
+  "cleanUrls": true
 }
