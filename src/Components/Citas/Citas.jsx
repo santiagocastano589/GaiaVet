@@ -14,7 +14,8 @@ export const Citas = () => {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedPet, setSelectedPet] = useState(null); // Estado para la mascota seleccionada
     const [selectedService, setSelectedService] = useState(null); // Estado para el servicioseleccionado
-
+    const [citas, setCitas] = useState([]);
+    
     const [editData, setEditData] = useState(null);
     const { authToken } = useContext(AuthContext);
     const accesRole = localStorage.getItem('role');
@@ -43,11 +44,9 @@ export const Citas = () => {
             service: "Peluqueria",
             date: selectedDate,
             tipoMascota: "gato",
+            estado:"Pendiente",
             
-            
-            
-            // Otros campos necesarios, por ejemplo, tipoCita, estadoCita, etc.
-        };
+            };
                 console.log(citaData);
 
                 
@@ -95,7 +94,32 @@ export const Citas = () => {
         setEditData(cita);
         setShowEditModal(true);
     };
-
+    const citasPendientes = async () => {
+        try {
+            const response = await fetch('https://gaiavet-back.onrender.com/getCitasPendientes', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
+            });
+            const data = await response.json();
+    
+            // Asegurarse de que `data` sea un array antes de actualizar el estado
+            if (Array.isArray(data)) {
+                setCitas(data);
+            } else {
+                console.error('La respuesta no es un array:', data);
+                setCitas([]); // o maneja el error de otra manera
+            }
+        } catch (error) {
+            console.error('Error ', error);
+            setCitas([]); // Maneja el error estableciendo un array vacío o un estado de error
+        }
+    };
+    
+    useEffect(() => {
+        citasPendientes();
+    }, [authToken]);
     return (
         <>
             <Header />
@@ -146,15 +170,20 @@ export const Citas = () => {
                 </div>
 
                 <div className=' p-3 flex flex-wrap justify-evenly'>
-                    <div className='bg-teal-100 w-1/3 flex flex-col items-center m-4 p-3 rounded-xl'>
-                        <h1 className='text-lg'>Cita de firu</h1>
-                        <p>Domingo 16 de febrero a las 9 AM</p>
-                        <p>Servicio: Baño de mascotas</p>
-                        <div className='mt-3'>
-                            <button className='mx-4 w-32 h-10 rounded-2xl text-white bg-blue-border hover:bg-teal-400'>Cancelar</button>
-                            <button className='mx-4 w-32 h-10 rounded-2xl text-white bg-blue-border hover:bg-teal-400' onClick={() => handleEditClick({ mascota: 'firu', fecha: '2024-02-16T09:00', servicio: 'Baño de mascotas' })}>Editar</button>
+
+                    {citas.map((cita) => (
+                        <div key={cita.id} className='bg-teal-100 w-1/3 flex flex-col items-center m-4 p-3 rounded-xl'>
+                            <h1 className='text-lg'>{`Cita de ${cita.nombre}`}</h1>
+                            <p>{new Date(cita.fecha)}</p>
+                            <p>{`Servicio: ${cita.servicio}`}</p>
+                            <div className='mt-3'>
+                                <button className='mx-4 w-32 h-10 rounded-2xl text-white bg-blue-border hover:bg-teal-400'>Cancelar</button>
+                                <button className='mx-4 w-32 h-10 rounded-2xl text-white bg-blue-border hover:bg-teal-400' onClick={() => handleEditClick(cita)}>Editar</button>
+                            </div>
+                            
                         </div>
-                    </div>
+                    ))}
+                        
                 </div>
             </div>
             <ModalMascotas show={showMascotasModal} onClose={handleModalClose} onSelectPet={setSelectedPet} />
@@ -205,7 +234,7 @@ const ModalMascotas = ({ show, onClose, onSelectPet }) => {
 
     const handleSelectPet = (pet) => {
         onSelectPet(pet);
-        onClose(); // Cerrar el modal después de seleccionar
+        onClose(); 
     };
 
     return (
@@ -216,6 +245,7 @@ const ModalMascotas = ({ show, onClose, onSelectPet }) => {
 
                 <div className='flex h-96 flex-col items-center overflow-auto'>
                     <div className='flex flex-wrap justify-evenly py-10 '>
+
                         {petList.map((pet) => (
                             <div key={pet.idMascota} className='bg-blue-border border-solid border-2 border-gray w-64 h-64 rounded-3xl p-3 flex flex-col justify-evenly items-center my-4'>
                                 <img className='w-32 h-32 object-cover rounded-full' src={pet.foto} alt="" />
