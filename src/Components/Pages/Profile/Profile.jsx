@@ -206,7 +206,7 @@ export const Profile = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch('https://gaiavet-back.onrender.com/me/deleteAcount', {
+          const response = await fetch('https://gaiavet-back.onrender.com/me/deleteAccount', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',

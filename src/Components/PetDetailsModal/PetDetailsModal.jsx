@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import baño1 from '../../assets/baño1.jpg';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../Context/Context';
 import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 
@@ -16,6 +16,36 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
   
   const [isOpen, setIsOpen] = useState(false);
 
+  const [petList, setPetList] = useState([]);
+  const { authToken } = useContext(AuthContext);
+  const accesRole = localStorage.getItem('role');
+
+  console.log(accesRole);
+
+
+  const handleDeleteClick = async () => {
+    try {
+      const response = await fetch(`https://gaiavet-back.onrender.com/DeletePet/${documento}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (response.ok) {
+
+        setPetList(prevList => prevList.filter(pet => pet.documento !== documento));
+        onClose();
+        window.location.reload()
+        console.log('Mascota eliminada con éxito');
+      } else {
+        console.error('Error al eliminar la mascota');
+      }
+    } catch (error) {
+      console.error('Error al intentar eliminar la mascota:', error);
+    }
+  };
   const handleModal = () => {
     setIsOpen(!isOpen);
   };
@@ -59,7 +89,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
           <div className=' w-full   mt-14 text-black flex justify-end '>
             <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
             <button onClick={handleModal} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Editar</button>
-            <button className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
+            <button onClick={handleDeleteClick} className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
           </div>
 
         </div>
