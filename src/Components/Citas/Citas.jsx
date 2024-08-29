@@ -19,6 +19,7 @@ export const Citas = () => {
     const [editData, setEditData] = useState(null);
     const { authToken } = useContext(AuthContext);
     const accesRole = localStorage.getItem('role');
+    console.log(accesRole);
     
     const handleDateChange = (event) => {
         const selectedDate = new Date(event.target.value);
@@ -95,11 +96,16 @@ export const Citas = () => {
         setShowEditModal(true);
     };
     const citasPendientes = async () => {
+
+        const url = accesRole === 'administrador' 
+        ? 'https://gaiavet-back.onrender.com/newCita'
+        : 'https://gaiavet-back.onrender.com/newCitaUser';
         try {
-            const response = await fetch('https://gaiavet-back.onrender.com/getCitasPendientes', {
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${authToken}`,
                 },
             });
             const data = await response.json();
@@ -122,7 +128,7 @@ export const Citas = () => {
     }, [authToken]);
     return (
         <>
-            <Header />
+            <Header title="Agenda tu cita" />
             <div className='pt-40 flex justify-center mb-10'>
                 <form className='bg-gray-200 w-1/3 p-4 border-solid border-2 border-gray rounded-lg ' onSubmit={handleSubmit}>
                     <div className='flex justify-center '>
@@ -143,6 +149,7 @@ export const Citas = () => {
                     </div>
 
                     <div className='flex justify-center mt-4'>
+
                         {selectedPet && (
                             <div className=' w-2/3'>
                                 <h2 className='text-xl'>Mascota seleccionada:</h2>
@@ -150,10 +157,8 @@ export const Citas = () => {
                                 <div className='flex flex-col items-center '>
                                     <img src={selectedPet.foto} alt={selectedPet.nombre} className='w-32 h-32 object-cover rounded-xl mt-4' />
                                     <p className='mt-2 text-xl'>{selectedPet.nombre}</p>
-
                                 </div>
-                                
-                                
+                                                   
                             </div>
                         )}
                     </div>

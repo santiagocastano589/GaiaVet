@@ -63,10 +63,10 @@ export const CartProducts = ({ title, description, price, image }) => {
             <p>Pesp: 2 KG</p>
             <p>Disponibles: 15</p>
             
-            <div className='flex'>
-                <button className='bg-blue-border rounded-full p-1 text-white'>+</button>
+            <div className='flex items-center'>
+                <button className='w-6 h-6 bg-blue-border rounded-full text-white'>+</button>
                   <p className='mx-2 bg-gray-300 p-1 rounded-md'>5</p>
-                <button className='bg-blue-border rounded-full p-1 text-white'>-</button></div>
+                <button className='w-6 h-6 bg-blue-border rounded-full text-white'>-</button></div>
 
             
             </div>
