@@ -171,6 +171,7 @@ export const AdminEmployees = () => {
                 <tbody className="text-gray-600 text-sm w-full ">
                   {filteredEmployeeList.map((employee) => (
                     <tr key={employee.cedulaEmpleado} className="border-b border-gray-200 hover:bg-gray-100 flex items-center justify-center">
+                      <td className="py-3 px-6 text-center w-1/6">{employee.cedula}</td>
                       <td className="py-3 px-6 text-center w-1/6">{employee.nombre}</td>
                       <td className="py-3 px-6 text-center w-1/6">{employee.apellido}</td>
                       <td className="py-3 px-6 text-center w-1/6">{employee.correo}</td>
