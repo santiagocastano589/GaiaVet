@@ -19,7 +19,7 @@ export const AdminEmployees = () => {
       if (!authToken) return;
 
       try {
-        const response = await fetch('http://localhost:3000/employees', {
+        const response = await fetch('https://gaiavet-back.onrender.com/employees', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

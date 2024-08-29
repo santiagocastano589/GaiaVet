@@ -44,6 +44,7 @@ export const Record = () => {
       return;
     }
 
+  
     try {
       const response = await fetch('https://gaiavet-back.onrender.com/register', {
         method: 'POST',
