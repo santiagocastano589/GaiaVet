@@ -1,6 +1,7 @@
 import React from 'react'
 import { CartProducts } from '../CartProducts/CartProducts'
 import tapetes from '../../assets/tapetes-extra-gruesos.webp'
+import { Link } from 'react-router-dom'
 
 export const Carousel = () => {
   return (
@@ -13,7 +14,7 @@ export const Carousel = () => {
         </div>
 
         <div className='w-full flex justify-center mt-4'>
-          <button className='bg-buttonProducts text-white py-3 px-7 rounded-3xl'>Ver todos los productos</button>
+          <Link to={"/products"}><button className='bg-buttonProducts text-white py-3 px-7 rounded-3xl hover:bg-opacity-85 duration-200'>Ver todos los productos</button></Link>
         </div>
     </div>
   )

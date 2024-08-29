@@ -10,9 +10,9 @@ export const ContainerServices = () => {
   return (
     <div className='w-full p-4 py-20 flex items-center justify-evenly'>
 
-        <Link to={'/peluqueria'}><CartServices image={peluqueria} service={'Peluqueria'} alt={'Peluqueria'}/></Link>
+        <Link to={'/peluqueria'}><CartServices image={peluqueria} service={'Peluquearía '} alt={'Peluquearía '}/></Link>
         <Link to={'/baño'}><CartServices image={baño} service={'Baño'} alt={'Baño'}/></Link>
-        <Link to={'/guarderia'}><CartServices image={calendario} service={'Guarderia'} alt={'Guarderia'}/></Link>
+        <Link to={'/guarderia'}><CartServices image={calendario} service={'Guardería'} alt={'Guardería'}/></Link>
         <Link to={'/consulta'}><CartServices image={consultaGeneral} service={'Consulta General'} alt={'Consulta General'}/></Link>
 
     </div>

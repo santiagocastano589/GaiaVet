@@ -1,12 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../Context/Context';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 export const Product = ({ id, image, title, alt, description, price, category, stock }) => {
   const productContext = useContext(AuthContext);
+  const [buttonBuy, setButtonBuy] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setButtonBuy(!!token); 
+  }, []);
 
   const addProduct = () => {
-    // Verificar si hay stock disponible antes de agregar el producto al carrito
     productContext.setCart(prevCart => {
       const existingProductIndex = prevCart.findIndex(product => product.idProduct === id);
       const existingProduct = prevCart[existingProductIndex];
@@ -50,7 +56,7 @@ export const Product = ({ id, image, title, alt, description, price, category, s
               titleProduct: title,
               priceProduct: price,
               categoryProduct: category,
-              stockProduct:stock,
+              stockProduct: stock,
               count: 1
             }
           ];
@@ -68,26 +74,38 @@ export const Product = ({ id, image, title, alt, description, price, category, s
   };
 
   return (
-    <div className="w-[20rem] h-full m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
-      <div className='w-full rounded-xl flex justify-center p-2 '>
-        <img className=' rounded-2xl' src={image} alt={alt} />
+    <div className="w-[20rem] h-[70vh] m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
+
+      <div className='w-full h-2/5 rounded-xl flex justify-center '>
+        <img className='rounded-2xl' src={image} alt={alt} />
       </div>
-      <div className='w-full flex flex-col justify-evenly text-justify px-6'>
-        <h2 className='text-4xl gorditas text-center my-2'>
+
+      <div className='w-full flex flex-col justify-between px-6 flex-1'>
+        <h2 className='text-2xl gorditas text-center my-2'>
           {title}
         </h2>
-        <p className='gorditas text-2xl my-2'>
+
+        <p className='gorditas text-xl my-2'>
           ${price}
         </p>
-        <p className='text-base'>
+        
+        <p className='text-base text-left line-clamp-3 overflow-hidden'>
           {description}
         </p>
+
         <p className='text-base font-semibold'>
           Disponibles: {stock}
         </p>
-        <div className='w-full flex justify-center my-4'>
-          <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl'>Agregar</button>
-        </div>
+      </div>
+
+      <div className='w-full flex justify-center mt-4'>
+        {buttonBuy ? (
+          <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white'>Agregar</button>
+        ) : (
+          <Link to={"/login"}>
+            <button className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white'>Iniciar sesión</button>
+          </Link>
+        )}
       </div>
     </div>
   );

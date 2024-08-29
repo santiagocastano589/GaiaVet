@@ -8,14 +8,12 @@ export const ContainerProducts = ({ searchText, selectedCategory }) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      if (!authToken) return;
 
       try {
         const response = await fetch('https://gaiavet-back.onrender.com/products', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
           },
         });
 
@@ -27,14 +25,13 @@ export const ContainerProducts = ({ searchText, selectedCategory }) => {
         } else {
           console.error('La respuesta no es un array:', data);
         }
-
       } catch (error) {
         console.log('Error al traer los productos:', error);
       }
     };
 
     fetchProducts();
-  }, [authToken]);
+  }, []);
 
   const filteredProducts = products.filter(product => {
     const matchesSearchText = product.nombreProducto.toLowerCase().includes(searchText.toLowerCase());

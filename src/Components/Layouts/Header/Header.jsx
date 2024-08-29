@@ -4,21 +4,17 @@ import logo from '../../../assets/logoGaia.webp';
 import menu from '../../../assets/Iconos/MenuHamburguesa.svg';
 import { NavMenu } from '../../WindowModals/NavMenu/NavMenu';
 import { Cart } from '../../WindowModals/Cart/Cart';
-
 import { Link, useLocation } from 'react-router-dom';
-
 import { LiaShoppingCartSolid } from "react-icons/lia";
 
-
 export const Header = ({ title }) => {
-
   const location = useLocation();
-  
+
   const [menuNav, setMenuNav] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [showIconCart,setIconShowCart] = useState(false)
-  const [showCart,setShowCart] = useState(false)
+  const [showIconCart, setIconShowCart] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   const controlOpenMenu = () => {
     setMenuNav(!menuNav);
@@ -42,29 +38,25 @@ export const Header = ({ title }) => {
     };
   }, [lastScrollY]);
 
-useEffect(() => {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
 
-  if (location.pathname == '/products') {
-    setIconShowCart(true)
-  }else if (location.pathname != '/products') {
-    setIconShowCart(false)
-  }
-  
-}, [])
+    if (location.pathname === '/products' && token) {
+      setIconShowCart(true);
+    } else {
+      setIconShowCart(false);
+    }
+  }, [location.pathname]);
 
-const controlCart = ()=>{
-
-  if (!showCart) {
-    setShowCart(true)
-    document.body.style.overflow = 'hidden';
-  }else{
-    setShowCart(false)
-    document.body.style.overflow = 'auto';
-  }
-}
-
-  
-  
+  const controlCart = () => {
+    if (!showCart) {
+      setShowCart(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      setShowCart(false);
+      document.body.style.overflow = 'auto';
+    }
+  };
 
   return (
     <header className={`ola w-full h-28 bg-cover flex justify-center z-40 fixed transition-transform duration-300 ${showHeader ? 'transform translate-y-0' : 'transform -translate-y-full'}`}>
@@ -74,15 +66,13 @@ const controlCart = ()=>{
           <h2 className='text-3xl font-gorditas p-3'>GaiaVet</h2>
         </Link>
         <h2 className='text-8xl font-bold text-stroke-2-white font-gorditas mt-16'>{title}</h2>
-        
-        <div className='flex'>
 
-        <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
+        <div className='flex'>
+          <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
           {showIconCart && <LiaShoppingCartSolid onClick={controlCart} className='text-5xl absolute right-20 top-7 cursor-pointer' />}
           {showCart && <Cart onClose={controlCart} />}
           {menuNav && <NavMenu onClose={() => setMenuNav(false)} />}
         </div>
-
       </div>
     </header>
   );
