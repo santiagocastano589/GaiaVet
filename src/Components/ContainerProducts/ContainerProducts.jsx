@@ -57,6 +57,7 @@ export const ContainerProducts = ({ searchText, selectedCategory }) => {
             alt={product.nombreProducto}
             price={product.precio}
             category={product.categoria}
+            stock={product.stock}
           />
         ))
       ) : (

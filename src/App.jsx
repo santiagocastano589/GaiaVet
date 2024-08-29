@@ -22,6 +22,8 @@ import { Review } from './Components/Pages/Review/Review';
 import { AdminProducts } from './Components/Pages/AdminProducts/AdminProducts';
 import { EmployeeRegister } from './Components/EmployeeRegister/EmployeeRegister';
 import { UserList } from './Components/UserList/UserList';
+import { AdminEmployees } from './Components/Pages/AdminEmployees/AdminEmployees';
+
 
 
 
@@ -43,6 +45,7 @@ function App() {
           <Route path="/admin/usersList" element={<UserList />} />
           <Route path="/admin/productList" element={<AdminProducts />} />
           <Route path="/admin/registerEmployee" element={<EmployeeRegister />} />
+          <Route path="/admin/employees" element={<AdminEmployees />} />
 
 
           <Route path="/reseña" element={<Review />} />
