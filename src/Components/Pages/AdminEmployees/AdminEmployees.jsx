@@ -4,6 +4,7 @@ import { Header } from '../../Layouts/Header/Header';
 import UpdateProduct from '../../WindowModals/ProductsModals/UpdateProduct/UpdateProduct';
 import ProductRegisterModal from "../ProductRegisterModal/ProductRegisterModal";
 import Swal from 'sweetalert2';
+import UpdateEmployees from '../../WindowModals/UpdateEmployees/UpdateEmployees';
 
 export const AdminEmployees = () => {
   const [employeesList, setEmployeesList] = useState([]);
@@ -92,7 +93,7 @@ export const AdminEmployees = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`https://gaiavet-back.onrender.com/producto/${cedulaEmpleado}`, {
+          const response = await fetch(`https://gaiavet-back.onrender.com/empleados/${cedulaEmpleado}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -147,12 +148,12 @@ export const AdminEmployees = () => {
         <div className="w-full flex justify-center overflow-hidden">
           <div className="w-[90%] p-6 mb-[10rem] ">
             <div className="flex items-center justify-between mb-4 bg-teal-200 h-[8rem] px-4 rounded-xl">
-              <h3>Hola!! Presiona el botón para registrar un nuevo producto</h3>
+              <h3>Hola!! Presiona el botón para registrar un nuevo empleado</h3>
               <button 
                 className="bg-teal-500 text-white py-2 px-4 rounded h-[3rem] hover:bg-teal-400"
                 onClick={openModal}
               >
-                Registrar Producto
+                Registrar empleado
               </button>
             </div>
             <div className='overflow-y-auto max-h-[80vh] '>
@@ -200,17 +201,17 @@ export const AdminEmployees = () => {
         </div>
       </div>
       {isModalOpen && <ProductRegisterModal onClose={closeModal} onProductAdded={handleProductAdded} />}
-      {editOpen && selectedProduct && (
-        <UpdateProduct 
+      {editOpen && selectedEmployee && (
+        <UpdateEmployees 
           onClose={() => setEditOpen(false)}
-          id={selectedProduct.idProducto} 
-          img={selectedProduct.imagen} 
-          name={selectedProduct.nombreProducto} 
-          description={selectedProduct.descripcion}
-          category={selectedProduct.categoria}
-          stock={selectedProduct.stock}
-          price={selectedProduct.precio}
-          onProductAdded={handleProductAdded}
+          cedulaEmpleado={selectedEmployee.cedulaEmpleado} 
+          nombre={selectedEmployee.nombre}
+          apellido={selectedEmployee.apellido}
+          edad={selectedEmployee.edad}
+          tiempoEXP={selectedEmployee.tiempoExp}
+          correo={selectedEmployee.correo}
+
+          onEmployeesAdded={handleProductAdded}
         />
       )}
     </>
