@@ -110,29 +110,26 @@ export const Record = () => {
             <Input lblName='Apellidos' name='apellido' type='text' placeholder='Apellido' onChange={handleChange} />
             {errors.apellido && <p className='text-red-500 mx-9'>{errors.apellido}</p>}
 
-            <Input lblName='Numero de documento' name='cedula' type='text' placeholder='Numero de documento' onChange={handleChange} />
+            <Input lblName='Número de documento' name='cedula' type='text' placeholder='Número de documento' onChange={handleChange} />
             {errors.cedula && <p className='text-red-500 mx-9'>{errors.cedula}</p>}
 
-            <Input lblName='Correo electronico' name='correo' type='text' placeholder='Correo Electronico' onChange={handleChange} />
+            <Input lblName='Correo Electrónico' name='correo' type='text' placeholder='Correo Electrónico' onChange={handleChange} />
             {errors.correo && <p className='text-red-500 mx-9'>{errors.correo}</p>}
-
-            <Input lblName='Direccion' name='direccion' type='text' placeholder='Direccion' onChange={handleChange} />
-            {errors.direccion && <p className='text-red-500 mx-9'>{errors.direccion}</p>}
-
-            <Input lblName='Telefono' name='telefono' type='text' placeholder='Telefono' onChange={handleChange} />
-            {errors.telefono && <p className='text-red-500 mx-9'>{errors.telefono}</p>}
 
             <Input lblName='Contraseña' name='contraseña' type='password' placeholder='Contraseña' onChange={handleChange} />
             {errors.contraseña && <p className='text-red-500 mx-9'>{errors.contraseña}</p>}
 
+            <Input lblName='Dirección' name='direccion' type='text' placeholder='Dirección' onChange={handleChange} />
+            {errors.direccion && <p className='text-red-500 mx-9'>{errors.direccion}</p>}
+
+            <Input lblName='Teléfono' name='telefono' type='text' placeholder='Teléfono' onChange={handleChange} />
+            {errors.telefono && <p className='text-red-500 mx-9'>{errors.telefono}</p>}
+
+            
+
             <div className='flex justify-center items-center flex-col'>
               <Button textButton='Registrar' onClick={handleSubmit} />
-              <button className='w-72 hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100'>
-                Registrate con Google
-                <div className='flex items-center mx-2 rounded-xl'>
-                  <img className='w-4 flex items-center' src={google} alt='' />
-                </div>
-              </button>
+              
             </div>
           </form>
         </div>
