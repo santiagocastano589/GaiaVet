@@ -92,7 +92,7 @@ export const Citas2 = () => {
 
   return (
     <>
-      <Header title={'Citas'} />
+      <Header title={'Citas'} classN='text-8xl'/>
 
       <div className='pt-48 w-screen h-auto'>
         <div className='w-full flex justify-center'>
