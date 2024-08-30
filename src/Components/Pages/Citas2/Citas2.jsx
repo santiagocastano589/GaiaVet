@@ -99,8 +99,8 @@ export const Citas2 = () => {
           <div className='w-4/5 flex flex-col items-center justify-center'>
 
             {/* Selección de Servicio */}
-            <div className='w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 hover:bg-opacity-85 duration-200' onClick={showServices}>
-              <div className='flex items-center'>
+            <div className='w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 hover:bg-opacity-85 duration-200' >
+              <div className='flex items-center' onClick={showServices}>
                 <FaLessThan className={`text-white text-2xl ${services ? 'rotate-90' : 'rotate-180'} mr-4 transition-transform duration-300`} />
                 <h2 className='font-gorditas text-3xl text-white'>Selecciona el servicio</h2>
               </div>
@@ -127,8 +127,8 @@ export const Citas2 = () => {
             </div>
 
             {/* Selección de Mascota */}
-            <div className={`w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 ${selectedService ? '' : 'opacity-50 cursor-not-allowed'}`} onClick={showPets}>
-              <div className='flex items-center'>
+            <div className={`w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 ${selectedService ? '' : 'opacity-50 cursor-not-allowed'}`} >
+              <div className='flex items-center' onClick={showPets}>
                 <FaLessThan className={`text-white text-2xl ${pets ? 'rotate-90' : 'rotate-180'} mr-4 transition-transform duration-300`} />
                 <h2 className='font-gorditas text-3xl text-white'>Selecciona tu mascota</h2>
               </div>
@@ -157,14 +157,16 @@ export const Citas2 = () => {
             </div>
 
             {/* Selección de Fecha y Hora */}
-            <div className={`w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 ${selectedPet ? '' : 'opacity-50 cursor-not-allowed'}`} onClick={showDates}>
-              <div className='flex items-center'>
+            <div className={`w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 ${selectedPet ? '' : 'opacity-50 cursor-not-allowed'}`} >
+              <div className='flex items-center' onClick={showDates}>
                 <FaLessThan className={`text-white text-2xl ${dates ? 'rotate-90' : 'rotate-180'} mr-4 transition-transform duration-300`} />
                 <h2 className='font-gorditas text-3xl text-white'>Selecciona fecha y hora</h2>
               </div>
               {dates && (
                 <div className={`transition-all duration-500 ease-in-out transform ${dates ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0'} overflow-hidden`}>
-                  <p>Fecha seleccionada</p>
+                  
+                  
+
                   <p>Hora seleccionada</p>
                 </div>
               )}
