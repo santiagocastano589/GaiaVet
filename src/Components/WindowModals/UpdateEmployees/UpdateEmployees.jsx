@@ -4,13 +4,13 @@ import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
 
-const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoEXP,correo, onClose }) => {
+const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoExp,correo, onClose, onEmployeeUpdated}) => {
   const [employees, setProduct] = useState({
     cedulaEmpleado:cedulaEmpleado,
     nombre:nombre,
     apellido:apellido,
     edad:edad,
-    tiempoEXP:tiempoEXP,
+    tiempoExp:tiempoExp,
     correo:correo,
   });
 
@@ -46,12 +46,13 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoEXP,correo,
               'Content-Type': 'application/json',
               Authorization: `Bearer ${authToken}`,
             },
-            body: JSON.stringify(UpdateEmployees),
+            body: JSON.stringify(employees),
           });
 
-  alert(cedulaEmpleado);
   
           const data = await response.json();
+          console.log(data);
+          
           
           if (response.ok) {
             Swal.fire({
@@ -60,7 +61,7 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoEXP,correo,
               icon: 'success',
             });
   
-           
+            onEmployeeUpdated(employees);
             onClose();
             // window.location.reload();
           } else {
@@ -74,7 +75,7 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoEXP,correo,
           console.error('Error:', error);
           Swal.fire({
             title: 'Error',
-            text: 'Error al actualizar el producto',
+            text: 'Error pai',
             icon: 'error',
           });
         }
@@ -95,7 +96,7 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoEXP,correo,
               <InputProducts nameLabel={'Nombre :'} value={employees.nombre} name='nombre' type='text' onChange={handleChange} />
               <InputProducts nameLabel={'Apellido:'} value={employees.apellido} name='apellido' type='text' onChange={handleChange} />
               <InputProducts nameLabel={'Edad:'} value={employees.edad} name='edad' type='text' onChange={handleChange} />
-              <InputProducts nameLabel={'Tiempo de experencia:'} value={employees.tiempoEXP} name='tiempoEXP' type='text' onChange={handleChange} />
+              <InputProducts nameLabel={'Tiempo de experencia:'} value={employees.tiempoExp} name='tiempoExp' type='text' onChange={handleChange} />
 
               
               <div className='w-[90%] text-black flex justify-end mt-4'>

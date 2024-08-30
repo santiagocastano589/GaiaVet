@@ -128,6 +128,15 @@ export const AdminEmployees = () => {
       }
     });
   };
+
+  const handleEmployeeUpdated = (updatedEmployee) => {
+    setEmployeesList((prevList) =>
+      prevList.map((employee) =>
+        employee.cedulaEmpleado === updatedEmployee.cedulaEmpleado ? updatedEmployee : employee
+      )
+    );
+  };
+  
   
 
   return (
@@ -200,11 +209,11 @@ export const AdminEmployees = () => {
           nombre={selectedEmployee.nombre}
           apellido={selectedEmployee.apellido}
           edad={selectedEmployee.edad}
-          tiempoEXP={selectedEmployee.tiempoExp}
+          tiempoExp={selectedEmployee.tiempoExp}
           correo={selectedEmployee.correo}
 
-          onEmployeesAdded={handleProductAdded}
-        />
+          onEmployeeUpdated={handleEmployeeUpdated}
+       />
       )}
     </>
   );
