@@ -42,7 +42,7 @@ export const EmployeeRegister = () => {
     }
 
     try {
-      const response = await fetch('http://gaiavet-back.onrender.com/registerE', {
+      const response = await fetch('https://gaiavet-back.onrender.com/newEmployee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
