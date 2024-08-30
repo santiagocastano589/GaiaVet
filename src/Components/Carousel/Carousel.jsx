@@ -35,13 +35,15 @@ export const Carousel = () => {
   return (
     <div className='w-full h-full bg-slate-100 flex justify-evenly py-10 flex-wrap'>
       <div className='flex justify-evenly flex-wrap'>
-        {products.map((product, index) => (
+        {products.map((product) => (
           <CartProducts
             key={product.idProducto}
-            image={product.imagen} // Puedes reemplazar esto con product.image si tienes la URL de la imagen en los datos de productos
+            image={product.imagen}
             title={product.nombreProducto}
             description={product.descripcion}
             price={product.precio}
+            categoria={product.categoria}
+            stock={product.stock}
           />
         ))}
       </div>

@@ -3,6 +3,8 @@ import { AuthContext } from '../Context/Context';
 import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 
+import Swal from 'sweetalert2';
+
 const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, temperamento, onClose }) => {
 
   const [editedDocumento, setEditedDocumento] = useState(documento);
@@ -37,10 +39,20 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
 
         setPetList(prevList => prevList.filter(pet => pet.documento !== documento));
         onClose();
-        window.location.reload()
-        console.log('Mascota eliminada con éxito');
+        Swal.fire({
+          title: 'Mascota eliminada',
+          text: 'La mascota se elimino correctamente',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+      });
+      window.location.reload()
+
       } else {
-        console.error('Error al eliminar la mascota');
+          Swal.fire({
+          title: 'Error',
+          text: 'Hubo un error al eliminar la mascota. Inténtalo de nuevo.',
+          icon: 'error',
+          });
       }
     } catch (error) {
       console.error('Error al intentar eliminar la mascota:', error);

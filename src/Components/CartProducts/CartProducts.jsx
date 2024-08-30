@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const CartProducts = ({ title, description, price, image }) => {
+export const CartProducts = ({ title, description, price, image, categoria, stock }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -47,7 +47,7 @@ export const CartProducts = ({ title, description, price, image }) => {
 
           <div className='flex h-full'>
 
-          <div className='flex flex-col justify-center items-center w-10/12 h-full'>
+          <div className='flex flex-col justify-center items-center w-2/4 h-full'>
             <img className='h-96 object-cover' src={image} alt="" />
             <p className='text-3xl font-semibold '>COP ${price}</p>
           </div>
@@ -55,17 +55,16 @@ export const CartProducts = ({ title, description, price, image }) => {
             <div className=' flex flex-col justify-evenly'>
             <div>
             <h2 className='text-4xl mb-3'>{title}</h2>
-            <p className='text-lg '>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, fugiat suscipit libero ea deleniti, quas eius non corrupti sit tempore a perferendis deserunt sunt nesciunt voluptatum doloremque, consectetur possimus necessitatibus.</p>
+            <p className='text-lg '>{description}</p>
             </div>
 
             <div className='flex flex-col justify-evenly h-48'>
-            <p>Categoria: Comida para perros</p>
-            <p>Pesp: 2 KG</p>
-            <p>Disponibles: 15</p>
+            <p>Categoria: {categoria}</p>
+            <p>Disponibles: {stock}</p>
             
             <div className='flex items-center'>
                 <button className='w-6 h-6 bg-blue-border rounded-full text-white'>+</button>
-                  <p className='mx-2 bg-gray-300 p-1 rounded-md'>5</p>
+                  <p className='mx-2 bg-gray-300 p-1 rounded-md'></p>
                 <button className='w-6 h-6 bg-blue-border rounded-full text-white'>-</button></div>
 
             
