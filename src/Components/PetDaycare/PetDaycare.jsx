@@ -36,7 +36,7 @@ export const PetDaycare = ({title,description}) => {
   };
   return (
     <>
-    <Header title={title} />
+    <Header title={''} />
     <div className='flex flex-col justify-center items-center pb-10'>
 
     <div className='w-full mb-11 relative '>  
