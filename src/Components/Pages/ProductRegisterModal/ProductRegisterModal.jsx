@@ -86,7 +86,7 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
   return (
     <div className="w-full fixed z-50 inset-0 bg-black bg-opacity-80 transition-all ease-in-out duration-300 font-itim">
       <div className="w-[70rem] h-[30rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-fondo rounded-lg shadow-sm">
-        <div className='w-full h-[30rem] flex justify-between items-center rounded-xl bg-slate-400'>
+        <div className='w-full h-[30rem] flex justify-between items-center rounded-xl bg-white'>
           <div className="w-[80%] h-[30rem] p-4 text-white flex flex-col items-center justify-evenly">
             <h3 className='gorditas text-black text-xl'>Registro de productos</h3>
             
@@ -106,7 +106,7 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
             </form>
           </div>
           
-          <div className="h-[30rem] w-[35%] bg-fondoTarjeta rounded-lg flex flex-col">
+          <div className="h-[30rem] w-[35%] bg-teal-600 rounded-lg flex flex-col">
             <p className="mr-2 mt-2 cursor-pointer font-extrabold text-xl bg-header w-7 text-center rounded-full hover:bg-buttonProducts duration-200 hover:text-white self-end" onClick={onClose}>
               X
             </p>

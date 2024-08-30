@@ -66,7 +66,7 @@ export const Pets = () => {
 
   return (
     <>
-      <Header title="Buscar mascota" />
+      <Header title="Lista de mascotas" classN='text-7xl'/>
       <div className="">
         <div className="flex justify-center pt-48">
           <div className="flex flex-row items-center w-[60rem]">

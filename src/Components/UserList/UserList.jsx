@@ -53,6 +53,7 @@ export const UserList = () => {
         user.telefono?.toString().includes(searchTerm) ||
         user.direccion?.toLowerCase().includes(searchTerm.toLowerCase())
       );
+     
     setFilteredUserList(filteredUsers);
   }, [searchTerm, userList]);
 
@@ -62,7 +63,7 @@ export const UserList = () => {
 
   return (
     <>
-      <Header title="Buscar usuarios" />
+      <Header title="Lista de usuarios" classN='text-7xl'/>
       <div className="">
         <div className="flex justify-center pt-48">
           <div className="flex flex-row items-center w-[60rem]">

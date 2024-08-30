@@ -6,7 +6,7 @@ export const Product = ({ id, image, title, alt, description, price, category, s
   const productContext = useContext(AuthContext);
 
   const addProduct = () => {
-    // Verificar si hay stock disponible antes de agregar el producto al carrito
+
     productContext.setCart(prevCart => {
       const existingProductIndex = prevCart.findIndex(product => product.idProduct === id);
       const existingProduct = prevCart[existingProductIndex];
@@ -68,11 +68,11 @@ export const Product = ({ id, image, title, alt, description, price, category, s
   };
 
   return (
-    <div className="w-[20rem] h-full m-4 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
+    <div className="w-[20rem] h-full m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
       <div className='w-full rounded-xl flex justify-center p-2 '>
         <img className=' rounded-2xl' src={image} alt={alt} />
       </div>
-      <div className='w-full flex flex-col justify-evenly text-justify px-6 h-[20rem]'>
+      <div className='w-full flex flex-col justify-evenly text-justify px-6'>
         <h2 className='text-4xl gorditas text-center my-2'>
           {title}
         </h2>

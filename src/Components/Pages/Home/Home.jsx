@@ -18,7 +18,7 @@ export const Home = () => {
 
   return (
     <div className='w-full h-full'>
-      <Header title='GaiaVet' />
+      <Header title='GaiaVet' classN='text-8xl'/>
       <Main>
         <Element name="inicio">
           <div>

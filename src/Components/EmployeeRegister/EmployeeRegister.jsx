@@ -42,7 +42,7 @@ export const EmployeeRegister = () => {
     }
 
     try {
-      const response = await fetch('https://gaiavet-back.onrender.com/registerE', {
+      const response = await fetch('https://gaiavet-back.onrender.com/newEmployee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,6 +51,7 @@ export const EmployeeRegister = () => {
         body: JSON.stringify(employee),
       });
 
+      
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
 
@@ -83,7 +84,7 @@ export const EmployeeRegister = () => {
 
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header title='Registrar Empleado' />
+      <Header title='Registrar Empleado' classN='text-7xl'/>
       <div className='flex justify-center items-center z-0 pt-36 pb-10 '>
         <div className='bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>
