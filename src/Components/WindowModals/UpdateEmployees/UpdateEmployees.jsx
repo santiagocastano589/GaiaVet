@@ -37,10 +37,10 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoEXP,correo,
       cancelButtonText: 'Cancelar',
     }).then(async (result) => {
       
-  
+      
        
         try {
-          const response = await fetch(`https://gaiavet-back.onrender.com/empleados/${cedulaEmpleado}`, {
+          const response = await fetch(`https://gaiavet-back.onrender.com/updateEmployee/${cedulaEmpleado}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',

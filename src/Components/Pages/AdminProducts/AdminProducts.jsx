@@ -68,7 +68,7 @@ export const AdminProducts = () => {
     setIsModalOpen(false);
   };
 
-  const handleProductAdded = (newProduct) => {
+  const handleProductAdded = (newProduct) => {    
     setProductsList((prevList) => [...prevList, newProduct]);
   };
 

@@ -93,7 +93,7 @@ export const AdminEmployees = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`https://gaiavet-back.onrender.com/empleados/${cedulaEmpleado}`, {
+          const response = await fetch(`https://gaiavet-back.onrender.com/deleteEmployee/${cedulaEmpleado}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -146,16 +146,8 @@ export const AdminEmployees = () => {
       </div>
       <div className="flex justify-center ">
         <div className="w-full flex justify-center overflow-hidden">
-          <div className="w-[90%] p-6 mb-[10rem] ">
-            <div className="flex items-center justify-between mb-4 bg-teal-200 h-[8rem] px-4 rounded-xl">
-              <h3>Hola!! Presiona el botón para registrar un nuevo empleado</h3>
-              <button 
-                className="bg-teal-500 text-white py-2 px-4 rounded h-[3rem] hover:bg-teal-400"
-                onClick={openModal}
-              >
-                Registrar empleado
-              </button>
-            </div>
+          <div className="w-[90%] p-6 mb-[10rem] h-[70vh]">
+            
             <div className='overflow-y-auto max-h-[80vh] '>
               <table className=" bg-white border-4 mb-4 flex flex-col">
                 <thead>

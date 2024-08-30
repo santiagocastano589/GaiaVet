@@ -128,7 +128,7 @@ const ProductUpdate = ({ id, img, name, description, category, price, stock, onC
   return (
     <div className="w-full fixed z-50 inset-0 bg-black bg-opacity-80 transition-all ease-in-out duration-300 font-itim">
       <div className="w-[70rem] h-[30rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-fondo rounded-lg shadow-sm">
-        <div className='w-full h-[30rem] flex justify-between items-center rounded-xl bg-slate-400'>
+        <div className='w-full h-[30rem] flex justify-between items-center rounded-xl bg-white'>
           <div className="w-[80%] h-[30rem] p-4 text-white flex flex-col items-center justify-evenly">
             <h3 className='gorditas text-black text-4xl'>Actualización de productos</h3>
             
@@ -141,13 +141,13 @@ const ProductUpdate = ({ id, img, name, description, category, price, stock, onC
               <InputProducts nameLabel={'Stock del producto:'} value={product.stock} name='stock' type='number' onChange={handleChange} />
               
               <div className='w-[90%] text-black flex justify-end mt-4'>
-                <button type="submit" className="px-5 py-1 bg-white text-green-700 font-medium rounded-lg float-end mr-12 hover:bg-green-100 duration-200" >Guardar</button>
+                <button type="submit" className="px-5 py-1 bg-gray-200 text-green-700 font-medium rounded-lg float-end mr-12 hover:bg-green-300 duration-200" >Guardar</button>
                 <button type="button" className="px-5 py-1 bg-red-600 text-white font-medium rounded-lg float-end mr-4 hover:bg-opacity-70 duration-200" onClick={onClose}>Cancelar</button>
               </div>
             </form>
           </div>
           
-          <div className="h-[30rem] w-[35%] bg-fondoTarjeta rounded-lg flex flex-col">
+          <div className="h-[30rem] w-[35%] bg-teal-600 rounded-lg flex flex-col">
             <p
               className="mr-2 mt-2 cursor-pointer font-extrabold text-xl bg-header w-7 text-center rounded-full hover:bg-buttonProducts duration-200 hover:text-white self-end"
               onClick={onClose}
