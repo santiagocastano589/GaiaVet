@@ -9,7 +9,7 @@ export const ProductsShop = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   return (
     <>
-      <Header title='Productos' />
+      <Header title='Tienda' classN='text-7xl'/>
       <Main>
         <ContainerCategory setSelectedCategory={setSelectedCategory} />
         <div className='w-full h-10 bg-teal-500 flex justify-evenly items-center my-8 py-8'>

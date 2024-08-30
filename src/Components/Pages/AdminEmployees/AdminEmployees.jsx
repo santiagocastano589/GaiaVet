@@ -141,7 +141,7 @@ export const AdminEmployees = () => {
 
   return (
     <>
-      <Header title="Lista de Empleados" />
+      <Header title="Gestión de Empleados" classN='text-7xl' />
       <div className='w-full flex justify-center'>
         <div className="flex flex-row items-center justify-center w-[60rem] pt-48">
           <input

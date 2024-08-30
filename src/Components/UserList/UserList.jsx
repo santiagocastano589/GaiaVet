@@ -63,7 +63,7 @@ export const UserList = () => {
 
   return (
     <>
-      <Header title="Buscar usuarios" />
+      <Header title="Lista de usuarios" classN='text-7xl'/>
       <div className="">
         <div className="flex justify-center pt-48">
           <div className="flex flex-row items-center w-[60rem]">

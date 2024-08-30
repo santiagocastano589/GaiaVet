@@ -131,7 +131,7 @@ export const AdminProducts = () => {
 
   return (
     <>
-      <Header title="Lista de Productos" />
+      <Header title="Gestión de Productos" classN='text-7xl'/>
       <div className='w-full flex justify-center'>
         <div className="flex flex-row items-center justify-center w-[60rem] pt-48">
           <input
