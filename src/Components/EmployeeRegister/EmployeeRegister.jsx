@@ -4,8 +4,13 @@ import { Input } from '../Input/Input';
 import logo from '../../assets/logoGaia.webp';
 import { Button } from '../Button/Button';
 import { Header } from '../Layouts/Header/Header';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const EmployeeRegister = () => {
+  const [successful, setSuccessful] = useState(false);
+  const navigate = useNavigate();
+
   const [employee, setEmployee] = useState({
     cedulaEmpleado: '',
     nombre: '',
@@ -35,9 +40,13 @@ export const EmployeeRegister = () => {
       return;
     }
 
-    if (!employee.nombre || !employee.correo || !employee.contraseña) {
-      console.error('Faltan campos requeridos');
-      alert('Por favor, complete todos los campos requeridos');
+    if (!employee.nombre || !employee.correo || !employee.contraseña || !employee.nombre || !employee.cedulaEmpleado || !employee.apellido || ! employee.edad || ! employee.correo) {
+      Swal.fire({
+        title: 'Error ',
+        text: 'Todos los campos son obligatorios',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      });
       return;
     }
 
@@ -62,7 +71,12 @@ export const EmployeeRegister = () => {
       }
 
       if (response.ok) {
-        alert('Empleado registrado con éxito');
+        Swal.fire({
+          title: 'Empleado registrado',
+          text: 'El empleado fue registrado exitosamente',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+        });
         setEmployee({
           cedulaEmpleado: '',
           nombre: '',
@@ -73,15 +87,25 @@ export const EmployeeRegister = () => {
           contraseña: '',
           role: 'Empleado',
         });
+        setSuccessful(true);
       } else {
-        alert('Error al registrar el empleado: ' + data.message);
+        Swal.fire({
+          title: 'Error',
+          text: ('Error al registrar el empleado: ' + data.message),
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+        });
+        
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Error al registrar el empleado');
+      console.log('Error al registrar el empleado');
     }
   };
 
+  if (successful) {
+    navigate('/admin/employees');
+  }
   return (
     <div className='h-full w-full flex flex-col'>
       <Header title='Registrar Empleado' classN='text-7xl'/>
