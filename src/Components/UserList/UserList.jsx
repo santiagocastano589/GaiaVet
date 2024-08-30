@@ -63,7 +63,7 @@ export const UserList = () => {
 
   return (
     <>
-      <Header title="Buscar usuarios" />
+      <Header title="Lista de usuarios" classN='text-7xl'/>
       <div className="">
         <div className="flex justify-center pt-48">
           <div className="flex flex-row items-center w-[60rem]">
@@ -90,25 +90,17 @@ export const UserList = () => {
                   <th className="py-3 px-6 text-center">Correo</th>
                   <th className="py-3 px-6 text-center">Direccion</th>
                   <th className="py-3 px-6 text-center">Telefono</th>
-                  <th className="py-3 px-6 text-center">Ver mas</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm">
                 {filteredUserList.map((user) => (
                   <tr key={user.cedula} className="border-b border-gray-200 hover:bg-gray-100">
-                    <td className="py-2 px-2 text-center">{user.cedula}</td>
-                    <td className="py-2 px-2 text-center">{user.nombre}</td>
-                    <td className="py-2 px-2 text-center">{user.apellido}</td>
-                    <td className="py-2 px-2 text-center">{user.correo}</td>
-                    <td className="py-2 px-2 text-center">{user.direccion}</td>
-                    <td className="py-2 px-2 text-center">{user.telefono}</td>
-                    <td className="py-2 px-2 text-center ">
-                      <button
-                        type="button"
-                        className='bg-blue-border px-11 py-3 rounded-md hover:bg-teal-300 text-white'                      >
-                        Ver más
-                      </button>
-                    </td>
+                    <td className="py-3 px-2 text-center">{user.cedula}</td>
+                    <td className="py-3 px-2 text-center">{user.nombre}</td>
+                    <td className="py-3 px-2 text-center">{user.apellido}</td>
+                    <td className="py-3 px-2 text-center">{user.correo}</td>
+                    <td className="py-3 px-2 text-center">{user.direccion}</td>
+                    <td className="py-3 px-2 text-center">{user.telefono}</td>
                   </tr>
                 ))}
               </tbody>

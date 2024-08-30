@@ -9,7 +9,7 @@ export const ProductsShop = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   return (
     <>
-      <Header title='Productos' />
+      <Header title='Tienda' classN='text-7xl'/>
       <Main>
         <ContainerCategory setSelectedCategory={setSelectedCategory} />
         <div className='w-full h-10 bg-teal-500 flex justify-evenly items-center my-8 py-8'>
@@ -28,7 +28,7 @@ export const ProductsShop = () => {
                 <option value=''>Todos los productos</option>
                 <option value='Comida para perros'>Comida para perros</option>
                 <option value='Comida para gatos'>Comida para gatos</option>
-                <option value='Aseo para tu mascota'>Productos de aseo</option>
+                <option value='Aseo'>Aseo para tu mascota</option>
             </select>
         </div>
         

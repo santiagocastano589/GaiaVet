@@ -273,7 +273,7 @@ export const Profile = () => {
             {showConfirmButton && (
               <button 
                 className='w-52 h-12 rounded-xl bg-buttonProducts text-white mb-10'
-                onClick={handleSaveClick} // Confirmar imagen al hacer clic
+                onClick={handleConfirmImage} // Confirmar imagen al hacer clic
               >
                 Confirmar imagen
               </button>

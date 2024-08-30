@@ -82,6 +82,7 @@ export const NavMenu = ({ onClose }) => {
               <MenuItems nameItem="Perfil" to="/Profile" type="link" />
               <MenuItems nameItem="Registrar mascota" to="/petRegister" type="link" />
               <MenuItems nameItem="Mascotas" to="/pets" type="link" />
+              <MenuItems nameItem="Citas" to="/citas" type="link" />
               <MenuItems nameItem="Tienda" to="/products" type="link" />
               <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4' type="button">Cerrar Sesión</button>
             </>
@@ -93,6 +94,9 @@ export const NavMenu = ({ onClose }) => {
               <MenuItems nameItem="Usuarios" to="/admin/usersList" type="link" />
               <MenuItems nameItem="Tienda" to="/products" type="link" />
               <MenuItems nameItem="Gestionar productos" to="/admin/productList" type="link" />
+              <MenuItems nameItem="Registrar Empleados" to="/admin/registerEmployee" type="link" />
+              <MenuItems nameItem="Gestionar Empleados" to="/admin/employees" type="link" />
+
               <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4' type="button">Cerrar Sesión</button>
             </>
           }

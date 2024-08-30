@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+
   ],
   theme: {
 
@@ -44,6 +45,7 @@ export default {
         },
       });
     },
-    require('tailwindcss-animated')
+    require('tailwindcss-animated'),
+
   ],
 }

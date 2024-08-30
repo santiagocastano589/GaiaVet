@@ -4,8 +4,13 @@ import { Input } from '../Input/Input';
 import logo from '../../assets/logoGaia.webp';
 import { Button } from '../Button/Button';
 import { Header } from '../Layouts/Header/Header';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const EmployeeRegister = () => {
+  const [successful, setSuccessful] = useState(false);
+  const navigate = useNavigate();
+
   const [employee, setEmployee] = useState({
     cedulaEmpleado: '',
     nombre: '',
@@ -35,14 +40,18 @@ export const EmployeeRegister = () => {
       return;
     }
 
-    if (!employee.nombre || !employee.correo || !employee.contraseña) {
-      console.error('Faltan campos requeridos');
-      alert('Por favor, complete todos los campos requeridos');
+    if (!employee.nombre || !employee.correo || !employee.contraseña || !employee.nombre || !employee.cedulaEmpleado || !employee.apellido || ! employee.edad || ! employee.correo) {
+      Swal.fire({
+        title: 'Error ',
+        text: 'Todos los campos son obligatorios',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      });
       return;
     }
 
     try {
-      const response = await fetch('https://gaiavet-back.onrender.com/registerE', {
+      const response = await fetch('https://gaiavet-back.onrender.com/newEmployee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,6 +60,7 @@ export const EmployeeRegister = () => {
         body: JSON.stringify(employee),
       });
 
+      
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
 
@@ -61,7 +71,12 @@ export const EmployeeRegister = () => {
       }
 
       if (response.ok) {
-        alert('Empleado registrado con éxito');
+        Swal.fire({
+          title: 'Empleado registrado',
+          text: 'El empleado fue registrado exitosamente',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+        });
         setEmployee({
           cedulaEmpleado: '',
           nombre: '',
@@ -72,18 +87,28 @@ export const EmployeeRegister = () => {
           contraseña: '',
           role: 'Empleado',
         });
+        setSuccessful(true);
       } else {
-        alert('Error al registrar el empleado: ' + data.message);
+        Swal.fire({
+          title: 'Error',
+          text: ('Error al registrar el empleado: ' + data.message),
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+        });
+        
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Error al registrar el empleado');
+      console.log('Error al registrar el empleado');
     }
   };
 
+  if (successful) {
+    navigate('/admin/employees');
+  }
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header title='Registrar Empleado' />
+      <Header title='Registrar Empleado' classN='text-7xl'/>
       <div className='flex justify-center items-center z-0 pt-36 pb-10 '>
         <div className='bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>

@@ -20,13 +20,13 @@ export const PetRegister = () => {
     edad: '',
     peso: '',
     temperamento: '',
-    foto: '' // Este campo se llenará con la URL de Cloudinary
+    foto: ''
   });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'foto' && files.length > 0) {
-      setSelectedImage(files[0]); // Almacena la imagen seleccionada
+      setSelectedImage(files[0]);
     } else {
       formData.current[name] = value;
     }
@@ -35,7 +35,6 @@ export const PetRegister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar que todos los campos obligatorios están completos
     const { nombre, TipoMascota, raza, edad, peso, temperamento } = formData.current;
     if (!nombre || !TipoMascota || !raza || !edad || !peso || !temperamento || !selectedImage) {
       Swal.fire({
@@ -47,10 +46,9 @@ export const PetRegister = () => {
     }
 
     try {
-      // Subir la imagen a Cloudinary
       const uploadData = new FormData();
       uploadData.append('file', selectedImage);
-      uploadData.append('upload_preset', 'hz5sgkps'); // Reemplaza 'YOUR_UPLOAD_PRESET' con tu preset de Cloudinary
+      uploadData.append('upload_preset', 'hz5sgkps');
 
       const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dxg8bqs9x/image/upload', {
         method: 'POST',
@@ -68,9 +66,8 @@ export const PetRegister = () => {
         throw new Error('Error al subir la imagen a Cloudinary');
       }
 
-      formData.current.foto = cloudinaryData.secure_url; // Asigna la URL de Cloudinary al campo de la foto
+      formData.current.foto = cloudinaryData.secure_url;
 
-      // Proceder con el registro de la mascota
       const dataEnd = { ...formData.current };
 
       const response = await fetch('https://gaiavet-back.onrender.com/newPet', {
@@ -112,14 +109,13 @@ export const PetRegister = () => {
     }
   };
 
-  // Redirigir a la página de mascotas si el registro es exitoso
   if (successful) {
     navigate('/pets');
   }
 
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header title='Registrar mascota' />
+      <Header title='Registrar mascota' classN='text-7xl'/>
       <div className='flex justify-around items-center z-0 pt-48 pb-10 '>
         <div className='w-[30rem] bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>

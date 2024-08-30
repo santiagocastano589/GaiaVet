@@ -7,7 +7,8 @@ import { Cart } from '../../WindowModals/Cart/Cart';
 import { Link, useLocation } from 'react-router-dom';
 import { LiaShoppingCartSolid } from "react-icons/lia";
 
-export const Header = ({ title }) => {
+export const Header = ({ title, classN }) => {
+
   const location = useLocation();
 
   const [menuNav, setMenuNav] = useState(false);
@@ -65,8 +66,9 @@ export const Header = ({ title }) => {
           <img className='bg-white p-1 rounded-full' src={logo} alt="" />
           <h2 className='text-3xl font-gorditas p-3'>GaiaVet</h2>
         </Link>
-        <h2 className='text-8xl font-bold text-stroke-2-white font-gorditas mt-16'>{title}</h2>
-
+        <h2 className={`font-bold text-stroke-2-white font-gorditas mt-16 ${classN}`}>
+          {title}
+        </h2>        
         <div className='flex'>
           <img className='cursor-pointer w-10' onClick={controlOpenMenu} src={menu} alt="" />
           {showIconCart && <LiaShoppingCartSolid onClick={controlCart} className='text-5xl absolute right-20 top-7 cursor-pointer' />}
