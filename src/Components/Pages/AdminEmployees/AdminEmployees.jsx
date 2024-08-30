@@ -155,31 +155,31 @@ export const AdminEmployees = () => {
       </div>
       <div className="flex justify-center ">
         <div className="w-full flex justify-center overflow-hidden">
-          <div className="w-[90%] p-6 mb-[10rem] h-[70vh]">
+          <div className="w-[90%] py-6 mb-[10rem] h-[70vh]">
             
             <div className='overflow-y-auto max-h-[80vh] '>
               <table className=" bg-white border-4 mb-4 flex flex-col">
-                <thead>
-                  <tr className=" bg-teal-500 text-gray-800 uppercase text-sm w-full">
-                    <th className="py-3 px-6 text-center w-1/6">Cedula del empleado</th>
-                    <th className="py-3 px-6 text-center w-1/6">Nombre</th>
-                    <th className="py-3 px-6 text-center w-1/6">Apellido</th>
-                    <th className="py-3 px-6 text-center w-1/6">Correo</th>
-                    <th className="py-3 px-6 text-center w-1/6">edad</th>
-                    <th className="py-3 px-6 text-center w-1/6">tiempoExp</th>
-                    <th className="py-3 px-6 text-center w-1/6">Administrar</th>
+                <thead className='w-full'>
+                  <tr className=" bg-teal-500 text-gray-800 uppercase text-sm w-full flex justify-evenly">
+                    <th className="py-3 text-center w-1/6">Cedula del empleado</th>
+                    <th className="py-3 text-center w-1/12">Nombre</th>
+                    <th className="py-3 text-center w-1/12">Apellido</th>
+                    <th className="py-3 text-center w-1/6">Correo electronico</th>
+                    <th className="py-3 text-center w-1/12">edad</th>
+                    <th className="py-3 text-center w-1/12">tiempoExp</th>
+                    <th className="py-3 text-center w-1/12">Administrar</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm w-full ">
                   {filteredEmployeeList.map((employee) => (
-                    <tr key={employee.cedulaEmpleado} className="border-b border-gray-200 hover:bg-gray-100 flex items-center justify-center">
-                      <td className="py-3 px-6 text-center w-1/6">{employee.cedulaEmpleado}</td>
-                      <td className="py-3 px-6 text-center w-1/6">{employee.nombre}</td>
-                      <td className="py-3 px-6 text-center w-1/6">{employee.apellido}</td>
-                      <td className="py-3 px-6 text-center w-1/6">{employee.correo}</td>
-                      <td className="py-3 px-6 text-center w-1/6">{employee.edad}</td>
-                      <td className="py-3 px-6 text-center w-1/6">{employee.tiempoExp}</td>
-                      <td className="h-full py-3 px-6 flex flex-col items-center ">
+                    <tr key={employee.cedulaEmpleado} className="border-b border-gray-200 hover:bg-gray-100 flex items-center justify-evenly">
+                      <td className="py-3 text-center w-1/6">{employee.cedulaEmpleado}</td>
+                      <td className="py-3 text-center w-1/12">{employee.nombre}</td>
+                      <td className="py-3 text-center w-1/12">{employee.apellido}</td>
+                      <td className="py-3 text-center w-1/6">{employee.correo}</td>
+                      <td className="py-3 text-center w-1/12">{employee.edad}</td>
+                      <td className="py-3 text-center w-1/12">{employee.tiempoExp}</td>
+                      <td className="h-full py-3 flex flex-col items-center w-1/12">
                         <button 
                           onClick={() => controlUpdate(employee)} 
                           className="px-5 py-1 w-28 bg-buttonProducts hover:bg-opacity-70 duration-300 text-white font-medium rounded-lg float-end mb-4"
