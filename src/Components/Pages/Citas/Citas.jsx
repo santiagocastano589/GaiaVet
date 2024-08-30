@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Header } from '../Layouts/Header/Header';
-import calendario from '../../assets/calendario.png';
-import baño from '../../assets/aseo-de-mascotas.png';
-import consultaGeneral from '../../assets/consulta.png';
-import peluqueria from '../../assets/peluqueria.png';
-import { CartServices } from '../CartServices/CartServices';
-import { AuthContext } from '../Context/Context';
+import { Header } from '../../Layouts/Header/Header';
+import calendario from '../../../assets/calendario.png';
+import baño from '../../../assets/aseo-de-mascotas.png';
+import consultaGeneral from '../../../assets/consulta.png';
+import peluqueria from '../../../assets/peluqueria.png';
+import { CartServices } from '../../CartServices/CartServices';
+import { AuthContext } from '../../Context/Context';
 
 export const Citas = () => {
     const [showMascotasModal, setShowMascotasModal] = useState(false);
@@ -47,7 +47,7 @@ export const Citas = () => {
             estado:"Pendiente",
             
             };
-                console.log(citaData);
+            console.log(citaData);
 
                 
         try {
@@ -104,16 +104,15 @@ export const Citas = () => {
             });
             const data = await response.json();
     
-            // Asegurarse de que `data` sea un array antes de actualizar el estado
             if (Array.isArray(data)) {
                 setCitas(data);
             } else {
                 console.error('La respuesta no es un array:', data);
-                setCitas([]); // o maneja el error de otra manera
+                setCitas([]); 
             }
         } catch (error) {
             console.error('Error ', error);
-            setCitas([]); // Maneja el error estableciendo un array vacío o un estado de error
+            setCitas([]);
         }
     };
     
@@ -122,8 +121,8 @@ export const Citas = () => {
     }, [authToken]);
     return (
         <>
-            <Header />
-            <div className='pt-40 flex justify-center mb-10'>
+            <Header title={'Agenda tu cita'} />
+            <div className='pt-48 flex justify-center mb-10'>
                 <form className='bg-gray-200 w-1/3 p-4 border-solid border-2 border-gray rounded-lg ' onSubmit={handleSubmit}>
                     <div className='flex justify-center '>
                         <button className='w-36 h-10 rounded-2xl text-white bg-blue-border mx-2 hover:bg-teal-400' type="button" onClick={handleMascotasClick}>Tus mascotas</button>
