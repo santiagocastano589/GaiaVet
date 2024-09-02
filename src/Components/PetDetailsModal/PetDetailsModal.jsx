@@ -26,28 +26,35 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
 
 
   const handleDeleteClick = async () => {
-    try {
-      const response = await fetch(`https://gaiavet-back.onrender.com/DeletePet/${documento}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-
-      if (response.ok) {
-
-        setPetList(prevList => prevList.filter(pet => pet.documento !== documento));
-        onClose();
-        Swal.fire({
-          title: 'Mascota eliminada',
-          text: 'La mascota se elimino correctamente',
-          icon: 'success',
-          confirmButtonColor: '#3085d6',
-      });
-      window.location.reload()
-
-      } else {
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar tu mascota?',
+      text: 'Esta acción es irreversible y eliminará todos los datos de tu mascota.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'No, cancelar',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`https://gaiavet-back.onrender.com/DeletePet/${documento}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+          if (response.ok) {
+            setPetList(prevList => prevList.filter(pet => pet.documento !== documento));
+            onClose();
+            Swal.fire({
+            title: 'Mascota eliminada',
+            text: 'La mascota se elimino correctamente',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+          });
+        } else {
           Swal.fire({
           title: 'Error',
           text: 'Hubo un error al eliminar la mascota. Inténtalo de nuevo.',
@@ -55,9 +62,20 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
           });
       }
     } catch (error) {
-      console.error('Error al intentar eliminar la mascota:', error);
+        console.error('Error al intentar eliminar la mascota:', error);
     }
-  };
+  }
+
+
+});
+}
+  
+
+
+        
+
+      
+    
   const handleModal = () => {
     setIsOpen(!isOpen);
   };
@@ -81,7 +99,6 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
       <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-fondo  rounded-lg shadow-sm">
 
       <div className='flex justify-between w-full'>
-        
         <div className=" p-10 text-white flex flex-col justify-center items-center ">
 
           <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={handleNameChange}/>
