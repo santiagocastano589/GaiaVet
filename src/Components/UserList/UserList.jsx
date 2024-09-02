@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Header } from '../Layouts/Header/Header';
 import { AuthContext } from '../Context/Context';
+import UserDetailsModal from '../WindowModals/UserDetailsModal/UserDetailsModal';
 
 export const UserList = () => {
   const [userList, setUserList] = useState([]);
   const [filteredUserList, setFilteredUserList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { authToken } = useContext(AuthContext);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const accesRole = localStorage.getItem('role');
   
@@ -60,7 +62,9 @@ export const UserList = () => {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
-
+  const ModalUser = (user) => {
+    setSelectedUser(user);
+  };
   return (
     <>
       <Header title="Lista de usuarios" classN='text-7xl'/>
@@ -105,6 +109,7 @@ export const UserList = () => {
                     <td className="py-2 px-2 text-center ">
                       <button
                         type="button"
+                        onClick={() => ModalUser(user)}
                         className='bg-blue-border px-11 py-3 rounded-md hover:bg-teal-300 text-white'                      >
                         Ver más
                       </button>
@@ -116,7 +121,18 @@ export const UserList = () => {
             </div>
           </div>
         </div>
-
+        {selectedUser && (
+          <UserDetailsModal
+            cedula={selectedUser.cedula}
+            nombre={selectedUser.nombre}
+            apellido={selectedUser.apellido}
+            correo={selectedUser.correo}
+            direccion={selectedUser.direccion}
+            telefono={selectedUser.telefono}
+            userImg={selectedUser.imagen}
+            onClose={() => ModalUser(null)}
+          />
+        )}
       </div>
     </>
   );

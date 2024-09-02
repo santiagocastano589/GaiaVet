@@ -85,8 +85,8 @@ const handleSaveChanges = async () => {
                     text: 'La mascota ha sido actualizada con éxito.',
                     icon: 'success',
                 });
-                window.location.reload()
                 onClose();
+                window.location.reload()
             } catch (error) {
                 Swal.fire({
                     title: 'Error',
