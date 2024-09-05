@@ -3,7 +3,7 @@ import React from 'react';
 const InputPetEditable = ({ htmlFor, nameLabel, id, value, onChange, type = 'text' }) => {
   return (
     <div className='flex items-center mt-3'>
-        <label className='w-28 text-black text-xl' htmlFor={htmlFor}>{nameLabel}</label>
+        <label className='w-[10rem] text-black text-xl' htmlFor={htmlFor}>{nameLabel}</label>
         <input
           type={type}
           id={id}

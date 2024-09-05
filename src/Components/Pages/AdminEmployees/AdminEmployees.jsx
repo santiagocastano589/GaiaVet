@@ -156,22 +156,24 @@ export const AdminEmployees = () => {
         <div className="w-full flex justify-center overflow-hidden">
           <div className="w-[90%] py-6 mb-[10rem] h-[70vh]">
             
-            <div className='overflow-y-auto max-h-[80vh] '>
-              <table className=" bg-white border-4 mb-4 flex flex-col">
-                <thead className='w-full'>
-                  <tr className=" bg-teal-500 text-gray-800 uppercase text-sm w-full flex justify-evenly">
-                    <th className="py-3 text-center w-1/6">Cedula del empleado</th>
-                    <th className="py-3 text-center w-1/12">Nombre</th>
-                    <th className="py-3 text-center w-1/12">Apellido</th>
-                    <th className="py-3 text-center w-1/6">Correo electronico</th>
-                    <th className="py-3 text-center w-1/12">edad</th>
-                    <th className="py-3 text-center w-1/12">tiempoExp</th>
-                    <th className="py-3 text-center w-1/12">Administrar</th>
+            <div className='overflow-y-auto max-h-[100vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
+
+              <table className="w-full text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
+                <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400'>
+                  <tr className=" bg-teal-500 text-gray-800 uppercase text-base w-full flex justify-evenly">
+                    <th scope="col" className="py-3 text-center w-1/6">Cédula del empleado</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Nombre</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Apellido</th>
+                    <th scope="col" className="py-3 text-center w-1/6">Correo electronico</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Edad</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Tiempo Exp</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Administrar</th>
                   </tr>
                 </thead>
-                <tbody className="text-gray-600 text-sm w-full ">
+                <tbody className="text-gray-600 text-base w-full ">
                   {filteredEmployeeList.map((employee) => (
-                    <tr key={employee.cedulaEmpleado} className="border-b border-gray-200 hover:bg-gray-100 flex items-center justify-evenly">
+                    <tr key={employee.cedulaEmpleado} className="dark:hover:bg-gray-50 border-gray-200 flex items-center justify-evenly odd:bg-white odd:dark:bg-gray-100 even:dark:bg-gray-200 border-b">
+                    {/* <tr key={employee.cedulaEmpleado} className="border-b border-gray-200 hover:bg-gray-100 flex items-center justify-evenly"> */}
                       <td className="py-3 text-center w-1/6">{employee.cedulaEmpleado}</td>
                       <td className="py-3 text-center w-1/12">{employee.nombre}</td>
                       <td className="py-3 text-center w-1/12">{employee.apellido}</td>

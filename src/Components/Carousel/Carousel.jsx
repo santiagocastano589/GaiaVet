@@ -4,7 +4,6 @@ import tapetes from '../../assets/tapetes-extra-gruesos.webp';
 
 export const Carousel = () => {
   const [products, setProducts] = useState([]);
-  const authToken = 'tu_auth_token'; // Asegúrate de que authToken esté definido
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -13,7 +12,6 @@ export const Carousel = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
           },
         });
 
@@ -30,7 +28,7 @@ export const Carousel = () => {
     };
 
     fetchProducts();
-  }, [authToken]);
+  }, []);
 
   return (
     <div className='w-full h-full bg-slate-100 flex justify-evenly py-10 flex-wrap'>

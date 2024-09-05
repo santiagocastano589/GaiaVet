@@ -28,9 +28,9 @@ export const Home = () => {
         <Element name="sobre">
           <ContainerInfo 
             image={pastorcolli}
-            alt={'Pastor colli'}
+            alt={'border collie'}
             title={'Urgencias veterinarias 24 horas'}
-            description={"En Gaia Vet, comprendemos que la salud de tu mascota es invaluable, por eso nuestro servicio de urgencias veterinarias 24 horas está diseñado para brindar atención oportuna y de calidad a tu peludito cuando más lo necesita. Sabemos que las emergencias veterinarias pueden surgir en cualquier momento, por lo que, sin importar la hora, ponemos a tu disposición un equipo interdisciplinario de expertos altamente capacitados para atender cualquier urgencia que enfrente tu mascota.Te garantizamos que, ante cualquier eventualidad con la salud de tu fiel compañero, él se sentirá como en casa en nuestras instalaciones."}
+            description={"En Gaia Vet, comprendemos que la salud de tu mascota es invaluable, por eso nuestro servicio de urgencias veterinarias 24 horas está diseñado para brindar atención oportuna y de calidad a tu peludito cuando más lo necesita. Sabemos que las emergencias veterinarias pueden surgir en cualquier momento, por lo que, sin importar la hora, ponemos a tu disposición un equipo interdisciplinario de expertos altamente capacitados para atender cualquier urgencia que enfrente tu mascota. Té garantizamos que, ante cualquier eventualidad con la salud de tu fiel compañero, él se sentirá como en casa en nuestras instalaciones."}
           />
         </Element>
         <Element name="productos">
@@ -43,7 +43,7 @@ export const Home = () => {
         </Element>
         
           <ContainerLocation 
-            direction={'Cra 10 # 10-46, Circasia, Quindio, Colombia'} 
+            direction={'Cra 10 #10-46, Circasia, Quindío, Colombia'} 
             phone={'3205677966'} 
             alt={'Ubicación'} 
           />

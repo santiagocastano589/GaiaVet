@@ -11,7 +11,7 @@ export const Pets = () => {
   const { authToken } = useContext(AuthContext);
 
   const accesRole = localStorage.getItem('role');
-  
+
   useEffect(() => {
     const fetchPets = async () => {
       if (!authToken) return;
@@ -43,7 +43,7 @@ export const Pets = () => {
     };
 
     fetchPets();
-  }, [authToken]);
+  }, [authToken, accesRole]);
 
   useEffect(() => {
     const results = petList.filter(pet => 
@@ -64,6 +64,7 @@ export const Pets = () => {
     setSelectedPet(pet);
   };
 
+
   return (
     <>
       <Header title="Lista de mascotas" classN='text-7xl'/>
@@ -72,7 +73,7 @@ export const Pets = () => {
           <div className="flex flex-row items-center w-[60rem]">
             <input
               type="text"
-              placeholder="Busca tu mascota de manera rapida"
+              placeholder="Busca tu mascota de manera rápida"
               className="w-full px-4 py-2 bg-white border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-gray-700 placeholder-gray-400"
               value={searchTerm}
               onChange={handleSearchChange}
@@ -82,44 +83,53 @@ export const Pets = () => {
         
         <div className="w-full flex justify-center my-10">
           <div className="w-[80%] h-[100vh] p-6 mb-[10rem]">
-            <div className='overflow-y-auto max-h-[100vh] '>
-
-            <table className="w-full bg-white border-4">
-              <thead>
-                <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm pb-10">
-                  <th className="py-3 px-6 text-center">Imagen</th>
-                  <th className="py-3 px-6 text-center">Documento</th>
-                  <th className="py-3 px-6 text-center">Nombre</th>
-                  <th className="py-3 px-6 text-center">Tipo</th>
-                  <th className="py-3 px-6 text-center">Edad</th>
-                  <th className="py-3 px-6 text-center">Raza</th>
-                  <th className="py-3 px-6 text-center">Ver mas</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-600 text-sm">
-                {filteredPetList.map((pet) => (
-                  <tr key={pet.idMascota} className="border-b border-gray-200 hover:bg-gray-100">
-                    <td className="py-1 px-2 text-center text-lg flex items-center justify-center">
-                      <img src={pet.foto} alt={pet.nombre} className='w-[15rem] h-[10rem] object-contain'/>
-                    </td>
-                    <td className="py-1 px-2 text-center text-lg">{pet.idMascota}</td>
-                    <td className="py-1 px-2 text-center text-lg">{pet.nombre}</td>
-                    <td className="py-1 px-2 text-center text-lg">{pet.TipoMascota}</td>
-                    <td className="py-1 px-2 text-center text-lg">{pet.edad}</td>
-                    <td className="py-1 px-2 text-center text-lg">{pet.raza}</td>
-                    <td className="py-1 px-2 text-center ">
-                      <button
-                        type="button"
-                        className='bg-blue-border px-11 py-3 rounded-md hover:bg-teal-300 text-white'
-                        onClick={() => handleModalToggle(pet)}
-                      >
-                        Ver más
-                      </button>
-                    </td>
+            <div className='overflow-y-auto max-h-[100vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
+              <table className="w-full text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
+                <thead className='text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400'>
+                  <tr className="w-full bg-teal-500 text-gray-800 uppercase text-base pb-10">
+                    <th scope="col" className="py-3 px-6 text-center">Imagen</th>
+                    <th scope="col" className="py-3 px-6 text-center">Documento</th>
+                    <th scope="col" className="py-3 px-6 text-center">Nombre</th>
+                    <th scope="col" className="py-3 px-6 text-center">Tipo</th>
+                    <th scope="col" className="py-3 px-6 text-center">Edad</th>
+                    <th scope="col" className="py-3 px-6 text-center">Raza</th>
+                    <th scope="col" className="py-3 px-6 text-center">Ver más</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="text-gray-600 text-sm">
+                  {filteredPetList.length === 0 ? (
+                    <tr>
+                      <td colSpan="7" className="py-4 text-center text-lg text-gray-700">
+                        {searchTerm
+                          ? "No se encontraron mascotas que coincidan con la búsqueda."
+                          : "No hay mascotas registradas."}
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredPetList.map((pet) => (
+                      <tr key={pet.idMascota} className="dark:hover:bg-gray-50 border-gray-200 odd:bg-white odd:dark:bg-gray-100 even:dark:bg-gray-200 border-b">
+                        <td className="py-1 px-2 text-center text-lg flex items-center justify-center">
+                          <img src={pet.foto} alt={pet.nombre} className="w-[15rem] h-[10rem] object-cover rounded-xl" />
+                        </td>
+                        <td className="py-1 px-2 text-center text-lg">{pet.idMascota}</td>
+                        <td className="py-1 px-2 text-center text-lg">{pet.nombre}</td>
+                        <td className="py-1 px-2 text-center text-lg">{pet.TipoMascota}</td>
+                        <td className="py-1 px-2 text-center text-lg">{pet.edad}</td>
+                        <td className="py-1 px-2 text-center text-lg">{pet.raza}</td>
+                        <td className="py-1 px-2 text-center text-base">
+                          <button
+                            type="button"
+                            className="bg-blue-border px-11 py-3 rounded-md hover:bg-teal-300 text-white"
+                            onClick={() => handleModalToggle(pet)}
+                          >
+                            Ver más
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

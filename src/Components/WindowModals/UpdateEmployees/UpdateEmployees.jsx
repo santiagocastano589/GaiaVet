@@ -36,9 +36,7 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoExp,correo,
       confirmButtonText: 'Sí, actualizar',
       cancelButtonText: 'Cancelar',
     }).then(async (result) => {
-      
-      
-       
+      if (result.isConfirmed) {
         try {
           const response = await fetch(`https://gaiavet-back.onrender.com/updateEmployee/${cedulaEmpleado}`, {
             method: 'PUT',
@@ -64,6 +62,7 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoExp,correo,
             onEmployeeUpdated(employees);
             onClose();
           } else {
+            const errorData = await response.json();
             Swal.fire({
               title: 'Error',
               text: `Error al actualizar el empleado: ${data.message}`,
@@ -74,10 +73,13 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoExp,correo,
           console.error('Error:', error);
           Swal.fire({
             title: 'Error',
-            text: 'Error pai',
+            text: 'Error con empleado',
             icon: 'error',
           });
         }
+        
+      }
+      
       }
     );
   };

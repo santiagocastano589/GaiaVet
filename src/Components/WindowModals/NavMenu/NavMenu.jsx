@@ -4,6 +4,7 @@ import { MenuItems } from '../../MenuItems/MenuItems';
 import './NavMenu.css';
 import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
+import { FaHome } from "react-icons/fa";
 
 export const NavMenu = ({ onClose }) => {
   const navigate = useNavigate();
@@ -63,7 +64,9 @@ export const NavMenu = ({ onClose }) => {
       </div>
       <div className="w-full h-3/5 flex items-center ">
         <ul className="w-full h-full flex flex-col justify-center">
-          <MenuItems nameItem="Inicio" to="/" type="Link" />
+          <div className='flex'>
+            <MenuItems nameItem="Inicio" to="/" type="Link" />
+          </div>
 
           {!navContext.authToken && 
             <>

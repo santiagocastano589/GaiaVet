@@ -143,7 +143,7 @@ const handleSaveChanges = async () => {
                         />
                         <InputPetEditable
                             htmlFor="temperamento"
-                            nameLabel="Temp:"
+                            nameLabel="Temperamento:"
                             id="temperamento"
                             value={editedTemperamento}
                             onChange={handleTemperamentoChange}

@@ -1,9 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../Context/Context';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 export const Product = ({ id, image, title, alt, description, price, category, stock }) => {
   const productContext = useContext(AuthContext);
+  const [buttonBuy, setButtonBuy] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setButtonBuy(!!token); 
+  }, []);
 
   const addProduct = () => {
 
@@ -50,7 +57,7 @@ export const Product = ({ id, image, title, alt, description, price, category, s
               titleProduct: title,
               priceProduct: price,
               categoryProduct: category,
-              stockProduct:stock,
+              stockProduct: stock,
               count: 1
             }
           ];
@@ -79,15 +86,24 @@ export const Product = ({ id, image, title, alt, description, price, category, s
         <p className='gorditas text-xl my-2'>
           ${price}
         </p>
-        <p className='text-base'>
+        
+        <p className='text-base text-left line-clamp-3 overflow-hidden'>
           {description}
         </p>
+
         <p className='text-base font-semibold'>
           Disponibles: {stock}
         </p>
-        <div className='w-full flex justify-center my-4'>
-          <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl'>Agregar</button>
-        </div>
+      </div>
+
+      <div className='w-full flex justify-center mt-4'>
+        {buttonBuy ? (
+          <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white'>Agregar</button>
+        ) : (
+          <Link to={"/login"}>
+            <button className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white'>Iniciar sesión</button>
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -83,38 +83,37 @@ export const UserList = () => {
         
         <div className="w-full flex justify-center my-10">
           <div className="w-[80%] h-[100vh] p-6 mb-[10rem]">
-            <div className='overflow-y-auto max-h-[100vh] '>
+            <div className='overflow-y-auto max-h-[100vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
 
-            <table className="w-full bg-white border-4">
-              <thead>
-                <tr className="w-full bg-teal-500 text-gray-800 uppercase text-sm pb-10">
-                  <th className="py-3 px-6 text-center">Documento</th>
-                  <th className="py-3 px-6 text-center">Nombre</th>
-                  <th className="py-3 px-6 text-center">Apellido</th>
-                  <th className="py-3 px-6 text-center">Correo</th>
-                  <th className="py-3 px-6 text-center">Direccion</th>
-                  <th className="py-3 px-6 text-center">Telefono</th>
-                  <th className="py-3 px-6 text-center">Ver mas</th>
+            <table className="w-full text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
+              <thead className='text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400'>
+                <tr className="w-full bg-teal-500 text-gray-800 uppercase text-lg pb-10">
+                  <th scope="col" className="py-3 px-6 text-center">Documento</th>
+                  <th scope="col" className="py-3 px-6 text-center">Nombre</th>
+                  <th scope="col" className="py-3 px-6 text-center">Apellido</th>
+                  <th scope="col" className="py-3 px-6 text-center">Correo</th>
+                  <th scope="col" className="py-3 px-6 text-center">Dirección</th>
+                  <th scope="col" className="py-3 px-6 text-center">Teléfono</th>
+                  <th scope="col" className="py-3 px-6 text-center">Ver más</th>
                 </tr>
+                
               </thead>
-              <tbody className="text-gray-600 text-sm">
+              <tbody className="text-gray-600 text-base">
                 {filteredUserList.map((user) => (
-                  <tr key={user.cedula} className="border-b border-gray-200 hover:bg-gray-100">
-
-                    <td className="py-2 px-2 text-center">{user.cedula}</td>
-                    <td className="py-2 px-2 text-center">{user.nombre}</td>
-                    <td className="py-2 px-2 text-center">{user.apellido}</td>
-                    <td className="py-2 px-2 text-center">{user.correo}</td>
-                    <td className="py-2 px-2 text-center">{user.direccion}</td>
-                    <td className="py-2 px-2 text-center">{user.telefono}</td>
-                    <td className="py-2 px-2 text-center ">
-                      <button
+                  <tr key={user.cedula} className="dark:hover:bg-gray-50 border-gray-200 odd:bg-white odd:dark:bg-gray-100 even:dark:bg-gray-200 border-b">
+                  {/* <tr key={user.cedula} className="odd:bg-white odd:dark:bg-gray-100  even:dark:bg-gray-100 border-b dark:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-300"> */}
+                    <td className="py-3 text-center">{user.cedula}</td>
+                    <td className="py-3 text-center">{user.nombre}</td>
+                    <td className="py-3 text-center">{user.apellido}</td>
+                    <td className="py-3 text-center">{user.correo}</td>
+                    <td className="py-3 text-center">{user.direccion}</td>
+                    <td className="py-3 text-center">{user.telefono}</td>
+                    <td className="py-3 text-center"><button
                         type="button"
                         onClick={() => ModalUser(user)}
                         className='bg-blue-border px-11 py-3 rounded-md hover:bg-teal-300 text-white'                      >
                         Ver más
-                      </button>
-                    </td>
+                      </button></td>
                   </tr>
                 ))}
               </tbody>
