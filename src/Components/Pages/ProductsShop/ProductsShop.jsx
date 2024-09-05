@@ -28,7 +28,7 @@ export const ProductsShop = () => {
                 <option value=''>Todos los productos</option>
                 <option value='Comida para perros'>Comida para perros</option>
                 <option value='Comida para gatos'>Comida para gatos</option>
-                <option value='Aseo para tu mascota'>Productos de aseo</option>
+                <option value='Aseo'>Aseo para tu mascota</option>
             </select>
         </div>
         

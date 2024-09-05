@@ -63,6 +63,7 @@ export const CartProducts = ({ title, description, price, image, categoria, stoc
             <p>Disponibles: {stock}</p>
             
             <div className='flex items-center'>
+
                 <button className='w-6 h-6 bg-blue-border rounded-full text-white'>-</button>
                   <p className='mx-2 bg-gray-300 p-1 rounded-md'>0</p>
                 <button className='w-6 h-6 bg-blue-border rounded-full text-white'>+</button></div>

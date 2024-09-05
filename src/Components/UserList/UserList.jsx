@@ -100,6 +100,7 @@ export const UserList = () => {
               <tbody className="text-gray-600 text-sm">
                 {filteredUserList.map((user) => (
                   <tr key={user.cedula} className="border-b border-gray-200 hover:bg-gray-100">
+
                     <td className="py-2 px-2 text-center">{user.cedula}</td>
                     <td className="py-2 px-2 text-center">{user.nombre}</td>
                     <td className="py-2 px-2 text-center">{user.apellido}</td>

@@ -48,11 +48,11 @@ export const Carousel = () => {
         ))}
       </div>
 
-      <div className='w-full flex justify-center mt-4'>
+      {/* <div className='w-full flex justify-center mt-4'>
         <button className='bg-buttonProducts text-white py-3 px-7 rounded-3xl'>
           Ver todos los productos
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
