@@ -76,7 +76,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
     setEditedName(event.target.value);
   };
   return (
-    <div className="w-full fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
+    <div className="w-full fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300 font-itim">
       
       <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-fondo  rounded-lg shadow-sm">
 
@@ -100,7 +100,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
 
           <div className=' w-full   mt-14 text-black flex justify-end '>
             <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
-            <button onClick={handleModal} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Editar</button>
+            <button onClick={handleModal} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-teal-500 hover:text-white'>Editar</button>
             <button onClick={handleDeleteClick} className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
           </div>
 
