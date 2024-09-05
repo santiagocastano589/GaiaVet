@@ -78,7 +78,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
   return (
     <div className="w-full fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300 font-itim">
       
-      <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-fondo  rounded-lg shadow-sm">
+      <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white  rounded-lg shadow-sm">
 
       <div className='flex justify-between w-full'>
         
@@ -106,7 +106,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
 
         </div>
           
-        <div className="h-[32rem] w-80 bg-fondoTarjeta rounded-lg">
+        <div className="h-[32rem] w-80 bg-teal-600 rounded-lg">
           
           <button type="button" className="float-end text-white p-3" onClick={onClose}>
             <span className="sr-only">Cerrar</span>   
