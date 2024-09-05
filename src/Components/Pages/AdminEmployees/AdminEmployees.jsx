@@ -157,7 +157,7 @@ export const AdminEmployees = () => {
         <div className="w-full flex justify-center overflow-hidden">
           <div className="w-[90%] py-6 mb-[10rem] h-[70vh]">
             
-            <div className='relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
+            <div className='overflow-y-auto max-h-[100vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
 
               <table className="w-full text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
                 <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400'>

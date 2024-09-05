@@ -79,7 +79,7 @@ export const UserList = () => {
         
         <div className="w-full flex justify-center my-10">
           <div className="w-[80%] h-[100vh] p-6 mb-[10rem]">
-            <div className='relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
+            <div className='overflow-y-auto max-h-[100vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
 
             <table className="w-full text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
               <thead className='text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400'>
