@@ -63,7 +63,6 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoExp,correo,
   
             onEmployeeUpdated(employees);
             onClose();
-            // window.location.reload();
           } else {
             Swal.fire({
               title: 'Error',
@@ -92,9 +91,9 @@ const UpdateEmployees = ({ cedulaEmpleado,nombre,apellido,edad,tiempoExp,correo,
             <h3 className='gorditas text-black text-4xl'>Actualización de empleado</h3>
             
             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit} >
-              <InputProducts nameLabel={'Cedula:'} value={employees.cedulaEmpleado} name='cedulaEmpleado' type='text' onChange={handleChange} />
               <InputProducts nameLabel={'Nombre :'} value={employees.nombre} name='nombre' type='text' onChange={handleChange} />
               <InputProducts nameLabel={'Apellido:'} value={employees.apellido} name='apellido' type='text' onChange={handleChange} />
+              <InputProducts nameLabel={'Correo:'} value={employees.correo} name='correo' type='text' onChange={handleChange} />
               <InputProducts nameLabel={'Edad:'} value={employees.edad} name='edad' type='text' onChange={handleChange} />
               <InputProducts nameLabel={'Tiempo de experencia:'} value={employees.tiempoExp} name='tiempoExp' type='text' onChange={handleChange} />
 

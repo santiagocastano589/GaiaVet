@@ -1,19 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Context/Context';
 
-const PetUserModal = ({ onClose }) => {
+const PetUserModal = ({ cedula, onClose }) => {
   const { authToken } = useContext(AuthContext);
   const [pets, setPets] = useState([]); 
 
   const accesRole = localStorage.getItem('role');
 
   useEffect(() => {
+    console.log(cedula, "cedula");
+    
     const fetchPets = async () => {
       if (!authToken || !cedula) return;
 
       const url = accesRole === 'administrador' 
-        ? 'https://gaiavet-back.onrender.com/Pets'
-        : 'https://gaiavet-back.onrender.com/Pet';
+        ? `https://gaiavet-back.onrender.com/Pets`
+        : `https://gaiavet-back.onrender.com/Pet?cedula=${cedula}`;
 
       try {
         const response = await fetch(url, {
@@ -28,7 +30,6 @@ const PetUserModal = ({ onClose }) => {
         
         if (Array.isArray(data)) {
           setPets(data); 
-          
         } else {
           console.error('La respuesta no es un array:', data);
         }
@@ -38,7 +39,7 @@ const PetUserModal = ({ onClose }) => {
     };
 
     fetchPets();
-  }, [authToken, cedula]);
+  }, [authToken, cedula, accesRole]);
 
   return (
     <div className="fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center">

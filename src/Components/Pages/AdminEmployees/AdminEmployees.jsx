@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Context/Context';
 import { Header } from '../../Layouts/Header/Header';
-import UpdateProduct from '../../WindowModals/ProductsModals/UpdateProduct/UpdateProduct';
 import ProductRegisterModal from "../ProductRegisterModal/ProductRegisterModal";
 import Swal from 'sweetalert2';
 import UpdateEmployees from '../../WindowModals/UpdateEmployees/UpdateEmployees';

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import baño1 from '../../assets/baño1.jpg'
-import baño2 from '../../assets/baño2.jpg'
-import baño3 from '../../assets/baño3.jpg'
-import baño4 from '../../assets/baño4.jpg'
+import peluqueria1 from '../../assets/peluqueria1.jpg'
+import peluqueria2 from '../../assets/peluqueria2.jpg'
+import peluqueria3 from '../../assets/peluqueria3.jpg'
+import peluqueria4 from '../../assets/peluqueria4.jpg'
 import estrellaVacia from '../../assets/estrella-vasia.png'
 import estrellaLlena from '../../assets/estrella-llena.png'
 import estrellaMedia from '../../assets/estrellaMedia.png'
@@ -47,7 +47,7 @@ export const Bathroom = ({title,description,servicio}) => {
 
         <div className='bg-white bg-opacity-50 w-[300px] h-[300px] rounded-full z-10 bottom-[-3rem]  absolute mt-[500px] left-[28rem] shadow-lg '></div>
 
-      <CarouselServices img1={baño1} img2={baño2} img3={baño1} img4={baño2} />
+        <CarouselServices img1={peluqueria1} img2={peluqueria2} img3={peluqueria3} img4={peluqueria4} />
   
     </div>
 

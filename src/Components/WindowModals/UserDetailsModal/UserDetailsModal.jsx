@@ -54,7 +54,7 @@ const UserDetailsModal = ({ cedula, nombre, apellido, correo, direccion, telefon
         </div>
       </div>
 
-      {showPetModal && <PetUserModal pets={pets} onClose={() => setShowPetModal(false)} />}
+      {showPetModal && <PetUserModal cedula={cedula} onClose={() => setShowPetModal(false)} />}
     </div>
   );
 };
