@@ -88,8 +88,8 @@ export const UserList = () => {
                   <th scope="col" className="py-3 px-6 text-center">Nombre</th>
                   <th scope="col" className="py-3 px-6 text-center">Apellido</th>
                   <th scope="col" className="py-3 px-6 text-center">Correo</th>
-                  <th scope="col" className="py-3 px-6 text-center">Direccion</th>
-                  <th scope="col" className="py-3 px-6 text-center">Telefono</th>
+                  <th scope="col" className="py-3 px-6 text-center">Dirección</th>
+                  <th scope="col" className="py-3 px-6 text-center">Teléfono</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-base">

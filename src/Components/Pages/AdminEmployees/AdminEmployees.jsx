@@ -162,12 +162,12 @@ export const AdminEmployees = () => {
               <table className="w-full text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
                 <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400'>
                   <tr className=" bg-teal-500 text-gray-800 uppercase text-base w-full flex justify-evenly">
-                    <th scope="col" className="py-3 text-center w-1/6">Cedula del empleado</th>
+                    <th scope="col" className="py-3 text-center w-1/6">Cédula del empleado</th>
                     <th scope="col" className="py-3 text-center w-1/12">Nombre</th>
                     <th scope="col" className="py-3 text-center w-1/12">Apellido</th>
                     <th scope="col" className="py-3 text-center w-1/6">Correo electronico</th>
-                    <th scope="col" className="py-3 text-center w-1/12">edad</th>
-                    <th scope="col" className="py-3 text-center w-1/12">tiempo Exp</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Edad</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Tiempo Exp</th>
                     <th scope="col" className="py-3 text-center w-1/12">Administrar</th>
                   </tr>
                 </thead>
