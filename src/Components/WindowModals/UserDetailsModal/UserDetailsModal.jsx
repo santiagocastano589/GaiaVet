@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import InputPetNoEditable from '../../InputPetNoEditable/InputPetNoEditable';
 import ImgUser from '../../../assets/imgUser.png';
-import PetUserModal from '../PetUserModal/PetUserModal'; 
 
-const UserDetailsModal = ({ cedula, nombre, apellido, correo, direccion, telefono, userImg, pets, onClose }) => {
+const UserDetailsModal = ({ cedula, nombre, apellido, correo, direccion, telefono, userImg, onClose }) => {
   const [Cedula, setCedula] = useState(cedula);
   const [Nombre, setNombre] = useState(nombre);
   const [Apellido, setApellido] = useState(apellido);
   const [Correo, setCorreo] = useState(correo);
   const [Direccion, setDireccion] = useState(direccion);
   const [Telefono, setTelefono] = useState(telefono);
-  const [showPetModal, setShowPetModal] = useState(false);
 
   const handleInfoChange = (event) => {
     setCedula(event.target.value);
@@ -46,15 +44,12 @@ const UserDetailsModal = ({ cedula, nombre, apellido, correo, direccion, telefon
 
             <div className="flex flex-col items-center mt-32">
               <img className="w-60 h-60 rounded-full" src={userImg || ImgUser} alt="" />
-              <button onClick={() => setShowPetModal(true)} className="bg-gray-400 px-11 py-3 rounded-md hover:bg-teal-300 text-white mt-5">
-                Mascotas
-              </button>
+              
             </div>
           </div>
         </div>
       </div>
 
-      {showPetModal && <PetUserModal cedula={cedula} onClose={() => setShowPetModal(false)} />}
     </div>
   );
 };
