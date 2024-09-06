@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { AuthContext } from '../Context/Context';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
-export const CartProducts = ({ title, description, price, image, categoria, stock }) => {
+export const CartProducts = ({id, title, description, price, image, category, stock }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -9,6 +12,76 @@ export const CartProducts = ({ title, description, price, image, categoria, stoc
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const productContext = useContext(AuthContext);
+  const [buttonBuy, setButtonBuy] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setButtonBuy(!!token); 
+  }, []);
+  const addProduct = () => {
+    console.log("1");
+
+    productContext.setCart(prevCart => {
+      const existingProductIndex = prevCart.findIndex(product => product.idProduct === id);
+      const existingProduct = prevCart[existingProductIndex];
+
+      if (existingProduct) {
+        if (existingProduct.count < stock) {
+          const updatedCart = [...prevCart];
+          updatedCart[existingProductIndex].count += 1;
+
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Producto agregado con éxito',
+            showConfirmButton: true,
+          });
+
+          return updatedCart;
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay suficiente stock disponible',
+            showConfirmButton: true,
+          });
+          return prevCart;
+        }
+      } else {
+        if (stock > 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Producto agregado con éxito',
+            showConfirmButton: true,
+          });
+
+          return [
+            ...prevCart,
+            {
+              idProduct: id,
+              imageProduct: image,
+              titleProduct: title,
+              priceProduct: price,
+              categoryProduct: category,
+              stockProduct: stock,
+              count: 1
+            }
+          ];
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No hay stock disponible',
+            showConfirmButton: true,
+          });
+          return prevCart;
+        }
+      }
+    });
   };
 
   return (
@@ -59,7 +132,7 @@ export const CartProducts = ({ title, description, price, image, categoria, stoc
             </div>
 
             <div className='flex flex-col justify-evenly h-48'>
-            <p>Categoria: {categoria}</p>
+            <p>Categoria: {category}</p>
             <p>Disponibles: {stock}</p>
             
             <div className='flex items-center'>
@@ -71,7 +144,13 @@ export const CartProducts = ({ title, description, price, image, categoria, stoc
             
             </div>
             <div className=' flex justify-evenly w-96'>
-                <button className='text-white hover:bg-teal-300 rounded-lg bg-blue-border p-2'>Agregar al carrito</button>
+            {buttonBuy ? (
+                 <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white'>Agregar al carrito</button>
+                ) : (
+                  <Link to={"/login"}>
+                    <button className='text-white hover:bg-teal-300 rounded-lg bg-blue-border p-2'>Iniciar sesión</button>
+                  </Link>
+                )}
                 <button className='text-white hover:bg-teal-300 rounded-lg bg-blue-border p-2'>Comprar ahora</button>
             </div>
             </div>

@@ -40,7 +40,7 @@ export const Carousel = () => {
             title={product.nombreProducto}
             description={product.descripcion}
             price={product.precio}
-            categoria={product.categoria}
+            category={product.categoria}
             stock={product.stock}
           />
         ))}
