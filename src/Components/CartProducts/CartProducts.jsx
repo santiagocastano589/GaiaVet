@@ -49,7 +49,7 @@ export const CartProducts = ({ id, title, description, price, image, category, s
       });
       return;
     }
-    await addCompraAhora();
+     addCompraAhora();
   };
   const addCompraAhora = () => {
     productContext.setCart(prevCart => {
@@ -61,7 +61,6 @@ export const CartProducts = ({ id, title, description, price, image, category, s
           const updatedCart = [...prevCart];
           updatedCart[existingProductIndex].count += 1;
 
-          
           return updatedCart;
         } else {
           Swal.fire({
@@ -97,7 +96,7 @@ export const CartProducts = ({ id, title, description, price, image, category, s
           return prevCart;
         }
       }
-    });
+    });    
     createPreference();
   };
 
@@ -108,20 +107,23 @@ export const CartProducts = ({ id, title, description, price, image, category, s
         price: parseFloat(totalAmount),  
         products: productsArray 
       });
+      console.log(productsArray);
       
       const { id } = response.data;
       if (id) {
         setPreferenceId(id);
+        // Limpiar el carrito después de la compra
+        productContext.setCart([]);  // Esto vacía el carrito
       }
-    } catch (error) {
+    } catch (error) {      
       console.error("Error al crear la preferencia:", error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Hubo un problema al procesar el pago.',
+        text: 'Hubo un problema intentalo de nuevo.',
       });
     }
-  };
+ };
   
   const addProduct = () => {
     productContext.setCart(prevCart => {
