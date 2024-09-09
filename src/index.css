@@ -2,6 +2,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&display=swap');
 
+.react-datepicker__day--selected {
+    @apply bg-header text-white !important; /* Cambia el color de fondo del día seleccionado y el color del texto */
+  }
+  
+  /* Día enfocado (opcional) */
+.react-datepicker__day--keyboard-selected {
+@apply bg-header text-white !important; /* Cambia el color de fondo del día enfocado */
+}
+
+.react-datepicker__day--disabled {
+    @apply cursor-not-allowed bg-gray-200 text-gray-400; /* Estilos personalizados */
+  }
+  
+  /* Asegúrate de que no cambien al hacer hover o focus */
+  .react-datepicker__day--disabled:hover,
+  .react-datepicker__day--disabled:focus {
+    @apply bg-gray-200 text-gray-400; /* Sin cambios en el hover o foco */
+  }
+
 
 @tailwind base;
 @tailwind components;
