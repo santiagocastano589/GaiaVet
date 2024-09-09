@@ -88,7 +88,7 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
       <div className="w-[70rem] h-[30rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-fondo rounded-lg shadow-sm">
         <div className='w-full h-[30rem] flex justify-between items-center rounded-xl bg-white'>
           <div className="w-[80%] h-[30rem] p-4 text-white flex flex-col items-center justify-evenly">
-            <h3 className='gorditas text-black text-xl'>Registro de productos</h3>
+            <h3 className='gorditas text-black text-3xl'>Registro de productos</h3>
             
             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit}>
               <InputProducts nameLabel={'Imagen del producto:'} name='imagen' type='file' onChange={handleImageChange} />

@@ -153,7 +153,7 @@ export const AdminEmployees = () => {
         </div>
       </div>
       <div className="flex justify-center ">
-        <div className="w-full flex justify-center overflow-hidden">
+        <div className="w-full h-[100vh] flex justify-center overflow-hidden">
           <div className="w-[90%] py-6 mb-[10rem] h-[70vh]">
             
             <div className='overflow-y-auto max-h-[100vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>

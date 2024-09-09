@@ -100,10 +100,12 @@ const handleSaveChanges = async () => {
 };
 
     return (
-        <div className="w-full fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
-            <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-fondo  rounded-lg shadow-sm">
+        <div className="w-full fixed z-10 inset-0 overflow-y-auto bg-opacity-75 transition-all ease-in-out duration-300">
+            <div className="w-[65rem] h-[34rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white  rounded-lg shadow-sm">
                 <div className='flex justify-between w-full'>
                     <div className="p-10 text-white flex flex-col justify-center items-center ">
+                    <h2 className='text-black text-3xl gorditas pb-2'>Editar mascota</h2>
+
                         <InputPetEditable
                             htmlFor="nombre"
                             nameLabel="Nombre:"
@@ -150,12 +152,12 @@ const handleSaveChanges = async () => {
                         />
 
                         <div className='w-full mt-14 text-black flex justify-end'>
-                            <button onClick={onClose} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Cancelar</button>
-                            <button onClick={handleSaveChanges} className='w-36 bg-fondoTarjeta text-white mx-3 p-2 rounded-md hover:bg-teal-900'>Guardar cambios</button>
+                            <button onClick={onClose} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-red-600 hover:text-white'>Cancelar</button>
+                            <button onClick={handleSaveChanges} className='w-36 bg-teal-600 text-white mx-3 p-2 rounded-md hover:bg-teal-400'>Guardar cambios</button>
                         </div>
                     </div>
 
-                    <div className="h-[32rem] w-80 bg-fondoTarjeta rounded-lg">
+                    <div className="h-[34rem] w-80 bg-teal-600 rounded-lg">
                         <div className='flex flex-col items-center mt-24'>
                             <img className='w-60 h-60 rounded-full object-cover' src={editedFoto} alt="" />
                             <h5 className="text-3xl font-bold mt-6 text-white">{namePet}</h5>

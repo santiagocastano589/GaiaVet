@@ -96,10 +96,13 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
   return (
     <div className="w-full fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300 font-itim">
       
-      <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white  rounded-lg shadow-sm">
+      <div className="w-[65rem] h-[34rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white  rounded-lg shadow-sm">
 
       <div className='flex justify-between w-full'>
+        
         <div className=" p-10 text-white flex flex-col justify-center items-center ">
+          <h2 className='text-black text-3xl gorditas pb-2'>Gestionar mascotas</h2>
+
 
           <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={handleNameChange}/>
 
@@ -116,14 +119,14 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
           <InputPetNoEditable htmlFor="temperamento" nameLabel="Temperamento:" id="temperamento" value={editedTemperamento}/>
 
           <div className=' w-full   mt-14 text-black flex justify-end '>
-            <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Medico</button>
+            <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-cyan-600 hover:text-white'>Historial Medico</button>
             <button onClick={handleModal} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-teal-500 hover:text-white'>Editar</button>
             <button onClick={handleDeleteClick} className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
           </div>
 
         </div>
           
-        <div className="h-[32rem] w-80 bg-teal-600 rounded-lg">
+        <div className="h-[34rem] w-80 bg-teal-600 rounded-lg">
           
           <button type="button" className="float-end text-white p-3" onClick={onClose}>
             <span className="sr-only">Cerrar</span>   

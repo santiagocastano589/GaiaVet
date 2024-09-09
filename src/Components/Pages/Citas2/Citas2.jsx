@@ -261,7 +261,7 @@ export const Citas2 = () => {
     <>
       <Header title={'Citas'} classN='text-8xl' />
 
-      <div className='pt-48 w-screen h-auto'>
+      <div className='pt-48 w-screen h-[100vh] overflow-y-auto'>
         <div className='w-full flex justify-center'>
           <div className='w-4/5 flex flex-col items-center justify-center'>
 
