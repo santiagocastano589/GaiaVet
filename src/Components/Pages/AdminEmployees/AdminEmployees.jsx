@@ -156,9 +156,9 @@ export const AdminEmployees = () => {
         <div className="w-full flex justify-center overflow-hidden">
           <div className="w-[90%] py-6 mb-[10rem] h-[70vh]">
             
-            <div className='overflow-y-auto max-h-[100vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
+            <div className='overflow-y-auto max-h-[87vh] relative overflow-x-auto shadow-xl sm:rounded-lg font-itim'>
 
-              <table className="w-full text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
+              <table className="w-full h-60 text-xl text-left rtl:text-right text-gray-300 dark:text-gray-400">
                 <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400'>
                   <tr className=" bg-teal-500 text-gray-800 uppercase text-base w-full flex justify-evenly">
                     <th scope="col" className="py-3 text-center w-1/6">Cédula del empleado</th>
@@ -167,6 +167,7 @@ export const AdminEmployees = () => {
                     <th scope="col" className="py-3 text-center w-1/6">Correo electronico</th>
                     <th scope="col" className="py-3 text-center w-1/12">Edad</th>
                     <th scope="col" className="py-3 text-center w-1/12">Tiempo Exp</th>
+                    <th scope="col" className="py-3 text-center w-1/12">Cargo</th>
                     <th scope="col" className="py-3 text-center w-1/12">Administrar</th>
                   </tr>
                 </thead>
@@ -180,6 +181,7 @@ export const AdminEmployees = () => {
                       <td className="py-3 text-center w-1/6">{employee.correo}</td>
                       <td className="py-3 text-center w-1/12">{employee.edad}</td>
                       <td className="py-3 text-center w-1/12">{employee.tiempoExp}</td>
+                      <td className="py-3 text-center w-1/12">{employee.cargo}</td>
                       <td className="h-full py-3 flex flex-col items-center w-1/12">
                         <button 
                           onClick={() => controlUpdate(employee)} 

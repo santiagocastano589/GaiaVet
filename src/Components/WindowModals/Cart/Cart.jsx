@@ -43,6 +43,8 @@ export const Cart = ({ onClose }) => {
     } catch (error) {
       console.error("Error al crear la preferencia:", error);
     }
+
+    
   };
   
   const handleBuy = async () => {
