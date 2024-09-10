@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import estrellaVacia from '../../../assets/estrella-vasia.png';
 import estrellaLlena from '../../../assets/estrella-llena.png';
 import estrellaMedia from '../../../assets/estrellaMedia.png';
@@ -9,8 +9,10 @@ import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
 
 export const Review = () => {
+  const [citasList, setCitasList] = useState([]);
   const [rating, setRating] = useState(0);  // Rating de estrellas
   const [selectedService, setSelectedService] = useState(''); // Servicio seleccionado
+  const [selectedCita, setSelectedCita] = useState(''); // Cita seleccionada
   const [comment, setComment] = useState(''); // Comentario
   const { authToken } = useContext(AuthContext);
   const accesRole = localStorage.getItem('role');
@@ -33,7 +35,6 @@ export const Review = () => {
     }
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!authToken) return;
@@ -42,6 +43,7 @@ export const Review = () => {
       puntuacion: rating,
       comentario: comment,
       categoria: selectedService,
+      fk_idCita: selectedCita, // Ahora se llama fk_idCita como en el backend
     };
   
     if (!authToken) {
@@ -50,7 +52,7 @@ export const Review = () => {
       return;
     }
   
-    if (!reviewData.puntuacion || !reviewData.comentario || !reviewData.categoria ) {
+    if (!reviewData.puntuacion || !reviewData.comentario || !reviewData.categoria || !reviewData.fk_idCita) {
       Swal.fire({
         title: 'Error',
         text: 'Todos los campos son obligatorios',
@@ -86,6 +88,7 @@ export const Review = () => {
       setComment('');
       setRating(0);
       setSelectedService('');
+      setSelectedCita('');
     } catch (error) {
       console.error('Error:', error);
       Swal.fire({
@@ -96,7 +99,39 @@ export const Review = () => {
       });
     }
   };
-  
+
+
+  useEffect(() => {
+    const fetchCitas = async () => {
+      if (!authToken) return;
+
+      const url = accesRole === 'administrador' 
+        ? 'https://gaiavet-back.onrender.com/getPendingAppointment'
+        : 'https://gaiavet-back.onrender.com/getUserAppointment';
+
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setCitasList(data);
+        } else {
+          console.error('La respuesta no es un array:', data);
+        }
+      } catch (error) {
+        console.log('Error al traer las citas:', error);
+      }
+    };
+
+    fetchCitas();
+  }, [authToken, accesRole]);
 
   return (
     <>
@@ -111,7 +146,6 @@ export const Review = () => {
             Las opiniones son públicas y contienen la información de tu cuenta
           </p>
 
-          {/* Star Rating */}
           <div className='flex justify-center py-10'>
             <div className='flex justify-between w-64'>
               {[...Array(5)].map((_, index) => (
@@ -124,6 +158,23 @@ export const Review = () => {
                 />
               ))}
             </div>
+          </div>
+
+          {/* Selección de Cita */}
+          <div className='mb-4 w-2/4 flex justify-center'>
+            <select 
+              className='rounded-xl p-2 border-solid border-2 border-gray' 
+              name="cita"
+              value={selectedCita}
+              onChange={(e) => setSelectedCita(e.target.value)} // Actualiza el estado al cambiar la selección
+            >
+              <option disabled value="">Seleccione la cita</option>
+              {citasList.map(cita => (
+                <option key={cita.idCita} value={cita.idCita}>
+                  {`ID: ${cita.idCita}`}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Selección de Servicio */}
@@ -177,21 +228,7 @@ export const Review = () => {
           hour="Hace 3 horas"
           comment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, fugiat corrupti! Illo placeat quis ipsa accusantium, nostrum expedita optio error doloremque unde molestias sequi dolorum praesentium eligendi at? Nam, quis?"
         />
-        <ContainerCard
-          name="Pepito Perez Peres"
-          hour="Hace 3 horas"
-          comment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, fugiat corrupti! Illo placeat quis ipsa accusantium, nostrum expedita optio error doloremque unde molestias sequi dolorum praesentium eligendi at? Nam, quis?"
-        />
-        <ContainerCard
-          name="Pepito Perez Peres"
-          hour="Hace 3 horas"
-          comment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, fugiat corrupti! Illo placeat quis ipsa accusantium, nostrum expedita optio error doloremque unde molestias sequi dolorum praesentium eligendi at? Nam, quis?"
-        />
-        <ContainerCard
-          name="Pepito Perez Peres"
-          hour="Hace 3 horas"
-          comment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor, fugiat corrupti! Illo placeat quis ipsa accusantium, nostrum expedita optio error doloremque unde molestias sequi dolorum praesentium eligendi at? Nam, quis?"
-        />
+        {/* Repite los ContainerCard según sea necesario */}
       </div>
     </>
   );

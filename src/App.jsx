@@ -14,19 +14,12 @@ import { Profile } from './Components/Pages/Profile/Profile';
 import { PetHistory } from './Components/Pages/PetHistory/PetHistory';
 import { PetRegister } from './Components/Pages/PetRegister/PetRegister';
 import { ProductsShop } from './Components/Pages/ProductsShop/ProductsShop';
-
 import { Citas2 } from './Components/Pages/Citas2/Citas2';
 import { Review } from './Components/Pages/Review/Review';
-
-
 import { AdminProducts } from './Components/Pages/AdminProducts/AdminProducts';
 import { EmployeeRegister } from './Components/EmployeeRegister/EmployeeRegister';
 import { UserList } from './Components/UserList/UserList';
 import { AdminEmployees } from './Components/Pages/AdminEmployees/AdminEmployees';
-
-
-
-
 
 function App() {
   return (
