@@ -18,12 +18,22 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
   const [editedTemperamento, setEditedTemperamento] = useState(temperamento);
 
   const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const [isOpenHistorial, setIsOpenHistorial] = useState(false); // Estado para el historial médico
+  const [isOpenHistorial, setIsOpenHistorial] = useState(false); 
 
   const [petList, setPetList] = useState([]);
   const { authToken } = useContext(AuthContext);
   const accesRole = localStorage.getItem('role');
 
+  const handleInfoChange = (event) => {
+    setEditedPeso(event.target.value);
+    setEditedDocumento(e.target.value)
+    setEditedTipo(e.target.value)
+    setEditedRaza(e.target.value)
+    setEditedEdad(e.target.value)
+    setEditedName(e.target.value)
+    setEditedFoto(e.target.value)
+    setEditedTemperamento(e.target.value)
+};
   const handleDeleteClick = async () => {
     Swal.fire({
       title: '¿Estás seguro de que deseas eliminar tu mascota?',
@@ -80,13 +90,13 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
       <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white  rounded-lg shadow-sm">
         <div className='flex justify-between w-full'>
           <div className="p-10 text-white flex flex-col justify-center items-center ">
-            <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={(e) => setEditedName(e.target.value)} />
-            <InputPetNoEditable htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={(e) => setEditedDocumento(e.target.value)} />
-            <InputPetNoEditable htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={(e) => setEditedTipo(e.target.value)} />
-            <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={(e) => setEditedRaza(e.target.value)} />
-            <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad} />
-            <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso + ' Kg'} />
-            <InputPetNoEditable htmlFor="temperamento" nameLabel="Temperamento:" id="temperamento" value={editedTemperamento} />
+            <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName}  onChange={handleInfoChange}/>
+            <InputPetNoEditable htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso + ' Kg'} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="temperamento" nameLabel="Temperamento:" id="temperamento" value={editedTemperamento} onChange={handleInfoChange} />
 
             <div className='w-full mt-14 text-black flex justify-end'>
               <button onClick={handleModalHistorial} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Médico</button>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import InputPetNoEditable from '../../InputPetNoEditable/InputPetNoEditable';
+import React, { useState, useEffect,useContext } from 'react';
+import { AuthContext } from '../../Context/Context';
 
 const ModalHistorialMedico = ({ onClose,tipo,nombreMascota,raza, edad, peso,temperamento }) => {
     const [Nombre, setNombre] = useState(nombreMascota);
@@ -8,8 +8,7 @@ const ModalHistorialMedico = ({ onClose,tipo,nombreMascota,raza, edad, peso,temp
     const [Edad, setedad] = useState(edad);
     const [Peso, setpeso] = useState(peso);
     const [Temperamento, setTemperamento] = useState(temperamento);
-console.log(documento);
-
+    const { authToken } = useContext(AuthContext);
 const handleInfoChange = (event) => {
     setTipo(event.target.value);
     setRaza(event.target.value);
@@ -60,16 +59,16 @@ const handleInfoChange = (event) => {
                 <div className='w-[15rem] flex flex-col my-4'>
                     <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Edad </label>
                     <input type="text"
-                    value={Edad} 
+                    value={Edad+" Meses"} 
                     onChange={handleInfoChange}
                     className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
                     disabled
                     />
                 </div>
                 <div className='w-[15rem] flex flex-col my-4'>
-                    <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Pesp </label>
+                    <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Peso </label>
                     <input type="text"
-                    value={Peso} 
+                    value={Peso+" Kg"} 
                     onChange={handleInfoChange}
                     className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
                     disabled
@@ -94,7 +93,6 @@ const handleInfoChange = (event) => {
                         <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Nombre </label>
                         <input type="text"
                         value={Temperamento} 
-                        onChange={handleInfoChange}
                         className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
                         disabled
                         />
@@ -103,16 +101,14 @@ const handleInfoChange = (event) => {
                         <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Cedula </label>
                         <input type="text"
                         value={Temperamento} 
-                        onChange={handleInfoChange}
                         className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
                         disabled
                         />
                     </div>
                     <div className='w-[15rem] flex flex-col my-4'>
-                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Teléfomo </label>
+                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Teléfono </label>
                         <input type="text"
                         value={Temperamento} 
-                        onChange={handleInfoChange}
                         className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
                         disabled
                         />
@@ -120,6 +116,57 @@ const handleInfoChange = (event) => {
                             </div>
                         </div>
                     </div>
+
+                    
+                    <div className='w-full'>
+                        <h1 className='text-4xl text-center font-gorditas'>Consulta</h1>
+                        <div className='flex justify-center '>
+                    <div className='bg-white flex flex-wrap w-11/12 justify-between'>
+
+                    <div className='w-[15rem] flex flex-col my-4'>
+                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Fecha de la visita </label>
+                        <input type="date"
+                        className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
+                        />
+                    </div>
+                    <div className='w-[15rem] flex flex-col my-4'>
+                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Peso actual Kg</label>
+                        <input type="number"
+                        className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
+                        />
+                    </div>
+                    <div className='w-[15rem] flex flex-col my-4'>
+                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Motivo de la consulta</label>
+                        <input type="text"
+                        className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
+                        />
+                    </div>
+                    <div className='w-[15rem] flex flex-col my-4'>
+                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Medicaciones administradas
+                        </label>
+                        <input type="text"
+                        className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
+                        />
+                    </div>
+                    <div className='w-[15rem] flex flex-col my-4'>
+                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Síntomas
+                        </label>
+                        <input type="text"
+                        className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
+                        />
+                    </div>
+                    <div className='w-[15rem] flex flex-col my-4'>
+                        <label className='bg-teal-500 text-center rounded-md py-1 text-lg' htmlFor="">Duración de los síntomas
+                        </label>
+                        <input type="text"
+                        className='p-1 my-2 bg-gray-200 text-black rounded-lg text-lg text-center shadow-lg'
+                        />
+                    </div>
+                   
+                            </div>
+                            
+                        </div>
+                     </div>
                 
                 </div>
             </div>
