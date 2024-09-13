@@ -67,11 +67,11 @@ export const Citas2 = () => {
     try {
       const response = await axios.get(`https://gaiavet-back.onrender.com/GetAppointments/${date}`, {
         headers: {
-          Authorization: `Bearer ${authToken}` // Incluye el token en el encabezado de la solicitud
+          Authorization: `Bearer ${authToken}`
         }
       });
 
-      console.log('API Response:', response.data); // Imprime la respuesta para verificar el formato
+      console.log('API Response:', response.data);
 
       const appointments = response.data; // Asegúrate de que appointments sea un array
       if (Array.isArray(appointments)) {
@@ -114,14 +114,7 @@ export const Citas2 = () => {
       }
 
 
-      const [time, period] = selectedTime.split(/(AM|PM)/);
-      let [hours, minutes] = time.split(':').map(Number);
-      if (period === 'PM' && hours < 12) hours += 12;
-      if (period === 'AM' && hours === 12) hours = 0;
-
-      date.setHours(hours, minutes);
-
-      const formattedDateTime = formatISO(date, { representation: 'date' }) + ' ' + format(date, 'HH:mm:ss');
+      const formattedDateTime = date
 
       setSelectedDateTime(formattedDateTime);
 
@@ -133,7 +126,7 @@ export const Citas2 = () => {
       const cita = {
         idCita: null,
         tipoCita: selectedService,
-        fecha:selectedDate,
+        fecha:selectedDateTime,
         hora:selectedTime,
         tipoMascota: selectedPet.TipoMascota,
         estadoCita: 'Pendiente',
