@@ -7,29 +7,32 @@ import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 
 export const CartProducts = ({ id, title, description, price, image, category, stock }) => {
   const [showModal, setShowModal] = useState(false);
-  const [preferenceId, setPreferenceId] = useState(null);  // Para la preferencia de pago
+  const [preferenceId, setPreferenceId] = useState(null); // Para la preferencia de pago
   const [buttonBuy, setButtonBuy] = useState(false);
 
   const cartContext = useContext(AuthContext);
   const cartItems = Array.isArray(cartContext.cart) ? cartContext.cart : [];
 
-  const productsArray = cartItems.map(product => ({
+  const productsArray = cartItems.map((product) => ({
     idProduct: product.idProduct,
     title: product.titleProduct,
     count: product.count,
-    price: parseFloat(product.priceProduct)
+    price: parseFloat(product.priceProduct),
   }));
 
   const productContext = useContext(AuthContext);
-  const totalAmount = cartItems.reduce((total, product) => {
-    const price = parseFloat(product.priceProduct);
-    return !isNaN(price) ? total + price * product.count : total;
-  }, 0).toFixed(2);
+  const totalAmount = cartItems
+    .reduce((total, product) => {
+      const price = parseFloat(product.priceProduct);
+      return !isNaN(price) ? total + price * product.count : total;
+    }, 0)
+    .toFixed(2);
 
   useEffect(() => {
+
     const token = localStorage.getItem('token');
-    setButtonBuy(!!token); 
-    initMercadoPago('APP_USR-3ba60abc-9bdf-4cb8-b724-62265a471d75');  // Inicializar MercadoPago
+    setButtonBuy(!!token);
+    initMercadoPago('APP_USR-3ba60abc-9bdf-4cb8-b724-62265a471d75'); // Inicializar MercadoPago
   }, []);
 
   const handleOpenModal = () => {
@@ -38,9 +41,11 @@ export const CartProducts = ({ id, title, description, price, image, category, s
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setPreferenceId(null); // Resetear el estado de preferenceId al cerrar el modal
   };
 
   const handleBuyNow = async () => {
+
     if (!buttonBuy) {
       Swal.fire({
         icon: 'warning',
@@ -49,85 +54,66 @@ export const CartProducts = ({ id, title, description, price, image, category, s
       });
       return;
     }
-     addCompraAhora();
-  };
-  const addCompraAhora = () => {
-    productContext.setCart(prevCart => {
-      const existingProductIndex = prevCart.findIndex(product => product.idProduct === id);
-      const existingProduct = prevCart[existingProductIndex];
 
-      if (existingProduct) {
-        if (existingProduct.count < stock) {
-          const updatedCart = [...prevCart];
-          updatedCart[existingProductIndex].count += 1;
-
-          return updatedCart;
-        } else {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'No hay suficiente stock disponible',
-            showConfirmButton: true,
-          });
-          return prevCart;
-        }
-      } else {
-        if (stock > 0) {
-          return [
-            ...prevCart,
-            {
-              idProduct: id,
-              imageProduct: image,
-              titleProduct: title,
-              priceProduct: price,
-              categoryProduct: category,
-              stockProduct: stock,
-              count: 1
-            }
-          ];
-          
-        } else {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'No hay stock disponible',
-            showConfirmButton: true,
-          });
-          return prevCart;
-        }
-      }
-    });    
-    createPreference();
+    createPreferenceForSingleProduct(); // Llama directamente a la función para crear la preferencia
   };
 
-  const createPreference = async () => {
+  
+
+  
+  const createPreferenceForSingleProduct = async () => {
+    const productData = {
+      idProduct: id, // Asegúrate de que 'id' esté definido en tu código
+      title: title, // Asegúrate de que 'title' esté definido
+      count: 1, // Cantidad fija a 1 para un solo producto
+      price: parseFloat(price), // Asegúrate de que 'price' esté definido y sea un número
+    };
+  
+    console.log('Datos del producto para crear preferencia:', productData);
+    
     try {
-      const response = await axios.post('https://gaiavet-back.onrender.com/create_preference', {
-        title: 'Tu compra en GaiaVet',
-        price: parseFloat(totalAmount),  
-        products: productsArray 
-      });
-      console.log(productsArray);
-      
-      const { id } = response.data;
-      if (id) {
-        setPreferenceId(id);
-        // Limpiar el carrito después de la compra
-        productContext.setCart([]);  // Esto vacía el carrito
+      // Verificar el stock disponible antes de enviar la solicitud
+      if (stock <= 0) { 
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No hay stock disponible',
+          showConfirmButton: true,
+        });
+        return;
       }
-    } catch (error) {      
-      console.error("Error al crear la preferencia:", error);
+  
+      const response = await axios.post('https://gaiavet-back.onrender.com/create_preference', {
+        title: `Compra de ${productData.title} en GaiaVet`,
+        price: productData.price,
+        products: [productData], // Envía solo el producto seleccionado como un array
+      });
+  
+      const { id } = response.data; // Asegúrate de que esta respuesta sea correcta
+      if (id) {
+        setPreferenceId(id); // Guarda el id de la preferencia
+      }
+    } catch (error) {
+      console.error('Error al crear la preferencia:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Hubo un problema intentalo de nuevo.',
+        text: 'Hubo un problema, inténtalo de nuevo.',
       });
     }
- };
+  };
   
+
+  useEffect(() => {
+    if (preferenceId) {
+      // Cuando se genera una preferencia, realizar alguna acción o recargar el componente
+      console.log('Preferencia creada: ', preferenceId);
+    }
+  }, [preferenceId]);
+
   const addProduct = () => {
-    productContext.setCart(prevCart => {
-      const existingProductIndex = prevCart.findIndex(product => product.idProduct === id);
+    productContext.setCart((prevCart) => {
+      const existingProductIndex = prevCart.findIndex((product) => product.idProduct === id);
       const existingProduct = prevCart[existingProductIndex];
 
       if (existingProduct) {
@@ -170,8 +156,8 @@ export const CartProducts = ({ id, title, description, price, image, category, s
               priceProduct: price,
               categoryProduct: category,
               stockProduct: stock,
-              count: 1
-            }
+              count: 1,
+            },
           ];
         } else {
           Swal.fire({
@@ -240,7 +226,7 @@ export const CartProducts = ({ id, title, description, price, image, category, s
           <div className='flex items-center'>
 
               <button className='w-6 h-6 bg-blue-border rounded-full text-white'>-</button>
-                <p className='mx-2 bg-gray-300 p-1 rounded-md'>0</p>
+                <p className='mx-2 bg-gray-300 p-1 rounded-md'>1</p>
               <button className='w-6 h-6 bg-blue-border rounded-full text-white'>+</button></div>
 
           
@@ -266,7 +252,6 @@ export const CartProducts = ({ id, title, description, price, image, category, s
               </div>
             </div>
           </div>
-       
       )}
     </div>
   );

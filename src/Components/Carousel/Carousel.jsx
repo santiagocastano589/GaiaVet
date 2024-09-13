@@ -36,6 +36,7 @@ export const Carousel = () => {
         {products.map((product) => (
           <CartProducts
             key={product.idProducto}
+            id={product.idProducto}
             image={product.imagen}
             title={product.nombreProducto}
             description={product.descripcion}
