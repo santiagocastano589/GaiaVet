@@ -49,7 +49,7 @@ export const Citas2 = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   const initialAvailableTimes = [
-    '8:00:00','9:00:00','10:00:00','11:00:00','13:00:00','14:00:00','15:00:00','16:00:00','17:00:00'
+    '08:00:00','09:00:00','10:00:00','11:00:00','13:00:00','14:00:00','15:00:00','16:00:00','17:00:00'
   ];
   const [availableTimes, setAvailableTimes] = useState(initialAvailableTimes);
   const [occupiedTimes, setOccupiedTimes] = useState([]);
@@ -88,10 +88,13 @@ export const Citas2 = () => {
   };
 
   const filterAvailableTimes = (occupiedTimes) => {
+
+    console.log('horas ocupadas: ', occupiedTimes );
+    
     // Usa el estado inicial para asegurarse de que se restablezca a la lista completa
     const filteredTimes = initialAvailableTimes.filter(time => !occupiedTimes.includes(time));
     setAvailableTimes(filteredTimes);
-    console.log('Available Times After Filter:', filteredTimes); // Imprime las horas disponibles después del filtro
+    console.log('horas despues del filtro:', filteredTimes); // Imprime las horas disponibles después del filtro
   };
 
 
