@@ -24,7 +24,7 @@ import { AdminEmployees } from './Components/Pages/AdminEmployees/AdminEmployees
 function App() {
   return (
     <Router>
-      <div className='bgImg'>
+      <div className='bgImg sm:w-[57rem] lg:w-[100vw]'>
         <Routes>
           {/* Pages */}
           <Route exact path="/" element={<Home />} />
