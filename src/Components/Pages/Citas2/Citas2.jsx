@@ -7,11 +7,26 @@ import { registerLocale } from "react-datepicker";
 import es from 'date-fns/locale/es';
 import { MdOutlinePets } from "react-icons/md";
 import { format, parse, formatISO } from 'date-fns';
+import { ShowAppointments } from '../../ShowAppointments/ShowAppointments';
+
+import './Citas.css'
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
 
 
 registerLocale('es', es);
 
 export const Citas2 = () => {
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const [services, setServices] = useState(false);
   const [pets, setPets] = useState(false);
   const [workers, setWorkers] = useState(false)
@@ -23,16 +38,61 @@ export const Citas2 = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [selectedPet, setSelectedPet] = useState(null);
   const [selectedWorker, setSelectedWorker] = useState(null)
-  const [selectedDate, setSelectedDate] = useState(null)
+  const [selectedDate, setSelectedDate] = useState(getCurrentDate())
   const [selectedTime, setSelectedTime] = useState(null)
   const [appointmentData, setAppointmentData] = useState(null);
+
+  const [filter, setFilter] = useState('Pendiente'); 
 
   const [selectedDateTime, setSelectedDateTime] = useState(null)
 
   const [startDate, setStartDate] = useState(new Date());
 
+  const initialAvailableTimes = [
+    '8:00:00','9:00:00','10:00:00','11:00:00','13:00:00','14:00:00','15:00:00','16:00:00','17:00:00'
+  ];
+  const [availableTimes, setAvailableTimes] = useState(initialAvailableTimes);
+  const [occupiedTimes, setOccupiedTimes] = useState([]);
 
-  const times = ["12:00PM", "8:00AM", "10:00AM", "5:00PM", "1:00PM"]
+  useEffect(() => {
+    if (selectedDate) {
+      fetchOccupiedTimes(selectedDate);
+    } else {
+      // Si no hay fecha seleccionada, restablece las horas disponibles
+      setAvailableTimes(initialAvailableTimes);
+    }
+  }, [selectedDate]);
+
+  const fetchOccupiedTimes = async (date) => {
+    try {
+      const response = await axios.get(`https://gaiavet-back.onrender.com/GetAppointments/${date}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}` // Incluye el token en el encabezado de la solicitud
+        }
+      });
+
+      console.log('API Response:', response.data); // Imprime la respuesta para verificar el formato
+
+      const appointments = response.data; // Asegúrate de que appointments sea un array
+      if (Array.isArray(appointments)) {
+        // Extrae las horas ocupadas si appointments es un array de objetos
+        const times = appointments.map(appointment => appointment.hora); // Ajusta 'hora' si la propiedad es diferente
+        setOccupiedTimes(times);
+        filterAvailableTimes(times); // Pasar directamente el array de horas ocupadas
+      } else {
+        console.error('Expected an array but received:', appointments);
+      }
+    } catch (error) {
+      console.error('Error fetching occupied times:', error);
+    }
+  };
+
+  const filterAvailableTimes = (occupiedTimes) => {
+    // Usa el estado inicial para asegurarse de que se restablezca a la lista completa
+    const filteredTimes = initialAvailableTimes.filter(time => !occupiedTimes.includes(time));
+    setAvailableTimes(filteredTimes);
+    console.log('Available Times After Filter:', filteredTimes); // Imprime las horas disponibles después del filtro
+  };
 
 
 
@@ -70,12 +130,13 @@ export const Citas2 = () => {
       const cita = {
         idCita: null,
         tipoCita: selectedService,
-        fechaHoraCita: selectedDateTime,
+        fecha:selectedDate,
+        hora:selectedTime,
         tipoMascota: selectedPet.TipoMascota,
         estadoCita: 'Pendiente',
         fk_id_mascota: parseInt(selectedPet.idMascota),
         fk_nit: parseInt(159753),
-        fk_cc_Empleado: "109841225"
+        fk_cc_Empleado: selectedWorker.cedulaEmpleado
       };
 
       setAppointmentData(cita);
@@ -90,7 +151,7 @@ export const Citas2 = () => {
 
 
   const authToken = localStorage.getItem('token');
-  const accessRole = localStorage.getItem('accessRole');
+  const accessRole = localStorage.getItem('role');
 
   const isNotSunday = (date) => {
     const today = new Date();
@@ -246,60 +307,62 @@ export const Citas2 = () => {
   };
 
   const submitAppointment = async () => {
-
     const token = localStorage.getItem('token');
 
-
     if (!token) {
-      alert('No se encontró un token. Por favor, inicia sesión.');
+      Swal.fire('Error', 'No se encontró un token. Por favor, inicia sesión.', 'error');
       return;
     }
 
     if (!appointmentData) {
-      alert('Los datos de la cita no están completos. Verifica los datos ingresados.');
+      Swal.fire('Advertencia', 'Los datos de la cita no están completos. Verifica los datos ingresados.', 'warning');
       return;
     }
 
     try {
-
       const response = await fetch('https://gaiavet-back.onrender.com/newAppointment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(appointmentData),
       });
-
 
       if (!response.ok) {
         throw new Error('Error al crear la cita');
       }
 
-
       const result = await response.json();
 
+      Swal.fire('Éxito', 'La cita se ha creado exitosamente.', 'success').then(() => {
+        window.location.reload();
+      });
 
-      alert('Cita creada con éxito');
-
-
-      console.log('Respuesta del servidor:', result);
     } catch (error) {
-      alert('Hubo un error al crear la cita');
+      Swal.fire('Error', 'Hubo un error al crear la cita. Intenta nuevamente más tarde.', 'error');
       console.error('Error al enviar los datos de la cita:', error);
     }
   };
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value); // Actualiza el filtro seleccionado
+  };
+
 
   return (
     <>
       <Header title={'Citas'} classN='text-8xl' />
 
-      <div className='pt-48 w-screen h-auto'>
-        <div className='w-full flex justify-center'>
+      <div className='pt-40 w-screen h-auto'>
+        <div className='w-full flex flex-col justify-center items-center'>
+          <div className='self-start mb-10 bg-teal-600 w-[35rem] h-[7vh] text-white text-4xl font-itim flex items-center justify-center rounded-r-3xl'>
+            <h2>Agenda tus citas</h2>
+          </div>
           <div className='w-4/5 flex flex-col items-center justify-center'>
 
             {/* Selección de Servicio */}
-            <div className='w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 hover:bg-opacity-85 duration-200' >
+            <div className='w-full bg-teal-600 rounded-lg mb-4 cursor-pointer p-8 hover:bg-opacity-85 duration-200' >
               <div className='flex items-center' onClick={showServices}>
                 <FaLessThan className={`text-white text-2xl ${services ? 'rotate-90' : 'rotate-180'} mr-4 transition-transform duration-300`} />
                 <h2 className='font-gorditas text-3xl text-white'>Selecciona el servicio</h2>
@@ -327,7 +390,7 @@ export const Citas2 = () => {
                           <p className='text-3xl'>Consulta</p>
                         </div>
                       </>
-                      
+
                     )}
                   </div>
                 </div>
@@ -341,8 +404,8 @@ export const Citas2 = () => {
                 <h2 className='font-gorditas text-3xl text-white'>Selecciona tu mascota</h2>
               </div>
               {pets && (
-                <div className={`w-full flex justify-center text-white pt-8 font-itim transition-all duration-500 ease-in-out transform ${pets ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0'} overflow-hidden`}>
-                  <div className='w-[90%] flex justify-evenly flex-wrap'>
+                <div className={`w-full flex justify-center text-white pt-8 font-itim transition-all duration-500 ease-in-out transform  ${pets ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0'} overflow-hidden`}>
+                  <div className='w-[90%] flex justify-evenly flex-wrap overflow-auto custom-scrollbar'>
                     {selectedPet ? (
                       <div className='w-1/5 mx-2 flex flex-col items-center rounded-full p-5 justify-center'>
                         <img className='rounded-full bg-white object-cover w-[10vw] h-[10vw]' src={selectedPet.foto} alt={selectedPet.nombre} />
@@ -366,7 +429,7 @@ export const Citas2 = () => {
 
             {/* Seleccion de empleado */}
 
-            <div className={`w-full bg-buttonProducts rounded-lg mb-4 cursor-pointer p-8 hover:bg-opacity-85 duration-200 ${selectedPet ? '' : 'opacity-50 cursor-not-allowed'}`}>
+            <div className={`w-full bg-teal-600 rounded-lg mb-4 cursor-pointer p-8 hover:bg-opacity-85 duration-200 ${selectedPet ? '' : 'opacity-50 cursor-not-allowed'}`}>
               <div className='flex items-center' onClick={showEmployees}>
                 <FaLessThan className={`text-white text-2xl ${workers ? 'rotate-90' : 'rotate-180'} mr-4 transition-transform duration-300`} />
                 <h2 className='font-gorditas text-3xl text-white'>Selecciona quien atendera tu mascota</h2>
@@ -434,7 +497,7 @@ export const Citas2 = () => {
                         <div className='h-4/5 flex flex-wrap justify-evenly items-center'>
 
                           {
-                            times.map((item) => (
+                            availableTimes.map((item) => (
                               <div
                                 className={`w-[9vw] h-[6vh] bg-white text-center text-xl rounded-3xl pt-1 hover:bg-gray-300 hover:-translate-y-1 duration-300 flex items-center justify-center`}
                                 onClick={() => {
@@ -469,7 +532,30 @@ export const Citas2 = () => {
             </div>
 
           </div>
+
+          {/* visualizacion de las citas */}
+          <div className='self-start h-auto mt-10'>
+
+            <div className='bg-teal-600 w-[35rem] h-[7vh] text-white text-4xl font-itim flex items-center justify-center rounded-r-3xl'>
+              <h2>Conoce tus citas</h2>
+            </div>
+
+            <div className='w-screen h-auto flex flex-col justify-center items-center py-8'>
+
+              <select  onChange={handleFilterChange} className='w-80 mx-9 p-3 mb-7 rounded-xl border-solid border-2 border-gray-50r focus:outline-none focus:border-blue-border'>
+                <option value="" >Todas</option>
+                <option value="Pendiente" selected >Pendientes</option>
+                <option value="Cancelada" >Canceladas</option>
+                <option value="Finalizada">Finalizadas</option>
+              </select>
+
+              <div className='w-4/5 h-auto max-h-[85vh] overflow-auto custom-scrollbar  py-5 bg-gray-50 rounded-3xl shadow-formShadow flex flex-wrap items-center justify-evenly '>
+                <ShowAppointments filter={filter} />
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </>
   );

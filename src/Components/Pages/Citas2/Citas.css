@@ -1,0 +1,22 @@
+/* Estilo para el contenedor con clase personalizada */
+
+  /* Estilos del scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+    height: 8px; /* Altura del scrollbar (para scroll horizontal) */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del track */
+    border-radius: 10px; /* Bordes redondeados del track */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #1db8a1; /* Color de la "thumb" (parte que se mueve) */
+    border-radius: 10px; /* Bordes redondeados de la "thumb" */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #12bd8a; /* Color de la "thumb" al pasar el mouse */
+  }
+  
