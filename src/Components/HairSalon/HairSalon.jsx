@@ -3,10 +3,6 @@ import peluqueria1 from '../../assets/peluqueria1.jpg'
 import peluqueria2 from '../../assets/peluqueria2.jpg'
 import peluqueria3 from '../../assets/peluqueria3.jpg'
 import peluqueria4 from '../../assets/peluqueria4.jpg'
-import estrellaVacia from '../../assets/estrella-vasia.png'
-import estrellaLlena from '../../assets/estrella-llena.png'
-import estrellaMedia from '../../assets/estrellaMedia.png'
-
 import { Button } from '../../Components/Button/Button'
 import { ContainerCard } from '../ContainerCard/ContainerCard'
 import { CarouselServices } from '../CarouselServices/CarouselServices'
@@ -14,27 +10,6 @@ import { Header } from '../Layouts/Header/Header'
 
 export const HairSalon = ({title,description}) => {
 
-  const [rating, setRating] = useState(0); // Estado para las estrellas seleccionadas
-
-  const handleStarClick = (index) => {
-    if (rating === index + 0.5) {
-      // Si ya está seleccionada la media estrella, cambia a la estrella llena
-      setRating(index + 1);
-    } else {
-      // Selecciona la media estrella si no lo está
-      setRating(index + 0.5);
-    }
-  };
-
-  const renderStar = (index) => {
-    if (rating >= index + 1) {
-      return estrellaLlena; // Estrella llena
-    } else if (rating >= index + 0.5) {
-      return estrellaMedia; // Media estrella
-    } else {
-      return estrellaVacia; // Estrella vacía
-    }
-  };
 
 
   return (
@@ -98,26 +73,7 @@ export const HairSalon = ({title,description}) => {
               <h1 className='text-xl text-white'>Reseñas del servicio</h1>
             
             </div>
-            
-          <div className='border-solid border-2 border-gray mt-10 w-1/3 h-80 rounded-3xl p-3 flex flex-col items-center justify-between ms-10 bg-white'>
-            <h1 className='text-3xl'>Deja tu opinión</h1>
-            
-            <p className='text-base'> Las opiniones son publicas y contienen la información de tu cuenta</p>
-            <div className='flex justify-between w-48'> 
-            {[...Array(5)].map((_, index) => (
-                <img
-                  key={index}
-                  className='h-8 w-8 cursor-pointer'
-                  src={renderStar(index)}
-                  alt='Estrella'
-                  onClick={() => handleStarClick(index)}
-                />
-              ))}          
-            </div>
-
-            <textarea className='w-3/4 h-28 bg-gray-200 p-3 rounded-xl' placeholder='Escribe tu comentario' name="" id=""></textarea>
-            <button className='bg-blue-border p-2 w-56 rounded-full text-white'>Enviar</button>
-          </div>
+          
 
           <div className='flex w-96 justify-evenly mt-6'>
               <h1 className='text-3xl'>Filtros :</h1>

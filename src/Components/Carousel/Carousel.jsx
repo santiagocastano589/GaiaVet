@@ -31,16 +31,17 @@ export const Carousel = () => {
   }, []);
 
   return (
-    <div className='w-full h-full bg-slate-100 flex justify-evenly py-10 flex-wrap'>
-      <div className='flex justify-evenly flex-wrap'>
+    <div className='w-full h-full bg-slate-100 flex justify-evenly py-10 flex-wrap '>
+      <div className='w-full flex justify-evenly flex-wrap sm:flex-col sm:items-center '>
         {products.map((product) => (
           <CartProducts
             key={product.idProducto}
+            id={product.idProducto}
             image={product.imagen}
             title={product.nombreProducto}
             description={product.descripcion}
             price={product.precio}
-            categoria={product.categoria}
+            category={product.categoria}
             stock={product.stock}
           />
         ))}

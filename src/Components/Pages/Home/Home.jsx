@@ -34,7 +34,7 @@ export const Home = () => {
           />
         </Element>
         <Element name="productos">
-          <SectionTitle sectionTitle={'Conoce nuestros productos mas vendidos'} />
+          <SectionTitle sectionTitle={'Conoce nuestros productos más vendidos'} />
           <Carousel />
         </Element>
         <Element name="servicios">

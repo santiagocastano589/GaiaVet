@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../Context/Context';
 import EditedModal from '../EditeModal/EditeModal';
 import InputPetNoEditable from '../InputPetNoEditable/InputPetNoEditable';
 
 import Swal from 'sweetalert2';
+import ModalHistorialMedico from '../WindowModals/HistorialMedico/ModalHistorialMedico';
 
 const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, temperamento, onClose }) => {
 
@@ -14,17 +15,25 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
   const [editedPeso, setEditedPeso] = useState(peso);
   const [editedEdad, setEditedEdad] = useState(edad);
   const [editedFoto, setEditedFoto] = useState(foto);
-  const [editedTemperamento, setEditedTemperamento] = useState(temperamento)
-  
-  const [isOpen, setIsOpen] = useState(false);
+  const [editedTemperamento, setEditedTemperamento] = useState(temperamento);
+
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenHistorial, setIsOpenHistorial] = useState(false); 
 
   const [petList, setPetList] = useState([]);
   const { authToken } = useContext(AuthContext);
   const accesRole = localStorage.getItem('role');
 
-  console.log(accesRole);
-
-
+  const handleInfoChange = (event) => {
+    setEditedPeso(event.target.value);
+    setEditedDocumento(e.target.value)
+    setEditedTipo(e.target.value)
+    setEditedRaza(e.target.value)
+    setEditedEdad(e.target.value)
+    setEditedName(e.target.value)
+    setEditedFoto(e.target.value)
+    setEditedTemperamento(e.target.value)
+};
   const handleDeleteClick = async () => {
     Swal.fire({
       title: '¿Estás seguro de que deseas eliminar tu mascota?',
@@ -49,103 +58,70 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
             setPetList(prevList => prevList.filter(pet => pet.documento !== documento));
             onClose();
             Swal.fire({
-            title: 'Mascota eliminada',
-            text: 'La mascota se elimino correctamente',
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-          });
-        } else {
-          Swal.fire({
-          title: 'Error',
-          text: 'Hubo un error al eliminar la mascota. Inténtalo de nuevo.',
-          icon: 'error',
-          });
+              title: 'Mascota eliminada',
+              text: 'La mascota se elimino correctamente',
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: 'Hubo un error al eliminar la mascota. Inténtalo de nuevo.',
+              icon: 'error',
+            });
+          }
+        } catch (error) {
+          console.error('Error al intentar eliminar la mascota:', error);
+        }
       }
-    } catch (error) {
-        console.error('Error al intentar eliminar la mascota:', error);
-    }
-  }
-
-
-});
-}
-  
-
-
-        
-
-      
-    
-  const handleModal = () => {
-    setIsOpen(!isOpen);
-  };
-  const handleDocumentoChange = (event) => {
-    setEditedDocumento(event.target.value);
+    });
   };
 
-  const handleTipoChange = (event) => {
-    setEditedTipo(event.target.value);
+  const handleModalEdit = () => {
+    setIsOpenEdit(!isOpenEdit);
   };
 
-  const handleRazaChange = (event) => {
-    setEditedRaza(event.target.value);
+  const handleModalHistorial = () => {
+    setIsOpenHistorial(!isOpenHistorial); 
   };
-  const handleNameChange = (event) => {
-    setEditedName(event.target.value);
-  };
+
   return (
     <div className="w-full fixed z-50 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300 font-itim">
-      
-      <div className="w-[65rem] h-[34rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white  rounded-lg shadow-sm">
+      <div className="w-[65rem] h-[32rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  bg-white  rounded-lg shadow-sm">
+        <div className='flex justify-between w-full'>
+          <div className="p-10 text-white flex flex-col justify-center items-center ">
+            <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName}  onChange={handleInfoChange}/>
+            <InputPetNoEditable htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso + ' Kg'} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="temperamento" nameLabel="Temperamento:" id="temperamento" value={editedTemperamento} onChange={handleInfoChange} />
 
-      <div className='flex justify-between w-full'>
-        
-        <div className=" p-10 text-white flex flex-col justify-center items-center ">
-          <h2 className='text-black text-3xl gorditas pb-2'>Gestionar mascotas</h2>
-
-
-          <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName} onChange={handleNameChange}/>
-
-          <InputPetNoEditable htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={handleDocumentoChange}/>
-
-          <InputPetNoEditable htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={handleTipoChange}/>
-            
-          <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleRazaChange}/>
-
-          <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad}/>
-
-          <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso+' Kg'}/>
-
-          <InputPetNoEditable htmlFor="temperamento" nameLabel="Temperamento:" id="temperamento" value={editedTemperamento}/>
-
-          <div className=' w-full   mt-14 text-black flex justify-end '>
-            <button className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-cyan-600 hover:text-white'>Historial Medico</button>
-            <button onClick={handleModal} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-teal-500 hover:text-white'>Editar</button>
-            <button onClick={handleDeleteClick} className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
+            <div className='w-full mt-14 text-black flex justify-end'>
+              <button onClick={handleModalHistorial} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Médico</button>
+              <button onClick={handleModalEdit} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-teal-500 hover:text-white'>Editar</button>
+              <button onClick={handleDeleteClick} className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
+            </div>
           </div>
 
-        </div>
-          
-        <div className="h-[34rem] w-80 bg-teal-600 rounded-lg">
-          
-          <button type="button" className="float-end text-white p-3" onClick={onClose}>
-            <span className="sr-only">Cerrar</span>   
-            <svg aria-hidden="true" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10L4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </button>
+          <div className="h-[32rem] w-80 bg-teal-600 rounded-lg">
+            <button type="button" className="float-end text-white p-3" onClick={onClose}>
+              <span className="sr-only">Cerrar</span>
+              <svg aria-hidden="true" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10L4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
 
-          <div className='flex flex-col items-center mt-24'>
-            
-            <img className='w-60 h-60 rounded-full object-cover' src={editedFoto} alt="" />
-
-            <h5 className="text-3xl font-bold mt-6 text-white">{namePet} </h5> 
+            <div className='flex flex-col items-center mt-24'>
+              <img className='w-60 h-60 rounded-full object-cover' src={editedFoto} alt="" />
+              <h5 className="text-3xl font-bold mt-6 text-white">{namePet}</h5>
+            </div>
           </div>
-
         </div>
       </div>
-    </div>
-    {isOpen && (
+
+      {isOpenEdit && (
         <EditedModal
           namePet={namePet}
           documento={documento}
@@ -155,7 +131,20 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
           peso={peso}
           foto={foto}
           temperamento={temperamento}
-          onClose={() => handleModal()}        />
+          onClose={handleModalEdit}
+        />
+      )}
+
+      {isOpenHistorial && (
+        <ModalHistorialMedico
+          nombreMascota={namePet}
+          tipo={tipo}
+          raza={raza}
+          edad={edad}
+          peso={peso}
+          temperamento={temperamento}
+          onClose={handleModalHistorial}
+        />
       )}
     </div>
   );

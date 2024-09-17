@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import gato from '../../../assets/comidaGato.png';
 import InputProducts from '../../InputProducts/InputProducts';
 import { AuthContext } from '../../Context/Context';
+import Swal from 'sweetalert2';
 
 const ProductRegisterModal = ({ onClose, onProductAdded }) => {
   const [product, setProduct] = useState({
@@ -71,15 +72,36 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
 
       const data = await response.json();
       if (response.ok) {
-        alert('Producto registrado con éxito');
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Producto registrado con éxito',
+          showConfirmButton: true,
+        });
         onProductAdded(data);
         onClose();
       } else {
-        alert('Error al registrar el producto: ' + data.message);
-      }
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error al registrar el producto'+ data.message,
+          showConfirmButton: true,
+        });
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error al registrar el producto'+ data.message,
+          showConfirmButton: true,
+        });  
+          }
     } catch (error) {
       console.error('Error:', error);
-      alert('Error al registrar el producto');
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error al registrar el producto'+ data.message,
+        showConfirmButton: true,
+      }); 
     }
   };
 
