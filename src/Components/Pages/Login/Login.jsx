@@ -125,12 +125,7 @@ export const Login = () => {
             <div className='flex justify-center items-center flex-col'>
               {isLoading && <WindowLoad />}
               <Button onClick={handleSubmit} textButton='Iniciar sesión' />
-              <button className='w-72 hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100 '>
-                Iniciar sesion con Google
-                <div className='flex items-center mx-2 rounded-xl'>
-                  <img className='w-4 flex items-center' src={google} alt='' />
-                </div>
-              </button>
+              
             </div>
           </form>
         </div>
