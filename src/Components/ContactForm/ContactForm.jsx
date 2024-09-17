@@ -83,8 +83,8 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className='w-full pb-20 flex justify-evenly h-auto sm:flex-col-reverse'>
-      <form onSubmit={handleSubmit} className='bg-white rounded-xl shadow-formShadow ml-10 w-auto h-auto flex flex-col items-center py-5 px-20'>
+    <div className='w-full pb-20 flex justify-evenly items-center h-auto sm:flex-col-reverse sm:pt-16 lg:flex-row'>
+      <form onSubmit={handleSubmit} className='bg-white rounded-xl shadow-formShadow ml-10 w-auto h-auto flex flex-col items-center py-5 px-20 sm:ml-0 sm:w-[30rem] sm:mt-6 lg:mt-0'>
         <div className='pr-4'>
           <h2 className='text-2xl text-gray-600 font-semibold'>Escríbenos!</h2>
           <p className='text-gray-500'>Déjanos tus datos y te brindaremos ayuda</p>
@@ -110,17 +110,17 @@ export const ContactForm = () => {
         />
         {errors.mensaje && <p className='text-red-500'>{errors.mensaje}</p>}
 
-        <div className='flex'>
+        <div className='flex items-center'>
           <input type="checkbox" name="aceptaPoliticas" onChange={handleChange} />
-          <p className='pl-2'>Aceptar políticas de privacidad del sitio web</p>
+          <p className='pl-2 sm:text-sm'>Aceptar políticas de privacidad del sitio web</p>
         </div>
         {errors.aceptaPoliticas && <p className='text-red-500'>{errors.aceptaPoliticas}</p>}
         
         <Button textButton='Enviar' onClick={handleSubmit} />
       </form>
 
-      <div className='w-1/2 flex justify-center sm:w-[100%] sm:pt-[]'>
-        <img src={collage} alt="Imagen decorativa" className='w-1/2' />
+      <div className='w-1/2 flex justify-center sm:w-[100%] lg:w-[40%] 2xl:w-[50%]'>
+        <img src={collage} alt="Imagen decorativa" className='w-1/2 lg:w-full 2xl:h-[55rem] 2xl:w-[35rem]' />
       </div>
     </div>
   );
