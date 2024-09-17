@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 import gato from '../../../assets/comidaGato.png';
 import InputProducts from '../../InputProducts/InputProducts';
 import { AuthContext } from '../../Context/Context';
+import Select from 'react-select';
 import Swal from 'sweetalert2';
-
+import productOptions from '../../../../public/js/ProductOption'
 const ProductRegisterModal = ({ onClose, onProductAdded }) => {
   const [product, setProduct] = useState({
     nombreProducto: '',
@@ -114,9 +115,33 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
             
             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit}>
               <InputProducts nameLabel={'Imagen del producto:'} name='imagen' type='file' onChange={handleImageChange} />
-              <InputProducts nameLabel={'Nombre del producto:'} name='nombreProducto' type='text' onChange={handleChange} value={product.nombreProducto} />
+
+              <div className='text-black w-[90%] flex justify-between items-center mt-3'>
+              <label className='w-[44%] text-black text-lg' htmlFor="productos">Nombres de productos:</label>
+                  <Select
+                    id="productos"
+                    name="productos"
+                    className="w-full"
+                    options={productOptions}
+                    placeholder="-- Selecciona un producto --"
+                    isSearchable
+                  />
+              </div>
               <InputProducts nameLabel={'Descripcion del producto:'} name='descripcion' type='text' onChange={handleChange} value={product.descripcion} />
-              <InputProducts nameLabel={'Categoria del producto:'} name='categoria' type='text' onChange={handleChange} value={product.categoria} />
+
+              <div className='text-black w-[90%] flex justify-between items-center mt-3'>
+                <label className='w-[44%] text-black text-lg text-balance' htmlFor="">Categorias de productos: </label>
+                <select id="productos" name="productos" class="block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="" disabled selected>-- Selecciona un producto --</option>
+                    <option value="Comida para perros">Comida para perros</option>
+                    <option value="Comida para gatos">Comida para gatos</option>
+                    <option value="Aseo">Aseo</option>
+                    <option value="Juguetes">Juguetes</option> 
+                    <option value="Accesorios">Accesorios</option>
+
+
+                </select>
+              </div>
               <InputProducts nameLabel={'Precio del producto:'} name='precio' type='number' onChange={handleChange} value={product.precio} />
               <InputProducts nameLabel={'Stock del producto:'} name='stock' type='number' onChange={handleChange} value={product.stock} />
               
