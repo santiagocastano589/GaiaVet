@@ -1,26 +1,34 @@
 import React, { useState, useContext } from 'react';
 import InputPetEditable from '../InputPetEditable/InputPetEditable';
 import { AuthContext } from '../Context/Context';
+import Select from 'react-select';
 import Swal from 'sweetalert2';
+import Raza from '../../../public/js/RazaPet';
 
 const EditedModal = ({ edad, peso, namePet, documento, tipo, raza, foto, temperamento, onClose }) => {
     const [editedDocumento, setEditedDocumento] = useState(documento);
-    const [editedTipo, setEditedTipo] = useState(tipo);
-    const [editedRaza, setEditedRaza] = useState(raza);
     const [editedName, setEditedName] = useState(namePet);
     const [editedPeso, setEditedPeso] = useState(peso);
     const [editedEdad, setEditedEdad] = useState(edad);
     const [editedFoto, setEditedFoto] = useState(foto);
     const [editedTemperamento, setEditedTemperamento] = useState(temperamento);
 
+    const findInitialRaza = (raza) => {
+        return Raza.find((r) => r.value === raza) || null;
+    };
+
+    const [editedRaza, setEditedRaza] = useState(findInitialRaza(raza));
+    const handleTipoChange = (event) => {
+        console.log('Nuevo tipo de mascota:', event.target.value);  // Verificar si el valor está cambiando
+        setEditedTipo(event.target.value);
+    };
+    
     const { authToken } = useContext(AuthContext);
 
     const handleDocumentoChange = (event) => {
         setEditedDocumento(event.target.value);
     };
-    const handleTipoChange = (event) => {
-        setEditedTipo(event.target.value);
-    };
+
 
     const handleRazaChange = (event) => {
         setEditedRaza(event.target.value);
@@ -42,61 +50,66 @@ const EditedModal = ({ edad, peso, namePet, documento, tipo, raza, foto, tempera
         setEditedTemperamento(event.target.value);
     };
 
-const handleSaveChanges = async () => {
-    Swal.fire({
-        title: 'GaiaVet',
-        text: '¿Deseas actualizar la información de esta mascota? Los cambios se guardarán en la base de datos.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, actualizar',
-        cancelButtonText: 'Cancelar',
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            const updatedPetData = {
-                idMascota: editedDocumento,
-                tipoMascota: editedTipo,
-                raza: editedRaza,
-                nombre: editedName,
-                peso: editedPeso,
-                edad: editedEdad,
-                foto: editedFoto,
-                temperamento: editedTemperamento
-            };
-
-            try {
-                const response = await fetch(`https://gaiavet-back.onrender.com/UpdatePet/${editedDocumento}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${authToken}`,
-                    },
-                    body: JSON.stringify(updatedPetData),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Error al actualizar la mascota');
+    const handleSaveChanges = async () => {
+    
+        Swal.fire({
+            title: 'GaiaVet',
+            text: '¿Deseas actualizar la información de esta mascota? Los cambios se guardarán en la base de datos.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, actualizar',
+            cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+    
+                const updatedPetData = {
+                    idMascota: editedDocumento,
+                    raza: editedRaza ? editedRaza.value : '',  
+                    nombre: editedName,
+                    peso: editedPeso,
+                    edad: editedEdad,
+                    foto: editedFoto,
+                    temperamento: editedTemperamento
+                };
+    
+                console.log('Datos de mascota a enviar:', updatedPetData);
+    
+                try {
+                    const response = await fetch(`https://gaiavet-back.onrender.com/UpdatePet/${editedDocumento}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${authToken}`,
+                        },
+                        body: JSON.stringify(updatedPetData),
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error('Error al actualizar la mascota');
+                    }
+    
+                    Swal.fire({
+                        title: 'Actualizado',
+                        text: 'La mascota ha sido actualizada con éxito.',
+                        icon: 'success',
+                    });
+                    onClose();
+                    window.location.reload();
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un error al actualizar la mascota. Inténtalo de nuevo.',
+                        icon: 'error',
+                    });
+                    console.error(error);
                 }
-
-                Swal.fire({
-                    title: 'Actualizado',
-                    text: 'La mascota ha sido actualizada con éxito.',
-                    icon: 'success',
-                });
-                onClose();
-                window.location.reload()
-            } catch (error) {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Hubo un error al actualizar la mascota. Inténtalo de nuevo.',
-                    icon: 'error',
-                });
-                console.error(error);
             }
-        }
-    });
-};
+        });
+    };
+    
+    
 
     return (
         <div className="w-full fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-all ease-in-out duration-300">
@@ -110,20 +123,25 @@ const handleSaveChanges = async () => {
                             value={editedName}
                             onChange={handleNameChange}
                         />
-                        <InputPetEditable
-                            htmlFor="tipo"
-                            nameLabel="Tipo:"
-                            id="tipo"
-                            value={editedTipo}
-                            onChange={handleTipoChange}
-                        />
-                        <InputPetEditable
-                            htmlFor="raza"
-                            nameLabel="Raza o especie:"
-                            id="raza"
-                            value={editedRaza}
-                            onChange={handleRazaChange}
-                        />
+
+                         <div className='text-black w-[100%] mt-2'>
+                         <div className='text-black justify-center flex w-[100%] mt-2'>
+                            <label className='w-[10rem] text-black text-xl  items-center flex' htmlFor="">Raza o especie: </label>
+                            <div className='w-[30rem] bg-red-400'>
+                            <Select
+                                    id="productos"
+                                    name="productos"
+                                    className="w-full"
+                                    options={Raza}
+                                    value={editedRaza}
+                                    placeholder="-- Selecciona una raza --"
+                                    onChange={(option) => setEditedRaza(option)}
+                                    isSearchable
+                            />
+                                </div>
+                            </div>
+                            </div>
+
                         <InputPetEditable
                             htmlFor="edad"
                             nameLabel="Edad (Meses):"
