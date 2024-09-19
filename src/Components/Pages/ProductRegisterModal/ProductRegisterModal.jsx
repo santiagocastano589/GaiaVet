@@ -9,6 +9,7 @@ import Quagga from 'quagga';
 
 const ProductRegisterModal = ({ onClose, onProductAdded }) => {
   const [selectedCategory, setSelectedCategory] = useState(''); // Nuevo estado para controlar el select
+  const [selectedProduct, setSelectedProduct] = useState(null); // Inicializa como null
 
   const [showCamera, setShowCamera] = useState(false);
   const [codeProduct, setCodeProduct] = useState('');
@@ -62,7 +63,6 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
         Quagga.start();
       }
     );
-
     // Detectar el código de barras
     Quagga.onDetected((data) => {
       Swal.fire({
@@ -190,6 +190,8 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
       );
 
       const data = await response.json();
+      console.log(data);
+      
       if (response.ok) {
         Swal.fire({
           position: 'center',
@@ -226,18 +228,28 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
             <h3 className="gorditas text-black text-xl">Registro de productos</h3>
 
             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit}>
+            <InputProducts nameLabel="Codigo del producto:" name="codigo" type="text" value={codeProduct} onChange={handleChange} />
               <InputProducts nameLabel={'Imagen del producto:'} name='imagen' type='file' onChange={handleImageChange} />
 
               <div className='text-black w-[90%] flex justify-between items-center mt-3'>
               <label className='w-[44%] text-black text-lg' htmlFor="productos">Nombres de productos:</label>
               <Select
-                  id="productos"
-                  name="productos"
-                  className="w-full"
-                  options={productOptions}
-                  placeholder="-- Selecciona un producto --"
-                  isSearchable
-                />
+                id="productos"
+                name="productos"
+                className="w-full"
+                options={productOptions}
+                value={selectedProduct} 
+                onChange={(option) => {
+                  setSelectedProduct(option ? option : null);
+                  setProduct((prevProduct) => ({
+                    ...prevProduct,
+                    nombreProducto: option ? option.value : ''
+                  }));
+                }}
+                placeholder="-- Selecciona un producto --"
+                isSearchable
+              />
+
               </div>
               <InputProducts nameLabel={'Descripcion del producto:'} name='descripcion' type='text' onChange={handleChange} value={product.descripcion} />
 
@@ -248,17 +260,22 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
                   name="categoria"
                   className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedCategory(e.target.value);
+                    setProduct((prevProduct) => ({
+                      ...prevProduct,
+                      categoria: e.target.value
+                    }));
+                  }}
                 >
-                  <option value="" disabled>
-                    -- Selecciona una categoría --
-                  </option>
+                  <option value="" disabled>-- Selecciona una categoría --</option>
                   <option value="Comida para perros">Comida para perros</option>
                   <option value="Comida para gatos">Comida para gatos</option>
                   <option value="Aseo">Aseo</option>
                   <option value="Juguetes">Juguetes</option>
                   <option value="Accesorios">Accesorios</option>
                 </select>
+
               </div>
               <InputProducts nameLabel={'Precio del producto:'} name='precio' type='number' onChange={handleChange} value={product.precio} />
               <InputProducts nameLabel={'Stock del producto:'} name='stock' type='number' onChange={handleChange} value={product.stock} />

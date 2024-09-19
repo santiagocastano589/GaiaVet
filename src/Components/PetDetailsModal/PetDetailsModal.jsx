@@ -93,7 +93,7 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
             <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName}  onChange={handleInfoChange}/>
             <InputPetNoEditable htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={handleInfoChange} />
-            <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="raza" nameLabel="Raza o especie:" id="raza" value={editedRaza} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso + ' Kg'} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="temperamento" nameLabel="Temperamento:" id="temperamento" value={editedTemperamento} onChange={handleInfoChange} />

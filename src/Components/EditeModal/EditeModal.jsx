@@ -18,7 +18,6 @@ const EditedModal = ({ edad, peso, namePet, documento, tipo, raza, foto, tempera
     const handleDocumentoChange = (event) => {
         setEditedDocumento(event.target.value);
     };
-
     const handleTipoChange = (event) => {
         setEditedTipo(event.target.value);
     };
@@ -120,7 +119,7 @@ const handleSaveChanges = async () => {
                         />
                         <InputPetEditable
                             htmlFor="raza"
-                            nameLabel="Raza:"
+                            nameLabel="Raza o especie:"
                             id="raza"
                             value={editedRaza}
                             onChange={handleRazaChange}

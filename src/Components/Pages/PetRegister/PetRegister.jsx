@@ -157,7 +157,7 @@ export const PetRegister = () => {
             </div>
 
             <div className='text-black w-[100%] mt-2'>
-              <label className='text-black text-lg text-balance my-4 mx-9' htmlFor="">Raza de la mascota </label>
+              <label className='text-black text-lg text-balance my-4 mx-9' htmlFor="">Raza o especie de la mascota </label>
               <div className='flex justify-center mt-3'>
                 <div className='w-80'>
                   <Select
