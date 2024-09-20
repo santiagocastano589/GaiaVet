@@ -12,7 +12,7 @@ export const ContainerCategory = ({setSelectedCategory}) => {
   return (
     <>
         <div className='w-full pt-[10rem]'>
-            <div className='w-full flex '>
+            <div className='w-full flex sm:justify-evenly'>
             <div onClick={() => setSelectedCategory('')}>
                 <CategoryCard image={gaiavet} title={'Todos los productos'} alt={'producto'}/>
               </div>

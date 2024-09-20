@@ -68,12 +68,12 @@ export const Header = ({ title, classN }) => {
               <h2 className='text-3xl font-gorditas p-3 sm:text-2xl sm:p-2 md:text-[30px] lg:text-3xl 2xl:text-4xl'>GaiaVet</h2>
           </Link>
         </div>
-        <h2 className={`font-bold text-stroke-2-white text-center font-gorditas mt-16 ${classN} sm:text-[3.6rem] md:text-[3.7rem] md:mt-[5rem] md:w-[20rem] md:text-center lg:text-7xl 2xl:text-8xl`}>
+        <h2 className={`font-bold text-stroke-2-white text-center font-gorditas mt-16 ${classN} sm:text-[3.6rem] md:text-[3.7rem] md:mt-[5rem] md:w-[20rem] md:text-center lg:text-7xl xl:text-8xl 2xl:text-8xl`}>
           {title}
         </h2>        
         <div className='w-[30%] flex items-center justify-center sm:w-[25%]'>
           <img className='cursor-pointer w-10 sm:w-8 md:mr-4 lg:mr-0 lg:w-10 2xl:w-12' onClick={controlOpenMenu} src={menu} alt="Menu" />
-          {showIconCart && <LiaShoppingCartSolid onClick={controlCart} className='text-5xl absolute right-20 top-7 cursor-pointer' />}
+          {showIconCart && <LiaShoppingCartSolid onClick={controlCart} className='text-5xl absolute right-20 top-7 cursor-pointer sm:right-28 md:right-36 lg:right-44 xl:right-56 2xl:right-64' />}
           {showCart && <Cart onClose={controlCart} />}
           {menuNav && <NavMenu onClose={() => setMenuNav(false)} />}
         </div>

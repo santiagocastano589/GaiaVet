@@ -102,7 +102,7 @@ export const Login = () => {
 
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header title='Inicio de sesión' classN='text-7xl'/>
+      <Header title='Inicio de sesión' classN='text-7xl sm:text-[2.5rem] sm:w-[50%] md:text-5xl md:w-[50%] lg:text-6xl lg:w-[50%] xl:text-[4.3rem] xl:w-[50%] 2xl:text-8xl 2xl:w-[60%]'/>
       <div className='flex justify-center items-center pt-36 pb-10 bg-fondo '>
         <div className='bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>
@@ -125,12 +125,7 @@ export const Login = () => {
             <div className='flex justify-center items-center flex-col'>
               {isLoading && <WindowLoad />}
               <Button onClick={handleSubmit} textButton='Iniciar sesión' />
-              <button className='w-72 hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100 '>
-                Iniciar sesion con Google
-                <div className='flex items-center mx-2 rounded-xl'>
-                  <img className='w-4 flex items-center' src={google} alt='' />
-                </div>
-              </button>
+              
             </div>
           </form>
         </div>
