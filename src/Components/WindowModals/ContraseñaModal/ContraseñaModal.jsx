@@ -3,45 +3,109 @@ import Swal from 'sweetalert2';
 
 export const ContraseñaModal = ({ onClose }) => {
   const [correo, setCorreo] = useState('');
+  const [cedula, setCedula] = useState(''); // Nuevo estado para la cédula
   const [codigo, setCodigo] = useState('');
   const [nuevaContraseña, setNuevaContraseña] = useState('');
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
-  const [step, setStep] = useState(1); // 1: input de correo, 2: input de código, 3: nueva contraseña
+  const [step, setStep] = useState(1); // 1: input de correo, 2: input de cédula, 3: input de código, 4: nueva contraseña
 
   const handleCorreoSubmit = async (e) => {
     e.preventDefault();
-    // Simular el envío del correo
-    const success = true; // Cambia esto según la respuesta del servidor
-    if (success) {
-      setStep(2);
+    
+    try {
+      const response = await fetch('https://gaiavet-back.onrender.com/code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ correo }),
+      });
+  
+      const result = await response.json();
+      
+      if (response.ok) {
+        Swal.fire('Código enviado', 'Revisa tu correo electrónico.', 'success');
+        setStep(2); // Pasar al siguiente paso
+      } else {
+        Swal.fire('Error', result.message || 'Error al enviar el código', 'error');
+      }
+    } catch (error) {
+      Swal.fire('Error', 'Ocurrió un error al conectarse con el servidor', 'error');
+    }
+  };
+  
+
+  const handleCedulaSubmit = (e) => {
+    e.preventDefault();
+    if (cedula.trim() === '') {
+      Swal.fire('Error', 'La cédula es requerida.', 'error');
     } else {
-      Swal.fire('Error', 'No se pudo enviar el código, intenta de nuevo.', 'error');
+      setStep(3); 
     }
   };
 
-  const handleCodigoSubmit = (e) => {
+  const handleCodigoSubmit = async (e) => {
     e.preventDefault();
-    // Simular la verificación del código
-    const success = true; // Cambia esto según la respuesta del servidor
-    if (success) {
-      setStep(3); // Pasar al siguiente paso: ingresar nueva contraseña
-    } else {
-      Swal.fire('Error', 'Código incorrecto, intenta de nuevo.', 'error');
+  
+    try {
+      const response = await fetch('https://gaiavet-back.onrender.com/vCode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ codigoIngresado: codigo }),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        Swal.fire('Código verificado', 'El código es válido.', 'success');
+        setStep(4); // Pasar al siguiente paso: nueva contraseña
+      } else {
+        Swal.fire('Código incorrecto, intenta de nuevo.', 'error');
+      }
+    } catch (error) {
+      Swal.fire('Error', 'Ocurrió un error al conectarse con el servidor', 'error');
     }
   };
+  
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
-    // Verificar que ambas contraseñas coincidan
+
+  
     if (nuevaContraseña !== confirmarContraseña) {
       Swal.fire('Error', 'Las contraseñas no coinciden, intenta de nuevo.', 'error');
       return;
     }
-
-    // Aquí puedes agregar la lógica para restablecer la contraseña en el servidor
-    Swal.fire('Éxito', 'Contraseña restablecida correctamente.', 'success');
-    onClose(); // Cerrar el modal
+  
+    try {
+      const response = await fetch(`https://gaiavet-back.onrender.com/password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nuevaContraseña,
+          confirmarContraseña,
+          cedula,
+        }),
+      });
+  
+      const result = await response.json();
+  console.log(result);
+  
+      if (response.ok) {
+        Swal.fire('Éxito', 'Contraseña restablecida correctamente.', 'success');
+        onClose(); // Close modal
+      } else {
+        Swal.fire('Error', result.message || 'No se pudo restablecer la contraseña', 'error');
+      }
+    } catch (error) {
+      Swal.fire('Error', 'Ocurrió un error al conectarse con el servidor', 'error');
+    }
   };
+  
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -68,6 +132,21 @@ export const ContraseñaModal = ({ onClose }) => {
             </button>
           </form>
         ) : step === 2 ? (
+          <form onSubmit={handleCedulaSubmit}>
+            <h2 className="text-lg font-semibold mb-4">Ingresa tu cédula</h2>
+            <input
+              type="text"
+              value={cedula}
+              onChange={(e) => setCedula(e.target.value)}
+              required
+              placeholder="Cédula"
+              className="border border-gray-300 p-2 rounded w-full mb-4"
+            />
+            <button type="submit" className="bg-teal-300 text-black px-4 py-2 rounded hover:bg-teal-400">
+              Verificar cédula
+            </button>
+          </form>
+        ) : step === 3 ? (
           <form onSubmit={handleCodigoSubmit}>
             <h2 className="text-lg font-semibold mb-4">Ingresa el código de verificación</h2>
             <input

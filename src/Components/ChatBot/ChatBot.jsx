@@ -15,11 +15,11 @@ const ChatBot = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/chat", {
+      const response = await axios.post('https://gaiavet-back.onrender.com/chat', {
         question: userMessage,
         history: newMessages.map(msg => ({
-          role: msg.role,
-          parts: msg.parts,
+        role: msg.role,
+        parts: msg.parts,
         })), // Asegúrate de que el historial esté en el formato correcto
       });
 
