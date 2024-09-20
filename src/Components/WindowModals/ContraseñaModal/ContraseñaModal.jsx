@@ -62,8 +62,11 @@ export const ContraseñaModal = ({ onClose }) => {
         Swal.fire('Código verificado', 'El código es válido.', 'success');
         setStep(4); // Pasar al siguiente paso: nueva contraseña
       } else {
-        Swal.fire('Código incorrecto, intenta de nuevo.', 'error');
-      }
+        Swal.fire({
+          title: 'Error',
+          text: 'Codigo Incorrecto',
+          icon: 'error',  // Se asegura que el ícono sea de error
+        });      }
     } catch (error) {
       Swal.fire('Error', 'Ocurrió un error al conectarse con el servidor', 'error');
     }
