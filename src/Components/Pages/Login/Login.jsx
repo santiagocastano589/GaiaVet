@@ -106,7 +106,7 @@ export const Login = () => {
   }
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header title='Inicio de sesión' classN='text-7xl'/>
+      <Header title='Inicio de sesión' classN='text-7xl sm:text-[2.5rem] sm:w-[50%] md:text-5xl md:w-[50%] lg:text-6xl lg:w-[50%] xl:text-[4.3rem] xl:w-[50%] 2xl:text-8xl 2xl:w-[60%]'/>
       <div className='flex justify-center items-center pt-36 pb-10 bg-fondo '>
         <div className='bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>

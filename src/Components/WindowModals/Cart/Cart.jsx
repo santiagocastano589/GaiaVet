@@ -103,7 +103,7 @@ export const Cart = ({ onClose }) => {
 
   return (
     <div className="w-screen h-screen fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-end font-itim">
-      <div className="w-[26vw] h-screen bg-white rounded-s-3xl flex flex-col animate-flip-down p-4">
+      <div className="w-[26vw] h-screen bg-white rounded-s-3xl flex flex-col animate-flip-down p-4 sm:w-[22rem] md:w-[22rem] lg:w-[22rem] xl:w-[28vw] 2xl:w-[28rem]">
         <div className='h-[5%] self-end'>
           <p
             className="mr-2 mt-2 cursor-pointer font-extrabold text-xl bg-header w-7 text-center rounded-full hover:bg-buttonProducts duration-200 hover:text-white"
@@ -114,7 +114,7 @@ export const Cart = ({ onClose }) => {
         </div>
 
         <div className='flex flex-col justify-center h-[95%]'>
-          <h2 className='font-gorditas text-3xl h-[10%]'>Carrito de compras</h2>
+          <h2 className='font-gorditas text-3xl h-[10%] sm:text-2xl xl:text-3xl'>Carrito de compras</h2>
 
           <div className='h-[80%] items-start overflow-auto'>
             {

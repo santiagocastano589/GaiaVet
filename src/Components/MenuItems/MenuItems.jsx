@@ -20,7 +20,7 @@ export const MenuItems = ({ nameItem, to, type }) => {
           to={to}
           smooth={true}
           duration={500}
-          className="w-3/5 text-xl text-center cursor-pointer"
+          className="w-3/5 text-xl text-center cursor-pointer sm:text-base md:text-lg lg:text-[1.2rem] xl:text-xl"
           onMouseEnter={animated}
           onMouseLeave={notAnimated}
         >
@@ -29,7 +29,7 @@ export const MenuItems = ({ nameItem, to, type }) => {
       ) : (
         <RouterLink
           to={to}
-          className="w-3/5 text-xl text-center cursor-pointer"
+          className="w-3/5 text-xl text-center cursor-pointer sm:text-base md:text-lg lg:text-[1.2rem] xl:text-xl"
           onMouseEnter={animated}
           onMouseLeave={notAnimated}
         >

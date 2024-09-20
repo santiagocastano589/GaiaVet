@@ -75,33 +75,33 @@ export const Product = ({ id, image, title, alt, description, price, category, s
   };
 
   return (
-    <div className="w-[20rem] h-[75vh] m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6">
+    <div className="w-[20rem] h-[75vh] m-6 rounded-xl flex flex-col justify-between items-center shadow-md border bg-white px-2 py-6  sm:m-2 sm:h-[33rem] sm:w-[18rem] sm:py-3 lg:h-[36rem] lg:py-6 xl:w-[20rem] xl:m-6">
       <div className='w-full rounded-xl flex justify-center p-2 '>
         <img className='w-[70%] rounded-2xl' src={image} alt={alt} />
       </div>
       <div className='w-full flex flex-col justify-evenly text-justify px-6'>
-        <h2 className='text-2xl gorditas text-center my-2'>
+        <h2 className='text-2xl gorditas text-center my-2 sm:text-lg lg:text-2xl'>
           {title}
         </h2>
-        <p className='gorditas text-xl my-2'>
+        <p className='gorditas text-xl my-2 sm:text-base lg:text-xl'>
           ${price}
         </p>
         
-        <p className='text-base text-left line-clamp-3 overflow-hidden'>
+        <p className='text-base text-left line-clamp-3 overflow-hidden sm:text-sm lg:text-base'>
           {description}
         </p>
 
-        <p className='text-base font-semibold'>
+        <p className='text-base font-semibold sm:text-sm lg:text-base'>
           Disponibles: {stock}
         </p>
       </div>
 
       <div className='w-full flex justify-center mt-4'>
         {buttonBuy ? (
-          <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white'>Agregar</button>
+          <button onClick={addProduct} className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white sm:w-[13rem] sm:h-[2.5rem] xl:w-[15rem] xl:h-[3rem]'>Agregar</button>
         ) : (
           <Link to={"/login"}>
-            <button className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white'>Iniciar sesión</button>
+            <button className='bg-teal-500 w-[15rem] h-[3rem] rounded-xl text-white '>Iniciar sesión</button>
           </Link>
         )}
       </div>

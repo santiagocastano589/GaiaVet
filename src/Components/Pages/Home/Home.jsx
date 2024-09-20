@@ -21,7 +21,7 @@ export const Home = () => {
       <Main>
         <Element name="inicio">
           <div>
-            <img src={HeaderImg} alt="pets reference" className='w-full h-auto' />
+            <img src={HeaderImg} alt="pets reference" className='w-full h-auto sm:pt-12' />
           </div>
         </Element>
         <Element name="sobre">
@@ -33,7 +33,7 @@ export const Home = () => {
           />
         </Element>
         <Element name="productos">
-          <SectionTitle sectionTitle={'Conoce nuestros productos mas vendidos'} />
+          <SectionTitle sectionTitle={'Conoce nuestros productos más vendidos'} />
           <Carousel />
         </Element>
         <Element name="servicios">
