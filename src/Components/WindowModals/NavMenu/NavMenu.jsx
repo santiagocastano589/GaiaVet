@@ -94,6 +94,7 @@ export const NavMenu = ({ onClose }) => {
               <MenuItems nameItem="Usuarios" to="/admin/usersList" type="link" />
               <MenuItems nameItem="Tienda" to="/products" type="link" />
               <MenuItems nameItem="Citas" to="/citas" type="link" />
+              <MenuItems nameItem="Facturar Cita" to="/payment" type="link" />
               <MenuItems nameItem="Gestionar productos" to="/admin/productList" type="link" />
               <MenuItems nameItem="Registrar Empleados" to="/admin/registerEmployee" type="link" />
               <MenuItems nameItem="Gestionar Empleados" to="/admin/employees" type="link" />

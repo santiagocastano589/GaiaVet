@@ -347,7 +347,7 @@ export const ShowAppointments = ({ filter }) => {
                                         <p className='font-semibold flex'>Mascota: <span className='font-normal pl-1'>{pet?.nombre || 'Desconocido'}</span></p>
                                         <p className='font-semibold flex'>Fecha: <span className='font-normal pl-1'>{appointment.fecha}</span></p>
                                         <p className='font-semibold flex'>Hora: <span className='font-normal pl-1'>{appointment.hora}</span></p>
-                                        <p className='flex font-semibold'>Estado: <span className={` font-normal pl-1 ${appointment.estadoCita === 'Pendiente' ? 'text-orange-500' : appointment.estadoCita === 'Cancelada' ? 'text-red-600' : appointment.estadoCita === 'Finalizada' ? 'text-green-400' : ''}`}>{appointment.estadoCita}</span></p>
+                                        <p className='flex font-semibold'>Estado: <span className={` font-normal pl-1 ${appointment.estadoCita === 'Pendiente' ? 'text-orange-500' : appointment.estadoCita === 'Cancelada' ? 'text-red-600' : appointment.estadoCita === 'Finalizada' ? 'text-green-400' : appointment.estadoCita == 'Facturada' ? 'text-blue-600' : ''}`}>{appointment.estadoCita}</span></p>
                                     </div>
                                     <div>
                                         {

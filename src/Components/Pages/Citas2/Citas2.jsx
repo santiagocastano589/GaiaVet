@@ -346,8 +346,12 @@ export const Citas2 = () => {
       return;
     }
 
+    const urlAppointment = accessRole === 'administrador'
+    ? 'https://gaiavet-back.onrender.com/newsAppointment'
+    : 'https://gaiavet-back.onrender.com/newAppointment';
+
     try {
-      const response = await fetch('https://gaiavet-back.onrender.com/newAppointment', {
+      const response = await fetch(urlAppointment, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -567,6 +571,7 @@ export const Citas2 = () => {
                 <option value="Pendiente" selected >Pendientes</option>
                 <option value="Cancelada" >Canceladas</option>
                 <option value="Finalizada">Finalizadas</option>
+                <option value="Facturada">Facturadas</option>
               </select>
 
               <div className='w-4/5 h-auto max-h-[85vh] overflow-auto custom-scrollbar  py-5 bg-gray-50 rounded-3xl shadow-formShadow flex flex-wrap items-center justify-evenly '>
