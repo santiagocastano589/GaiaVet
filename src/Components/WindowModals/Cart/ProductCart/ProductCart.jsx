@@ -40,7 +40,7 @@ export const ProductCart = ({ img, title, category, price, quantity: initialQuan
   return (
     <div className='h-[30%] mt-4 flex rounded-3xl'>
       <img
-        className='w-1/4 h-full rounded-xl object-cover'
+        className='w-1/4 h-full rounded-xl object-cover xl:w-[35%] 2xl:w-[40%]'
         src={img}
         alt="Product"
       />
