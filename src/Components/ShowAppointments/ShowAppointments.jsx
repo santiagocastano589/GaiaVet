@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-
-export const ShowAppointments = ({filter}) => {
+export const ShowAppointments = ({ filter }) => {
     const [appointments, setAppointments] = useState([]);
     const [pets, setPets] = useState([]);
     const [users, setUsers] = useState([]);
     const [employees, setEmployees] = useState([]);
+
     const authToken = localStorage.getItem('token');
     const accesRole = localStorage.getItem('role');
 
@@ -46,15 +46,16 @@ export const ShowAppointments = ({filter}) => {
 
 
     useEffect(() => {
-        // Filtra las citas basándose en el filtro seleccionado
+        console.log("appointments:", appointments);
         if (filter) {
-          setFilteredAppointments(
-            appointments.filter((appointment) => appointment.estadoCita === filter)
-          );
+            setFilteredAppointments(
+                Array.isArray(appointments) ? appointments.filter((appointment) => appointment.estadoCita === filter) : []
+            );
         } else {
-          setFilteredAppointments(appointments); // Si no hay filtro, muestra todas
+            setFilteredAppointments(Array.isArray(appointments) ? appointments : []); // Si no hay filtro, muestra todas
         }
-      }, [filter, appointments]);
+    }, [filter, appointments]);
+
 
     const urlPets = accesRole === 'administrador'
         ? 'https://gaiavet-back.onrender.com/Pets'
@@ -181,83 +182,145 @@ export const ShowAppointments = ({filter}) => {
     const findEmployeeByCedula = (cedula) => {
         return employees.find(employee => employee.cedulaEmpleado === cedula);
     };
-    
+
 
     const cancelAppointment = async (id, appointmentDate) => {
         // Convertir appointmentDate a objeto Date
         const appointmentDateObj = new Date(appointmentDate);
         const currentDate = new Date();
-      
+
         // Obtener la diferencia en días entre la fecha de la cita y la fecha actual
         const timeDifference = appointmentDateObj - currentDate;
         const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Diferencia en días
 
-      if (accesRole != 'administrador' ) {
-        if (daysDifference <= 1) {
-            // Mostrar una alerta si la cita no puede ser cancelada
-            Swal.fire('No se puede cancelar', 'Solo puedes cancelar la cita al menos un día antes de la fecha establecida o comunicate con la veterinaria', 'warning');
-            return;
-          }
-      }
-        
-      
+        if (accesRole != 'administrador') {
+            if (daysDifference <= 1) {
+                // Mostrar una alerta si la cita no puede ser cancelada
+                Swal.fire('No se puede cancelar', 'Solo puedes cancelar la cita al menos un día antes de la fecha establecida o comunicate con la veterinaria', 'warning');
+                return;
+            }
+        }
+
+
         // Mostrar una alerta de confirmación antes de proceder con la cancelación
         const result = await Swal.fire({
-          title: '¿Estás seguro?',
-          text: '¿Deseas cancelar esta cita?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Sí, cancelar',
-          cancelButtonText: 'No, mantener',
-          reverseButtons: true,
+            title: '¿Estás seguro?',
+            text: '¿Deseas cancelar esta cita?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cancelar',
+            cancelButtonText: 'No, mantener',
+            reverseButtons: true,
         });
-      
+
         if (!result.isConfirmed) {
-          // El usuario seleccionó "No, mantener"
-          return;
+            // El usuario seleccionó "No, mantener"
+            return;
         }
-      
+
         try {
-          // Realizar la solicitud de cancelación si el usuario confirmó
-          const response = await fetch(`https://gaiavet-back.onrender.com/updateStatusAppointment/${id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${authToken}`,
-            },
-            body: JSON.stringify({ estadoCita: 'Cancelada' }),
-          });
-      
-          if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-          }
-      
-          setAppointments(prevAppointments =>
-            prevAppointments.map(appointment =>
-              appointment.idCita === id
-                ? { ...appointment, estadoCita: 'Cancelada' }
-                : appointment
-            )
-          );
-      
-          // Mostrar una alerta de éxito después de cancelar la cita
-          Swal.fire('Éxito', 'La cita ha sido cancelada exitosamente.', 'success');
-      
+            // Realizar la solicitud de cancelación si el usuario confirmó
+            const response = await fetch(`https://gaiavet-back.onrender.com/updateStatusAppointment/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`,
+                },
+                body: JSON.stringify({ estadoCita: 'Cancelada' }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+
+            setAppointments(prevAppointments =>
+                prevAppointments.map(appointment =>
+                    appointment.idCita === id
+                        ? { ...appointment, estadoCita: 'Cancelada' }
+                        : appointment
+                )
+            );
+
+            // Mostrar una alerta de éxito después de cancelar la cita
+            Swal.fire('Éxito', 'La cita ha sido cancelada exitosamente.', 'success');
+
         } catch (error) {
-          console.error('Error al cancelar la cita:', error.message);
-          // Mostrar una alerta de error si algo sale mal
-          Swal.fire('Error', 'Hubo un error al cancelar la cita. Intenta nuevamente más tarde.', 'error');
+            console.error('Error al cancelar la cita:', error.message);
+            // Mostrar una alerta de error si algo sale mal
+            Swal.fire('Error', 'Hubo un error al cancelar la cita. Intenta nuevamente más tarde.', 'error');
         }
-      };
-      
-    
+    };
+
+
 
 
     useEffect(() => {
-      console.log(appointments);
-      
+        console.log(appointments);
+
     }, [appointments])
-    
+
+    const finishAppointment = async (id, appointmentDate, appointmentHour) => {
+        console.log(appointmentDate, appointmentHour);
+
+        // Combinar la fecha y la hora en un solo objeto Date
+        const appointmentDateTime = new Date(`${appointmentDate}T${appointmentHour}`);
+        const currentDateTime = new Date();
+
+        // Comparar la fecha y hora de la cita con la fecha y hora actual
+        if (currentDateTime < appointmentDateTime) {
+            // Si la fecha y hora actual es anterior a la cita, no permitir finalizar
+            Swal.fire('No se puede finalizar', 'Solo puedes finalizar la cita cuando la fecha y hora de la cita hayan pasado.', 'warning');
+            return;
+        }
+
+        // Mostrar una alerta de confirmación antes de proceder con la finalización
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas finalizar esta cita?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, finalizar',
+            cancelButtonText: 'No, mantener',
+            reverseButtons: true,
+        });
+
+        if (!result.isConfirmed) {
+            // El usuario seleccionó "No, mantener"
+            return;
+        }
+
+        try {
+            // Realizar la solicitud para finalizar la cita si el usuario confirmó
+            const response = await fetch(`https://gaiavet-back.onrender.com/updateStatusAppointment/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`,
+                },
+                body: JSON.stringify({ estadoCita: 'Finalizada' }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+
+            setAppointments(prevAppointments =>
+                prevAppointments.map(appointment =>
+                    appointment.idCita === id
+                        ? { ...appointment, estadoCita: 'Finalizada' }
+                        : appointment
+                )
+            );
+
+            // Mostrar una alerta de éxito después de finalizar la cita
+            Swal.fire('Éxito', 'La cita ha sido finalizada exitosamente.', 'success');
+
+        } catch (error) {
+            console.error('Error al finalizar la cita:', error.message);
+            // Mostrar una alerta de error si algo sale mal
+            Swal.fire('Error', 'Hubo un error al finalizar la cita. Intenta nuevamente más tarde.', 'error');
+        }
+    };
 
     return (
         <>
@@ -272,7 +335,7 @@ export const ShowAppointments = ({filter}) => {
                             key={index}
                             className='w-[45%] h-[25vh] my-2 rounded-3xl bg-white shadow-formShadow flex flex-col justify-center font-itim'
                         >
-                            
+
                             <div className='flex'>
                                 <img
                                     className='w-[30%] h-[18vh] object-cover rounded-3xl mx-4'
@@ -284,7 +347,7 @@ export const ShowAppointments = ({filter}) => {
                                         <p className='font-semibold flex'>Mascota: <span className='font-normal pl-1'>{pet?.nombre || 'Desconocido'}</span></p>
                                         <p className='font-semibold flex'>Fecha: <span className='font-normal pl-1'>{appointment.fecha}</span></p>
                                         <p className='font-semibold flex'>Hora: <span className='font-normal pl-1'>{appointment.hora}</span></p>
-                                        <p className='flex font-semibold'>Estado: <span className= {` font-normal pl-1 ${appointment.estadoCita === 'Pendiente'?'text-orange-500': appointment.estadoCita === 'Cancelada'?'text-red-600':appointment.estadoCita === 'Finalizada' ? 'text-green-400':''}`}>{appointment.estadoCita}</span></p>
+                                        <p className='flex font-semibold'>Estado: <span className={` font-normal pl-1 ${appointment.estadoCita === 'Pendiente' ? 'text-orange-500' : appointment.estadoCita === 'Cancelada' ? 'text-red-600' : appointment.estadoCita === 'Finalizada' ? 'text-green-400' : appointment.estadoCita == 'Facturada' ? 'text-blue-600' : ''}`}>{appointment.estadoCita}</span></p>
                                     </div>
                                     <div>
                                         {
@@ -302,18 +365,27 @@ export const ShowAppointments = ({filter}) => {
                                 </div>
                             </div>
                             <div className='w-3/5 self-end text-white'>
-                                {/* <button className='bg-teal-400 rounded-3xl px-4 py-1'>Cambiar fecha</button> */}
 
                                 {
                                     appointment.estadoCita == 'Pendiente' ?
-                                    <button
-                                    className='bg-red-600 rounded-3xl px-4 ml-4 py-1 cursor-pointer hover:bg-opacity-80'
-                                    onClick={() => cancelAppointment(appointment.idCita, appointment.fechaHoraCita)}
-                                >
-                                    Cancelar cita
-                                </button> : ''
+                                        <button
+                                            className='bg-red-600 rounded-3xl px-4 ml-4 py-1 cursor-pointer hover:bg-opacity-80'
+                                            onClick={() => cancelAppointment(appointment.idCita, appointment.fecha)}
+                                        >
+                                            Cancelar cita
+                                        </button> : ''
                                 }
-                                
+                                {
+                                    accesRole == 'administrador' && appointment.estadoCita == 'Pendiente' ?
+
+                                        <button
+                                            className='bg-green-600 rounded-3xl px-4 ml-4 py-1 cursor-pointer hover:bg-opacity-80'
+                                            onClick={() => finishAppointment(appointment.idCita, appointment.fecha, appointment.hora)}
+                                        >
+                                            Finalizar cita
+                                        </button> : ''
+                                }
+
                             </div>
                         </div>
                     );

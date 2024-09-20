@@ -6,7 +6,6 @@ import { Record } from './Components/Pages/Record/Record';
 import { Footer } from "./Components/Layouts/Footer/Footer";
 import { HairSalon } from "./Components/HairSalon/HairSalon";
 import { Bathroom } from "./Components/Bathroom/Bathroom";
-import bot from './assets/bot.png';
 import './App.css';
 import { PetDaycare } from './Components/PetDaycare/PetDaycare';
 import { GeneralInquiry } from './Components/GeneralInquiry/GeneralInquiry';
@@ -20,7 +19,9 @@ import { AdminProducts } from './Components/Pages/AdminProducts/AdminProducts';
 import { EmployeeRegister } from './Components/EmployeeRegister/EmployeeRegister';
 import { UserList } from './Components/UserList/UserList';
 import { AdminEmployees } from './Components/Pages/AdminEmployees/AdminEmployees';
-import ChatBot from './Components/ChatBot/ChatBot';
+
+import { AppointmentPayment } from './Components/Pages/AppointmentPayment/AppointmentPayment';
+
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,13 +45,14 @@ function App() {
           <Route path="/petHistory" element={<PetHistory />} />
           <Route path="/petRegister" element={<PetRegister />} />
 
+          <Route path="/Payment" element={<AppointmentPayment />} />
+          
           <Route path="/admin/usersList" element={<UserList />} />
           <Route path="/admin/productList" element={<AdminProducts />} />
           <Route path="/admin/registerEmployee" element={<EmployeeRegister />} />
           <Route path="/admin/employees" element={<AdminEmployees />} />
 
           <Route path="/citas" element={<Citas2 />} />
-          <Route path="/bot" element={<ChatBot />} />
 
           {/* Services */}
           <Route path="/peluqueria" element={<HairSalon title='Peluqueria' description='En la peluquería ofrecemos un servicio integral.' />} />
