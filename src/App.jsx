@@ -60,30 +60,6 @@ function App() {
         </Routes>
       </div>
 
-      {/* Botón flotante que abre el modal */}
-      <div 
-        className='w-20 bg-teal-300 rounded-full p-3 fixed bottom-4 left-4 cursor-pointer'
-        onClick={toggleModal}
-      >
-        <img src={bot} alt="bot" />
-      </div>
-
-      {/* Modal que se abre desde la izquierda */}
-      <div className={`fixed inset-0  z-50 transition-all duration-500 ease-in-out ${isModalOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="bg-white w-[25rem] h-full shadow-lg p-5 absolute left-0">
-          {/* Botón para cerrar el modal */}
-          <button 
-            className="absolute top-2 text-2xl right-2 font-bold hover:text-gray-700"
-            onClick={toggleModal}
-          >
-            &#x2715; {/* Icono de cerrar (X) */}
-          </button>
-
-          {/* Aquí se muestra el componente ChatBot */}
-          <ChatBot />
-        </div>
-      </div>
-
       <Footer/>
     </Router>
   );
