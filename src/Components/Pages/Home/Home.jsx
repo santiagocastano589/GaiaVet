@@ -1,7 +1,6 @@
 import React from 'react';
 import HeaderImg from '../../../assets/HeaderImg.svg';
 import pastorcolli from '../../../assets/pastorcolli.jpeg';
-import mapa from '../../../assets/mapa.png';
 import { Carousel } from "../../Carousel/Carousel";
 import { SectionTitle } from "../../SectionTitle/SectionTitle";
 import { ContainerServices } from "../../ContainerServices/ContainerServices";
@@ -51,7 +50,9 @@ export const Home = () => {
           <ContactForm />
         </Element>
 
-        
+
+
+
       </Main>
     </div>
   );

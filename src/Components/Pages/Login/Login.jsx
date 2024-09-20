@@ -9,12 +9,14 @@ import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
 import { WindowLoad } from '../../WindowModals/WindowLoad/WindowLoad';
 import { data } from 'autoprefixer';
+import ContraseñaModal from '../../WindowModals/ContraseñaModal/ContraseñaModal';
 
 export const Login = () => {
   const loginContext = useContext(AuthContext);
   const [lSuccessfull, setLSuccessfull] = useState(false);
   const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false); // Estado para controlar la carga
+  const [isLoading, setIsLoading] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const dataLogin = useRef({
@@ -99,7 +101,9 @@ export const Login = () => {
   if (lSuccessfull) {
     navigate('/');
   }
-
+  const handleForgotPassword = () => {
+    setIsModalOpen(true);
+  }
   return (
     <div className='h-full w-full flex flex-col'>
       <Header title='Inicio de sesión' classN='text-7xl'/>
@@ -119,7 +123,7 @@ export const Login = () => {
             <Input name='contraseña' type='password' placeholder='Contraseña' onChange={handleChange} />
             {errors.contraseña && <p className='text-red-500 mx-9'>{errors.contraseña}</p>}
 
-            <a className='my-4 mx-9 border-b-2 border-blue-border w-48' href='#'>
+            <a onClick={handleForgotPassword} className='my-4 mx-9 border-b-2 border-blue-border w-48 cursor-pointer' href='#'>
               ¿Olvidaste la contraseña?
             </a>
             <div className='flex justify-center items-center flex-col'>
@@ -130,6 +134,7 @@ export const Login = () => {
           </form>
         </div>
       </div>
+      {isModalOpen && <ContraseñaModal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 };
