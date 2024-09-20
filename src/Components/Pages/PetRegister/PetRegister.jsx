@@ -5,12 +5,17 @@ import { Input } from '../../Input/Input';
 import { Button } from '../../Button/Button';
 import { Header } from '../../Layouts/Header/Header';
 import { AuthContext } from '../../Context/Context';
+import Select from 'react-select';
 import Swal from 'sweetalert2';
+import raza from '../../../../public/js/RazaPet';
 
 export const PetRegister = () => {
   const { authToken } = useContext(AuthContext);
   const [successful, setSuccessful] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null); // Para almacenar la imagen seleccionada
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedRaza, setSelectedRaza] = useState(null); // Inicializa como null
+
   const navigate = useNavigate();
 
   const formData = useRef({
@@ -34,6 +39,9 @@ export const PetRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    formData.current.TipoMascota = selectedCategory;
+    formData.current.raza = selectedRaza ? selectedRaza.value : '';
 
     const { nombre, TipoMascota, raza, edad, peso, temperamento } = formData.current;
     if (!nombre || !TipoMascota || !raza || !edad || !peso || !temperamento || !selectedImage) {
@@ -88,17 +96,16 @@ export const PetRegister = () => {
           text: data.message,
         });
         throw new Error('Error en la solicitud');
-      } else if (response.ok) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Mascota registrada!!',
-          showConfirmButton: true,
-        });
-
-        setSuccessful(true);
       }
 
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Mascota registrada!!',
+        showConfirmButton: true,
+      });
+
+      setSuccessful(true);
     } catch (error) {
       console.error('Error:', error);
       Swal.fire({
@@ -116,7 +123,7 @@ export const PetRegister = () => {
   return (
     <div className='h-full w-full flex flex-col'>
       <Header title='Registrar mascota' classN='text-7xl'/>
-      <div className='flex justify-around items-center z-0 pt-48 pb-10 '>
+      <div className='flex justify-around items-center z-0 pt-48 pb-10'>
         <div className='w-[30rem] bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>
             <img className='' src={logo} alt='' />
@@ -125,8 +132,48 @@ export const PetRegister = () => {
           <form className='flex flex-col'>
             <Input name='foto' lblName='Foto de la mascota' type='file' placeholder='Seleccionar imagen de mascota' accept='image/*' onChange={handleChange} />
             <Input name='nombre' lblName='Nombre de la mascota' type='text' placeholder='Ingrese el nombre de la mascota' onChange={handleChange} />
-            <Input name='TipoMascota' lblName='Tipo de mascota' type='text' placeholder='Ingrese el tipo de mascota' onChange={handleChange} />
-            <Input name='raza' lblName='Raza de la mascota' type='text' placeholder='Ingrese la raza de la mascota' onChange={handleChange} />
+            <div className='text-black w-[90%] mt-2'>
+              <label className='text-black text-lg text-balance my-4 mx-9' htmlFor="">Tipo de mascotas: </label>
+              <div className='w-96 flex justify-center mt-3'>
+                <select
+                  id="categorias"
+                  name="categoria"
+                  className="block px-4 py-2 w-80 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:border-blue-border"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  <option value="" disabled>
+                    -- Selecciona el tipo de mascota --
+                  </option>
+                  <option value="Gato">Gato</option>
+                  <option value="Perro">Perro</option>
+                  <option value="Aves">Aves</option>
+                  <option value="Roedores">Roedores</option>
+                  <option value="Reptiles">Reptiles</option>
+                  <option value="Conejos">Conejos</option>
+                  <option value="Hurones">Hurones</option>
+                </select>
+              </div>
+            </div>
+
+            <div className='text-black w-[100%] mt-2'>
+              <label className='text-black text-lg text-balance my-4 mx-9' htmlFor="">Raza o especie de la mascota </label>
+              <div className='flex justify-center mt-3'>
+                <div className='w-80'>
+                  <Select
+                    id="productos"
+                    name="productos"
+                    className="w-full"
+                    options={raza}
+                    value={selectedRaza}
+                    placeholder="-- Selecciona una raza --"
+                    onChange={(option) => setSelectedRaza(option ? option : null)}
+                    isSearchable
+                  />
+                </div>
+              </div>
+            </div>
+
             <Input name='edad' lblName='Edad de la mascota (meses)' type='number' placeholder='Ingrese la edad de la mascota (meses)' onChange={handleChange} />
             <Input name='peso' lblName='Peso de la mascota (Kg)' type='number' placeholder='Ingrese el peso de la mascota (Kg)' onChange={handleChange} />
             <Input name='temperamento' lblName='Temperamento' type='text' placeholder='Ingrese Temperamento de su mascota' onChange={handleChange} />

@@ -2,6 +2,9 @@ import React, { useState, useContext } from 'react';
 import InputProducts from '../../../InputProducts/InputProducts';
 import { AuthContext } from '../../../Context/Context';
 import Swal from 'sweetalert2';
+import productOptions from '../../../../../public/js/ProductOption'
+import Select from 'react-select';
+
 import { useEffect } from 'react';
 
 const ProductUpdate = ({ id, img, name, description, category, price, stock, onClose, onProductAdded }) => {
@@ -13,7 +16,8 @@ const ProductUpdate = ({ id, img, name, description, category, price, stock, onC
     stock: stock,
     precio: price,
   });
-
+  const [selectedCategory, setSelectedCategory] = useState(category); 
+  const [selectedProduct, setSelectedProduct] = useState(null); // Inicializa como null
   const [imageFile, setImageFile] = useState(null); 
   const [imagePreview, setImagePreview] = useState(img); 
   const { authToken } = useContext(AuthContext);
@@ -134,9 +138,51 @@ const ProductUpdate = ({ id, img, name, description, category, price, stock, onC
             
             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit} >
               <InputProducts nameLabel={'Imagen del producto:'} name='imagen' type='file' onChange={handleImageChange} />
-              <InputProducts nameLabel={'Nombre del producto:'} value={product.nombreProducto} name='nombreProducto' type='text' onChange={handleChange} />
+              <div className='text-black w-[90%] flex justify-between items-center mt-3'>
+              <label className='w-[44%] text-black text-lg' htmlFor="productos">Nombres de productos:</label>
+              <Select
+              id="productos"
+              name="productos"
+              className="w-full"
+              options={productOptions}
+              value={product.nombreProducto ? { value: product.nombreProducto, label: product.nombreProducto } : null}
+              onChange={(option) => {
+              setSelectedProduct(option ? option : null);
+              setProduct((prevProduct) => ({
+              ...prevProduct,
+              nombreProducto: option ? option.value : ''
+                }));
+              }}
+              placeholder="-- Selecciona un producto --"
+              isSearchable
+            />
+              </div>
               <InputProducts nameLabel={'Descripción del producto:'} value={product.descripcion} name='descripcion' type='text' onChange={handleChange} />
-              <InputProducts nameLabel={'Categoría del producto:'} value={product.categoria} name='categoria' type='text' onChange={handleChange} />
+              <div className='text-black w-[90%] flex justify-between items-center mt-3'>
+                <label className='w-[44%] text-black text-lg text-balance' htmlFor="">Categorias de productos: </label>
+                <select
+                  id="categorias"
+                  name="categoria"
+                  className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  value={selectedCategory}
+                  onChange={(e) => {
+                    setSelectedCategory(e.target.value); // Actualiza el estado de selectedCategory
+                    setProduct((prevProduct) => ({
+                      ...prevProduct,
+                      categoria: e.target.value // Actualiza la categoría en el estado product
+                    }));
+                  }}
+                >
+                  <option value="" disabled>-- Selecciona una categoría --</option>
+                  <option value="Comida para perros">Comida para perros</option>
+                  <option value="Comida para gatos">Comida para gatos</option>
+                  <option value="Aseo">Aseo</option>
+                  <option value="Juguetes">Juguetes</option>
+                  <option value="Accesorios">Accesorios</option>
+                </select>
+
+
+              </div>
               <InputProducts nameLabel={'Precio del producto:'} value={product.precio} name='precio' type='number' onChange={handleChange} />
               <InputProducts nameLabel={'Stock del producto:'} value={product.stock} name='stock' type='number' onChange={handleChange} />
               

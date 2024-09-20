@@ -53,10 +53,10 @@ export const NavMenu = ({ onClose }) => {
   };
 
   return (
-    <div className="w-96 h-auto bg-white shadow-xl top-24 right-0 absolute animate-flip-down itim-regular rounded-md">
+    <div className="w-96 h-auto bg-white shadow-xl top-24 right-0 absolute animate-flip-down itim-regular rounded-md sm:w-[20rem] md:w-[22rem] md:mr-4 lg:mr-2 xl:w-96 xl:mr-0">
       <div className="h-12 flex justify-start">
         <p
-          className="cursor-pointer fixed right-10 top-8 font-extrabold text-xl bg-header w-7 text-center rounded-full hover:bg-buttonProducts duration-200 hover:text-white"
+          className="cursor-pointer fixed right-10 top-8 font-extrabold text-xl bg-header w-7 text-center rounded-full hover:bg-buttonProducts duration-200 hover:text-white sm:text-base sm:w-[1.5rem] sm:h-[1.5rem] sm:right-5 sm:top-4 md:right-12 md:h-[1.7rem] md:w-[1.7rem] md:text-lg lg:right-6 lg:top-6 xl:top-8 xl:right-10 xl:w-[1.7rem] xl:h-[1.7rem] xl:text-xl"
           onClick={onClose}
         >
           X
@@ -99,7 +99,7 @@ export const NavMenu = ({ onClose }) => {
               <MenuItems nameItem="Registrar Empleados" to="/admin/registerEmployee" type="link" />
               <MenuItems nameItem="Gestionar Empleados" to="/admin/employees" type="link" />
 
-              <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4' type="button">Cerrar Sesión</button>
+              <button onClick={closeSesion} className='w-60 h-12 rounded-xl bg-buttonProducts text-white self-center mb-4 sm:text-base sm:w-[13rem] sm:h-[2.5rem] lg:w-[14rem] lg:h-[2.8rem] lg:text-lg xl:w-[15rem] xl:h-[3rem] xl:text-lg' type="button">Cerrar Sesión</button>
             </>
           }
 
@@ -108,10 +108,10 @@ export const NavMenu = ({ onClose }) => {
       <div className="w-full h-1/4 flex flex-col items-center justify-center ">
         {!navContext.authToken && (
           <>
-            <Link to="/login" className="w-2/3 h-12 mt-2 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center">
+            <Link to="/login" className="w-2/3 h-12 mt-2 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center sm:text-base sm:w-[13rem] sm:h-[2.5rem] lg:w-[14rem] lg:h-[2.8rem] lg:text-lg xl:w-[15rem] xl:h-[3rem] xl:text-lg">
               Inicia Sesión
             </Link>
-            <Link to="/register" className="w-2/3 h-12 mt-2 mb-4 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center">
+            <Link to="/register" className="w-2/3 h-12 mt-2 mb-4 rounded-xl bg-blue-border hover:bg-buttonProducts duration-200 text-white shadow-md flex justify-center items-center sm:text-base sm:w-[13rem] sm:h-[2.5rem] lg:w-[14rem] lg:h-[2.8rem] lg:text-lg xl:w-[15rem] xl:h-[3rem] xl:text-lg">
               Regístrate
             </Link>
           </>

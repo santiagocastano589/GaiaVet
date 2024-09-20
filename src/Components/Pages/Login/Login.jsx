@@ -9,12 +9,14 @@ import { AuthContext } from '../../Context/Context';
 import Swal from 'sweetalert2';
 import { WindowLoad } from '../../WindowModals/WindowLoad/WindowLoad';
 import { data } from 'autoprefixer';
+import ContraseñaModal from '../../WindowModals/ContraseñaModal/ContraseñaModal';
 
 export const Login = () => {
   const loginContext = useContext(AuthContext);
   const [lSuccessfull, setLSuccessfull] = useState(false);
   const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false); // Estado para controlar la carga
+  const [isLoading, setIsLoading] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const dataLogin = useRef({
@@ -99,10 +101,12 @@ export const Login = () => {
   if (lSuccessfull) {
     navigate('/');
   }
-
+  const handleForgotPassword = () => {
+    setIsModalOpen(true);
+  }
   return (
     <div className='h-full w-full flex flex-col'>
-      <Header title='Inicio de sesión' classN='text-7xl'/>
+      <Header title='Inicio de sesión' classN='text-7xl sm:text-[2.5rem] sm:w-[50%] md:text-5xl md:w-[50%] lg:text-6xl lg:w-[50%] xl:text-[4.3rem] xl:w-[50%] 2xl:text-8xl 2xl:w-[60%]'/>
       <div className='flex justify-center items-center pt-36 pb-10 bg-fondo '>
         <div className='bg-white flex justify-center items-center flex-col border-solid border-2 border-gray rounded-lg mt-4'>
           <div className='w-24 p-3 bg-blue-border rounded-full my-6'>
@@ -119,22 +123,18 @@ export const Login = () => {
             <Input name='contraseña' type='password' placeholder='Contraseña' onChange={handleChange} />
             {errors.contraseña && <p className='text-red-500 mx-9'>{errors.contraseña}</p>}
 
-            <a className='my-4 mx-9 border-b-2 border-blue-border w-48' href='#'>
+            <a onClick={handleForgotPassword} className='my-4 mx-9 border-b-2 border-blue-border w-48 cursor-pointer' href='#'>
               ¿Olvidaste la contraseña?
             </a>
             <div className='flex justify-center items-center flex-col'>
               {isLoading && <WindowLoad />}
               <Button onClick={handleSubmit} textButton='Iniciar sesión' />
-              <button className='w-72 hover:bg-slate-200 shadow-lg shadow-gray-500/50 p-3 mb-8 rounded-lg flex justify-center items-center bg-slate-100 '>
-                Iniciar sesion con Google
-                <div className='flex items-center mx-2 rounded-xl'>
-                  <img className='w-4 flex items-center' src={google} alt='' />
-                </div>
-              </button>
+              
             </div>
           </form>
         </div>
       </div>
+      {isModalOpen && <ContraseñaModal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 };

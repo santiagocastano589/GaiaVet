@@ -93,13 +93,12 @@ const PetDetailsModal = ({edad,peso, namePet, documento, tipo, raza, foto, tempe
             <InputPetNoEditable htmlFor="nombre" nameLabel="Nombre:" id="nombre" value={editedName}  onChange={handleInfoChange}/>
             <InputPetNoEditable htmlFor="documento" nameLabel="Documento:" id="documento" value={editedDocumento} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="tipo" nameLabel="Tipo:" id="tipo" value={editedTipo} onChange={handleInfoChange} />
-            <InputPetNoEditable htmlFor="raza" nameLabel="Raza:" id="raza" value={editedRaza} onChange={handleInfoChange} />
+            <InputPetNoEditable htmlFor="raza" nameLabel="Raza o especie:" id="raza" value={editedRaza} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="edad" nameLabel="Edad (Meses):" id="edad" value={editedEdad} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="peso" nameLabel="Peso (Kg):" id="peso" value={editedPeso + ' Kg'} onChange={handleInfoChange} />
             <InputPetNoEditable htmlFor="temperamento" nameLabel="Temperamento:" id="temperamento" value={editedTemperamento} onChange={handleInfoChange} />
 
             <div className='w-full mt-14 text-black flex justify-end'>
-              <button onClick={handleModalHistorial} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-gray-400 hover:text-white'>Historial Médico</button>
               <button onClick={handleModalEdit} className='w-36 bg-gray-200 mx-3 p-2 rounded-md hover:bg-teal-500 hover:text-white'>Editar</button>
               <button onClick={handleDeleteClick} className='w-36 bg-gray-200 mx-3 p-2 text-red-500 rounded-md hover:bg-red-600 hover:text-white'>Eliminar</button>
             </div>

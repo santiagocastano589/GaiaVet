@@ -2,10 +2,15 @@ import React, { useState, useContext, useEffect } from 'react';
 import gato from '../../../assets/comidaGato.png';
 import InputProducts from '../../InputProducts/InputProducts';
 import { AuthContext } from '../../Context/Context';
+import Select from 'react-select';
 import Swal from 'sweetalert2';
+import productOptions from '../../../../public/js/ProductOption'
 import Quagga from 'quagga';
 
 const ProductRegisterModal = ({ onClose, onProductAdded }) => {
+  const [selectedCategory, setSelectedCategory] = useState(''); // Nuevo estado para controlar el select
+  const [selectedProduct, setSelectedProduct] = useState(null); // Inicializa como null
+
   const [showCamera, setShowCamera] = useState(false);
   const [codeProduct, setCodeProduct] = useState('');
   const [product, setProduct] = useState({
@@ -58,7 +63,6 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
         Quagga.start();
       }
     );
-
     // Detectar el código de barras
     Quagga.onDetected((data) => {
       Swal.fire({
@@ -186,6 +190,8 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
       );
 
       const data = await response.json();
+      console.log(data);
+      
       if (response.ok) {
         Swal.fire({
           position: 'center',
@@ -219,19 +225,63 @@ const ProductRegisterModal = ({ onClose, onProductAdded }) => {
       <div className="w-[70rem] h-[30rem] relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-fondo rounded-lg shadow-sm">
         <div className="w-full h-[30rem] flex justify-between items-center rounded-xl bg-white">
           <div className="w-[80%] h-[30rem] p-4 text-white flex flex-col items-center justify-evenly">
-            <h3 className="gorditas text-black text-xl">Registro de productos</h3>
-
+            <h3 className='gorditas text-black text-3xl'>Registro de productos</h3>
+            
             <form className="flex flex-col w-full items-center" onSubmit={handleSubmit}>
-              <InputProducts nameLabel="Codigo del producto:" name="codigo" type="text" value={codeProduct} onChange={handleChange} />
-              <InputProducts nameLabel="Imagen del producto:" name="imagen" type="file" onChange={handleImageChange} />
-              <InputProducts nameLabel="Nombre del producto:" name="nombreProducto" type="text" onChange={handleChange} value={product.nombreProducto} />
-              <InputProducts nameLabel="Descripcion del producto:" name="descripcion" type="text" onChange={handleChange} value={product.descripcion} />
-              <InputProducts nameLabel="Categoria del producto:" name="categoria" type="text" onChange={handleChange} value={product.categoria} />
-              <InputProducts nameLabel="Precio del producto:" name="precio" type="number" onChange={handleChange} value={product.precio} />
-              <InputProducts nameLabel="Stock del producto:" name="stock" type="number" onChange={handleChange} value={product.stock} />
+            <InputProducts nameLabel="Codigo del producto:" name="codigo" type="text" value={codeProduct} onChange={handleChange} />
+              <InputProducts nameLabel={'Imagen del producto:'} name='imagen' type='file' onChange={handleImageChange} />
 
-              <div className="w-[90%] text-black flex justify-end">
-                <button type="submit" className="w-36 bg-teal-500 mt-2 p-2 text-white rounded-md hover:bg-teal-400 hover:text-white">
+              <div className='text-black w-[90%] flex justify-between items-center mt-3'>
+              <label className='w-[44%] text-black text-lg' htmlFor="productos">Nombres de productos:</label>
+              <Select
+                id="productos"
+                name="productos"
+                className="w-full"
+                options={productOptions}
+                value={selectedProduct} 
+                onChange={(option) => {
+                  setSelectedProduct(option ? option : null);
+                  setProduct((prevProduct) => ({
+                    ...prevProduct,
+                    nombreProducto: option ? option.value : ''
+                  }));
+                }}
+                placeholder="-- Selecciona un producto --"
+                isSearchable
+              />
+
+              </div>
+              <InputProducts nameLabel={'Descripcion del producto:'} name='descripcion' type='text' onChange={handleChange} value={product.descripcion} />
+
+              <div className='text-black w-[90%] flex justify-between items-center mt-3'>
+                <label className='w-[44%] text-black text-lg text-balance' htmlFor="">Categorias de productos: </label>
+                <select
+                  id="categorias"
+                  name="categoria"
+                  className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  value={selectedCategory}
+                  onChange={(e) => {
+                    setSelectedCategory(e.target.value);
+                    setProduct((prevProduct) => ({
+                      ...prevProduct,
+                      categoria: e.target.value
+                    }));
+                  }}
+                >
+                  <option value="" disabled>-- Selecciona una categoría --</option>
+                  <option value="Comida para perros">Comida para perros</option>
+                  <option value="Comida para gatos">Comida para gatos</option>
+                  <option value="Aseo">Aseo</option>
+                  <option value="Juguetes">Juguetes</option>
+                  <option value="Accesorios">Accesorios</option>
+                </select>
+
+              </div>
+              <InputProducts nameLabel={'Precio del producto:'} name='precio' type='number' onChange={handleChange} value={product.precio} />
+              <InputProducts nameLabel={'Stock del producto:'} name='stock' type='number' onChange={handleChange} value={product.stock} />
+              
+              <div className='w-[90%] text-black flex justify-end'>
+                <button type="submit" className='w-36 bg-teal-500 mt-2 p-2 text-white rounded-md hover:bg-teal-400 hover:text-white'>
                   Registrar
                 </button>
               </div>

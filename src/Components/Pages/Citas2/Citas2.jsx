@@ -416,6 +416,8 @@ export const Citas2 = () => {
                           <p className='text-3xl'>{service.name}</p>
                         </div>
                       ))
+
+
                     )}
                   </div>
                 </div>
