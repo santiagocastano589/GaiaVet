@@ -20,6 +20,8 @@ import { AdminProducts } from './Components/Pages/AdminProducts/AdminProducts';
 import { EmployeeRegister } from './Components/EmployeeRegister/EmployeeRegister';
 import { UserList } from './Components/UserList/UserList';
 import { AdminEmployees } from './Components/Pages/AdminEmployees/AdminEmployees';
+import { AppointmentPayment } from './Components/Pages/AppointmentPayment/AppointmentPayment';
+
 
 function App() {
   return (
@@ -35,6 +37,7 @@ function App() {
           <Route path="/products" element={<ProductsShop />} />
           <Route path="/petHistory" element={<PetHistory />} />
           <Route path="/petRegister" element={<PetRegister />} />
+          <Route path="/Payment" element={<AppointmentPayment />} />
           
           <Route path="/admin/usersList" element={<UserList />} />
           <Route path="/admin/productList" element={<AdminProducts />} />
